@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import CoupangWidget from "@/components/CoupangWidget";
+import CoupangBanner from "@/components/CoupangBanner";
 import WordPressSection from "@/components/WordPressSection";
 
 export default function LandingPage() {
@@ -56,13 +56,13 @@ export default function LandingPage() {
         ))}
       </div>
 
-      {/* 쿠팡 파트너스 네이티브 위젯 (2개 노출) */}
+      {/* 쿠팡 파트너스 단풍맵 스타일 기획전 배너 (공부방 가구, 키즈 펜션 테마) */}
       <div className="w-full max-w-5xl mx-auto relative z-10 my-4 text-left">
         <h3 className="text-lg font-black text-slate-700 mb-4 px-2 flex items-center gap-1.5">
           <span className="material-symbols-outlined text-rose-500 text-[20px]">shopping_bag</span>
-          <span>아이와 함께하는 여행 필수 아이템 추천 🎒</span>
+          <span>방학 맞이 공부방 가구 & 인기 여행 기획전 🎒</span>
         </h3>
-        <CoupangWidget limit={2} layout="grid" />
+        <CoupangBanner ids={[6, 5]} layout="grid" />
       </div>
 
       <Link 

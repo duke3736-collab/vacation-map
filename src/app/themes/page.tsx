@@ -44,8 +44,6 @@ export default function ThemesPage() {
             <h1 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-cyan-600 tracking-tight drop-shadow-sm mb-4">테마별 추천 코스 🎈</h1>
             <p className="text-slate-600 font-bold text-lg">방학 맵이 엄선한 최고의 장소들을 테마별로 만나보세요.</p>
           </div>
-          
-          <AdBanner slot="themes-top" className="h-28 bg-white/80 shadow-sm border border-slate-100" />
         </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 pb-24">

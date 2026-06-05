@@ -1,6 +1,6 @@
 import Sidebar from "@/components/Sidebar";
 import MapClient from "@/components/MapClient";
-import CoupangWidget from "@/components/CoupangWidget";
+import CoupangBanner from "@/components/CoupangBanner";
 import WordPressSection from "@/components/WordPressSection";
 
 export default function MapPage() {
@@ -49,13 +49,13 @@ export default function MapPage() {
 
             <div className="w-full h-px bg-slate-100 my-1"></div>
             
-            {/* 쿠팡 파트너스 추천 상품 (메인과 다른 3, 4번 상품 표시) */}
+            {/* 쿠팡 파트너스 추천 기획전 배너 (디지털 기기, 중등 참고서 테마) */}
             <div className="w-full text-left">
               <h3 className="font-black text-sm text-slate-700 mb-3 flex items-center gap-1.5 px-1">
                 <span className="material-symbols-outlined text-rose-500 text-[18px]">shopping_bag</span>
-                <span>에디터 추천 여행 필수템 🎒</span>
+                <span>인강 기기 & 권장 교재 추천 🎒</span>
               </h3>
-              <CoupangWidget itemIds={[3, 4]} layout="vertical" />
+              <CoupangBanner ids={[7, 3]} layout="vertical" />
             </div>
           </div>
         </div>
