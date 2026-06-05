@@ -19,11 +19,19 @@ interface MapState {
   movePlaceInSchedule: (day: number, oldIndex: number, newIndex: number) => void;
   draftReports: Record<string, string>;
   setDraftReport: (placeId: string, content: string) => void;
+  center: { lat: number; lng: number };
+  level: number;
+  setCenter: (center: { lat: number; lng: number }) => void;
+  setLevel: (level: number) => void;
 }
 
 export const useMapStore = create<MapState>()(
   persist(
     (set) => ({
+      center: { lat: 37.0542, lng: 127.1022 },
+      level: 12,
+      setCenter: (center) => set({ center }),
+      setLevel: (level) => set({ level }),
       activeCategories: [],
       filteredPlaces: places,
       selectedPlaceForReport: null,

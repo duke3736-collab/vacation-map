@@ -23,24 +23,40 @@ export default function MapClient() {
   });
 
   const router = useRouter();
-  const { filteredPlaces, setPlaceForReport, savedPlaceIds, toggleSavePlace, focusedPlaceId, setFocusedPlaceId } = useMapStore();
+  const { 
+    filteredPlaces, 
+    setPlaceForReport, 
+    savedPlaceIds, 
+    toggleSavePlace, 
+    focusedPlaceId, 
+    setFocusedPlaceId,
+    center,
+    level,
+    setCenter,
+    setLevel
+  } = useMapStore();
   const [selectedPlaceId, setSelectedPlaceId] = useState<string | null>(null);
 
   useEffect(() => {
     if (focusedPlaceId) {
       setSelectedPlaceId(focusedPlaceId);
-      // Optional: Delay clearing so it stays open, or clear immediately
-      // setFocusedPlaceId(null); 
+      const targetPlace = filteredPlaces.find(p => p.id === focusedPlaceId);
+      if (targetPlace) {
+        setCenter({ lat: targetPlace.lat, lng: targetPlace.lng });
+        setLevel(5); // zoom in closely
+      }
     }
-  }, [focusedPlaceId, setFocusedPlaceId]);
+  }, [focusedPlaceId, filteredPlaces, setCenter, setLevel]);
 
   return (
     <>
       {!loading && !error ? (
         <Map
-          center={{ lat: 37.0542, lng: 127.1022 }}
+          center={center}
+          level={level}
+          onDragEnd={(map) => setCenter({ lat: map.getCenter().getLat(), lng: map.getCenter().getLng() })}
+          onZoomChanged={(map) => setLevel(map.getLevel())}
           style={{ width: "100%", height: "100%" }}
-          level={12}
         >
           {filteredPlaces.map((place) => (
             <MapMarker 
