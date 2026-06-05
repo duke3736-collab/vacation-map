@@ -220,11 +220,18 @@ export default function PlannerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#eef0f3] text-slate-900 pt-28 pb-24 px-6 md:px-10 font-sans relative">
+    <div className="min-h-screen bg-[#e2e5e9] text-slate-900 pt-28 pb-24 px-6 md:px-10 font-sans relative">
       
       {/* 인쇄 최적화 스타일 주입 */}
       <style dangerouslySetInnerHTML={{__html: `
         @media print {
+          /* 인쇄 시 흰색 배경 강제 및 테두리/그림자 리셋 */
+          .print-area-bg {
+            background-color: #ffffff !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
           /* 인쇄 화면에서 동그라미 계획표의 크기를 크게 고정합니다 */
           .print-svg-container {
             width: 440px !important;
@@ -248,15 +255,15 @@ export default function PlannerPage() {
       {/* 본문 레이아웃 */}
       <div className="max-w-6xl mx-auto space-y-10">
         
-        {/* 설명 및 타이틀 (프린트 시 숨겨짐) */}
-        <div className="text-center space-y-4 print:hidden">
-          <span className="bg-indigo-50 border border-indigo-200 text-indigo-600 text-xs font-black tracking-widest px-4 py-1.5 rounded-full uppercase">
+        {/* 설명 및 타이틀 (프린트 시 숨겨짐, 겹침 방지 정렬) */}
+        <div className="text-center flex flex-col items-center gap-3 print:hidden">
+          <span className="inline-block bg-indigo-50 border border-indigo-200 text-indigo-600 text-xs font-black tracking-widest px-4 py-1.5 rounded-full uppercase mb-1 shadow-sm">
             Study & Travel Planner
           </span>
-          <h1 className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight drop-shadow-sm">
+          <h1 className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight drop-shadow-sm leading-tight mt-1">
             알찬 방학 계획서 📅
           </h1>
-          <p className="text-slate-500 text-sm md:text-base max-w-xl mx-auto break-keep">
+          <p className="text-slate-500 text-sm md:text-base max-w-xl mx-auto break-keep mt-2 opacity-90">
             아이와 함께 동그라미 하루 계획표를 이쁘게 채워보세요! 주간/달력 스케줄러에 방학 나들이 일정까지 정리한 뒤 종이로 프린트하거나 이미지 파일로 저장할 수 있습니다. 🖨️
           </p>
 
@@ -285,8 +292,8 @@ export default function PlannerPage() {
           {/* 일과 추가 및 목록 관리창 (좌측 1칸) - 프린트할 때는 숨김 */}
           <div className="lg:col-span-1 space-y-6 print:hidden">
             
-            {/* 1. 일과표 편집 */}
-            <div className="bg-white rounded-3xl p-6 border border-slate-150 shadow-sm space-y-5">
+            {/* 1. 일과표 편집 (눈부심 방지를 위해 톤다운) */}
+            <div className="bg-[#f4f5f7] rounded-3xl p-6 border border-slate-200 shadow-sm space-y-5">
               <h3 className="text-base font-black text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-indigo-500">schedule</span>
                 <span>하루 일과 등록 ⏱️</span>
@@ -360,8 +367,8 @@ export default function PlannerPage() {
               </form>
             </div>
 
-            {/* 2. 달력 나들이 일정 편집 */}
-            <div className="bg-white rounded-3xl p-6 border border-slate-150 shadow-sm space-y-5">
+            {/* 2. 달력 나들이 일정 편집 (눈부심 방지를 위해 톤다운) */}
+            <div className="bg-[#f4f5f7] rounded-3xl p-6 border border-slate-200 shadow-sm space-y-5">
               <h3 className="text-base font-black text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-indigo-500">calendar_month</span>
                 <span>방학 나들이 스케줄 등록 🗺️</span>
@@ -414,10 +421,10 @@ export default function PlannerPage() {
           {/* 실제 일과표 출력 보드 영역 (우측 2칸) - 인쇄 영역 */}
           <div className="lg:col-span-2 space-y-8 print:col-span-full">
             
-            {/* 캡처/인쇄 대상 래퍼 */}
+            {/* 캡처/인쇄 대상 래퍼 (눈부심 방지 톤다운, 인쇄 시에는 흰색 강제) */}
             <div 
               ref={printAreaRef} 
-              className="bg-white border border-slate-150 rounded-3xl p-8 md:p-10 shadow-sm print:shadow-none print:border-none print:p-0 space-y-12"
+              className="bg-[#f4f5f7] border border-slate-200 rounded-3xl p-8 md:p-10 shadow-sm print-area-bg space-y-12"
             >
               
               {/* 인쇄 모드 헤더 (일반 화면에선 숨김) */}
@@ -520,7 +527,7 @@ export default function PlannerPage() {
                       plans.map(p => (
                         <div 
                           key={p.id}
-                          className="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-100 group"
+                          className="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-150 group"
                         >
                           <div className="flex items-center gap-3">
                             <span 
@@ -567,7 +574,7 @@ export default function PlannerPage() {
                     events.map(ev => (
                       <div 
                         key={ev.id}
-                        className="bg-slate-50 border border-slate-150/70 p-4 rounded-2xl flex justify-between items-start gap-3 text-left relative group/ev"
+                        className="bg-white border border-slate-150 p-4 rounded-2xl flex justify-between items-start gap-3 text-left relative group/ev"
                       >
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">

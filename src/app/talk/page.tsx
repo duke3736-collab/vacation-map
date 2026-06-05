@@ -157,7 +157,7 @@ export default function TalkPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#415347] bg-[radial-gradient(#506758_1px,transparent_1px)] [background-size:24px_24px] pt-28 pb-24 px-6 md:px-10 text-white font-sans relative">
+    <div className="min-h-screen bg-[#627768] bg-[radial-gradient(#738c7b_1px,transparent_1px)] [background-size:24px_24px] pt-28 pb-24 px-6 md:px-10 text-white font-sans relative">
       
       {/* 칠판 테두리 스타일링 */}
       <div className="max-w-6xl mx-auto space-y-10 relative z-10">
