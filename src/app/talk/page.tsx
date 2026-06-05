@@ -401,7 +401,7 @@ export default function TalkPage() {
                 <span>오늘의 핫한 생활 꿀팁 & 혜택 정보 💡</span>
               </h3>
               <p className="text-slate-200 text-xs md:text-sm mt-1 opacity-90">
-                워드프레스 블로그 최신 글을 실시간으로 연동하여 노출합니다. 혜택을 놓치지 말고 확인해 보세요!
+                정부 지원금 신청 정보부터 실시간 생활 꿀팁까지! 우리 아이에게 꼭 필요한 알찬 정보들을 확인해 보세요.
               </p>
             </div>
             <a
