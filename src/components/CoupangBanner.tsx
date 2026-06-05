@@ -56,7 +56,7 @@ const DEFAULT_THEME_BANNERS: CoupangThemeBanner[] = [
     badgeBg: "bg-rose-500",
     title: "아이와 함께 떠나는 전국 인기 키즈 펜션 & 글램핑 실시간 초특가",
     linkText: "쿠팡 트래블 기획전 보러가기 ➡️",
-    imageUrl: "https://images.unsplash.com/photo-1582719478250-c89cae4db85b?w=500&auto=format&fit=crop&q=60",
+    imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=500&auto=format&fit=crop&q=60",
     link: "https://link.coupang.com/a/ellfWHjobc"
   },
   {
