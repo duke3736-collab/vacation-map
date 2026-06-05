@@ -21,7 +21,7 @@ const DEFAULT_THEME_BANNERS: CoupangThemeBanner[] = [
     title: "방학 숙제 완벽 해결! 초등 과학/미술 창의 교구&학습 교재 최저가전",
     linkText: "쿠팡 문구/학습 기획전 보러가기 ➡️",
     imageUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&auto=format&fit=crop&q=60",
-    link: "https://link.coupang.com/a/your-banner-link-1" // 💡 여기에 기획전 링크를 입력하세요!
+    link: "https://link.coupang.com/a/elkOzMCZpY"
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ const DEFAULT_THEME_BANNERS: CoupangThemeBanner[] = [
     title: "독서 습관 완성! 초등 필독 도서/만화 전집 베스트셀러 로켓배송",
     linkText: "쿠팡 도서 특가전 보러가기 ➡️",
     imageUrl: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500&auto=format&fit=crop&q=60",
-    link: "https://link.coupang.com/a/your-banner-link-2"
+    link: "https://link.coupang.com/a/elk2gyJwNo"
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ const DEFAULT_THEME_BANNERS: CoupangThemeBanner[] = [
     title: "2학기 선행 학습 필수! 중등 참고서 & 베스트셀러 문제집 총집합",
     linkText: "쿠팡 학습 서적 보러가기 ➡️",
     imageUrl: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=500&auto=format&fit=crop&q=60",
-    link: "https://link.coupang.com/a/your-banner-link-3"
+    link: "https://link.coupang.com/a/elk5KICXnw"
   },
   {
     id: 4,
@@ -48,7 +48,7 @@ const DEFAULT_THEME_BANNERS: CoupangThemeBanner[] = [
     title: "새학기 준비 끝! 스타일리시한 청소년 백팩 & 스포츠웨어 브랜드전",
     linkText: "쿠팡 스포츠/패션 기획전 ➡️",
     imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&auto=format&fit=crop&q=60",
-    link: "https://link.coupang.com/a/your-banner-link-4"
+    link: "https://link.coupang.com/a/ellbpZrJ1w"
   },
   {
     id: 5,
@@ -57,7 +57,7 @@ const DEFAULT_THEME_BANNERS: CoupangThemeBanner[] = [
     title: "아이와 함께 떠나는 전국 인기 키즈 펜션 & 글램핑 실시간 초특가",
     linkText: "쿠팡 트래블 기획전 보러가기 ➡️",
     imageUrl: "https://images.unsplash.com/photo-1582719478250-c89cae4db85b?w=500&auto=format&fit=crop&q=60",
-    link: "https://link.coupang.com/a/your-banner-link-5"
+    link: "https://link.coupang.com/a/ellfWHjobc"
   },
   {
     id: 6,
@@ -66,7 +66,7 @@ const DEFAULT_THEME_BANNERS: CoupangThemeBanner[] = [
     title: "바른 자세가 집중력을 높인다! 초중등 인기 공부방 독서실 책상 & 의자",
     linkText: "쿠팡 공부방 가구 기획전 ➡️",
     imageUrl: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=500&auto=format&fit=crop&q=60",
-    link: "https://link.coupang.com/a/your-banner-link-6"
+    link: "https://link.coupang.com/a/ellmjHQtJA"
   },
   {
     id: 7,
@@ -75,7 +75,7 @@ const DEFAULT_THEME_BANNERS: CoupangThemeBanner[] = [
     title: "방학 특강 & 인강용 가성비 노트북 및 아동/청소년 학습용 태블릿 PC",
     linkText: "쿠팡 디지털 가전 기획전 ➡️",
     imageUrl: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500&auto=format&fit=crop&q=60",
-    link: "https://link.coupang.com/a/your-banner-link-7"
+    link: "https://link.coupang.com/a/ellsqpEgqi"
   },
   {
     id: 8,
@@ -84,7 +84,7 @@ const DEFAULT_THEME_BANNERS: CoupangThemeBanner[] = [
     title: "방학 내내 시원하고 쾌적하게! 공부방용 미니 무소음 에어컨 & 공기청정기",
     linkText: "쿠팡 실내 가전 기획전 ➡️",
     imageUrl: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?w=500&auto=format&fit=crop&q=60",
-    link: "https://link.coupang.com/a/your-banner-link-8"
+    link: "https://link.coupang.com/a/elluPTm9YG"
   }
 ];
 
