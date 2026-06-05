@@ -157,20 +157,20 @@ export default function TalkPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#2d3a31] bg-[radial-gradient(#3a4f40_1px,transparent_1px)] [background-size:24px_24px] pt-28 pb-24 px-6 md:px-10 text-white font-sans relative">
+    <div className="min-h-screen bg-[#415347] bg-[radial-gradient(#506758_1px,transparent_1px)] [background-size:24px_24px] pt-28 pb-24 px-6 md:px-10 text-white font-sans relative">
       
       {/* 칠판 테두리 스타일링 */}
       <div className="max-w-6xl mx-auto space-y-10 relative z-10">
         
         {/* 상단 타이틀 */}
-        <div className="text-center space-y-4">
-          <span className="bg-[#e2f0d9]/10 border border-[#e2f0d9]/25 text-[#c5dfb8] text-xs font-black tracking-widest px-4 py-1.5 rounded-full uppercase">
+        <div className="text-center flex flex-col items-center gap-3">
+          <span className="inline-block bg-[#e2f0d9]/10 border border-[#e2f0d9]/25 text-[#c5dfb8] text-xs font-black tracking-widest px-4 py-1.5 rounded-full uppercase mb-1 shadow-sm">
             Community Board
           </span>
-          <h1 className="text-4xl md:text-5xl font-black text-[#c5dfb8] tracking-tight drop-shadow-md">
+          <h1 className="text-4xl md:text-5xl font-black text-[#c5dfb8] tracking-tight drop-shadow-md leading-tight mt-1">
             방학 톡톡 💬
           </h1>
-          <p className="text-slate-350 text-sm md:text-base max-w-xl mx-auto break-keep">
+          <p className="text-slate-200 text-sm md:text-base max-w-xl mx-auto break-keep mt-2 opacity-90">
             학부모들의 생생한 체험학습 후기, 꿀팁, 고민거리를 포스트잇으로 붙여보세요! 로그인 없이 익명으로 소통하는 따뜻한 칠판입니다. 📌
           </p>
         </div>

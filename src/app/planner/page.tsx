@@ -220,7 +220,30 @@ export default function PlannerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 pt-28 pb-24 px-6 md:px-10 font-sans relative">
+    <div className="min-h-screen bg-[#eef0f3] text-slate-900 pt-28 pb-24 px-6 md:px-10 font-sans relative">
+      
+      {/* 인쇄 최적화 스타일 주입 */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @media print {
+          /* 인쇄 화면에서 동그라미 계획표의 크기를 크게 고정합니다 */
+          .print-svg-container {
+            width: 440px !important;
+            height: 440px !important;
+            margin: 0 auto 20px auto !important;
+          }
+          /* 인쇄 시 가로 배치 대신 한 열로 나열하여 크기를 확대시킵니다 */
+          .print-layout-flex {
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 30px !important;
+          }
+          .print-layout-flex > div {
+            width: 100% !important;
+            max-width: 500px !important;
+            margin: 0 auto !important;
+          }
+        }
+      `}} />
       
       {/* 본문 레이아웃 */}
       <div className="max-w-6xl mx-auto space-y-10">
@@ -405,10 +428,10 @@ export default function PlannerPage() {
               </div>
 
               {/* 1. 24시간 원형 일과표 */}
-              <div className="flex flex-col md:flex-row items-center gap-8 justify-center">
+              <div className="flex flex-col md:flex-row items-center gap-8 justify-center print-layout-flex">
                 
-                {/* SVG 24시간 원형 계획표 */}
-                <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 flex-shrink-0">
+                {/* SVG 24시간 원형 계획표 (웹 창 및 인쇄에서 크게 확대) */}
+                <div className="relative w-full aspect-square max-w-[340px] sm:max-w-[370px] md:max-w-[400px] flex-shrink-0 mx-auto print-svg-container">
                   <svg 
                     viewBox="0 0 200 200" 
                     className="w-full h-full drop-shadow-[0_4px_12px_rgba(0,0,0,0.06)]"
