@@ -220,8 +220,19 @@ export default function PlannerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f0f2f5] text-slate-900 pt-32 md:pt-36 pb-24 px-6 md:px-10 font-sans relative">
+    <div className="min-h-screen bg-[#f0f2f5] text-slate-900 pt-32 md:pt-36 pb-24 px-6 md:px-10 font-sans relative overflow-hidden">
       
+      {/* Background Stickers Layer (프린트 시 자동 숨김) */}
+      <div 
+        className="absolute inset-0 z-0 opacity-15 pointer-events-none animate-[spin_600s_linear_infinite] scale-150 print:hidden"
+        style={{
+          backgroundImage: "url('/images/bg_stickers.png')",
+          backgroundSize: "600px",
+          backgroundPosition: "center",
+          backgroundRepeat: "repeat"
+        }}
+      />
+
       {/* 인쇄 최적화 스타일 주입 */}
       <style dangerouslySetInnerHTML={{__html: `
         @media print {
@@ -261,7 +272,7 @@ export default function PlannerPage() {
       `}} />
       
       {/* 본문 레이아웃 */}
-      <div className="max-w-6xl mx-auto space-y-10">
+      <div className="max-w-6xl mx-auto space-y-10 relative z-10">
         
         {/* 설명 및 타이틀 (프린트 시 숨겨짐, 겹침 방지 정렬) */}
         <div className="text-center flex flex-col items-center gap-4 print:hidden">
