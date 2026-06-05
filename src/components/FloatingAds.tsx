@@ -14,13 +14,13 @@ export default function FloatingAds() {
 
   return (
     <>
-      {/* 왼쪽 사이드바 광고 (데스크탑에서만 보임, 쿠팡 기획전만 노출) */}
-      <div className="hidden 2xl:flex fixed top-1/2 -translate-y-1/2 left-4 z-40 w-[180px] p-2">
+      {/* 왼쪽 사이드바 광고 (데스크탑에서만 보임, 쿠팡 기획전만 노출 - 크기 확장 및 안쪽으로 당김) */}
+      <div className="hidden 2xl:flex fixed top-1/2 -translate-y-1/2 left-10 z-40 w-[240px] p-2">
         <CoupangBanner ids={[1]} layout="vertical" />
       </div>
       
-      {/* 오른쪽 사이드바 광고 (데스크탑에서만 보임, 쿠팡 기획전만 노출) */}
-      <div className="hidden 2xl:flex fixed top-1/2 -translate-y-1/2 right-4 z-40 w-[180px] p-2">
+      {/* 오른쪽 사이드바 광고 (데스크탑에서만 보임, 쿠팡 기획전만 노출 - 크기 확장 및 안쪽으로 당김) */}
+      <div className="hidden 2xl:flex fixed top-1/2 -translate-y-1/2 right-10 z-40 w-[240px] p-2">
         <CoupangBanner ids={[8]} layout="vertical" />
       </div>
     </>
