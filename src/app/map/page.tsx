@@ -1,6 +1,7 @@
 import Sidebar from "@/components/Sidebar";
 import MapClient from "@/components/MapClient";
-import AdBanner from "@/components/AdBanner";
+import CoupangWidget from "@/components/CoupangWidget";
+import WordPressSection from "@/components/WordPressSection";
 
 export default function MapPage() {
   return (
@@ -34,20 +35,28 @@ export default function MapPage() {
             </div>
           </div>
           
-          {/* 데스크탑 전용 우측 고정 광고 패널 */}
+          {/* 데스크탑 전용 우측 고정 정보 & 스폰서 패널 */}
           <div className="hidden xl:flex absolute top-0 right-0 h-full w-[320px] bg-white/95 backdrop-blur-xl shadow-2xl border-l border-slate-200 pointer-events-auto flex-col items-center py-6 px-4 gap-6 overflow-y-auto custom-scrollbar">
-            <div className="w-full flex items-center gap-2 mb-2 px-2">
-              <span className="material-symbols-outlined text-rose-500">campaign</span>
-              <h3 className="font-black text-slate-700">스폰서</h3>
+            
+            {/* 워드프레스 여행 팁 칼럼 (세로형) */}
+            <div className="w-full text-left">
+              <h3 className="font-black text-sm text-slate-700 mb-3 flex items-center gap-1.5 px-1">
+                <span className="material-symbols-outlined text-indigo-500 text-[18px]">lightbulb</span>
+                <span>알찬 방학 여행 꿀팁 💡</span>
+              </h3>
+              <WordPressSection limit={2} layout="vertical" title="" />
             </div>
+
+            <div className="w-full h-px bg-slate-100 my-1"></div>
             
-            {/* 애드센스 (정사각형) */}
-            <AdBanner type="square" slot="map-right-adsense" className="shadow-sm" />
-            
-            <div className="w-full h-px bg-slate-200 my-2"></div>
-            
-            {/* 쿠팡 파트너스 (세로형) */}
-            <AdBanner type="vertical" slot="map-right-coupang" className="shadow-sm" />
+            {/* 쿠팡 파트너스 추천 상품 (메인과 다른 3, 4번 상품 표시) */}
+            <div className="w-full text-left">
+              <h3 className="font-black text-sm text-slate-700 mb-3 flex items-center gap-1.5 px-1">
+                <span className="material-symbols-outlined text-rose-500 text-[18px]">shopping_bag</span>
+                <span>에디터 추천 여행 필수템 🎒</span>
+              </h3>
+              <CoupangWidget itemIds={[3, 4]} layout="vertical" />
+            </div>
           </div>
         </div>
       </div>

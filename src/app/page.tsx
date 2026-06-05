@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
-import AdBanner from "@/components/AdBanner";
+import CoupangWidget from "@/components/CoupangWidget";
+import WordPressSection from "@/components/WordPressSection";
 
 export default function LandingPage() {
   return (
@@ -55,8 +56,13 @@ export default function LandingPage() {
         ))}
       </div>
 
-      <div className="w-full max-w-5xl mx-auto relative z-10 my-4">
-        <AdBanner slot="landing-middle" className="h-28 bg-white/50 backdrop-blur-sm" />
+      {/* 쿠팡 파트너스 네이티브 위젯 (2개 노출) */}
+      <div className="w-full max-w-5xl mx-auto relative z-10 my-4 text-left">
+        <h3 className="text-lg font-black text-slate-700 mb-4 px-2 flex items-center gap-1.5">
+          <span className="material-symbols-outlined text-rose-500 text-[20px]">shopping_bag</span>
+          <span>아이와 함께하는 여행 필수 아이템 추천 🎒</span>
+        </h3>
+        <CoupangWidget limit={2} layout="grid" />
       </div>
 
       <Link 
@@ -67,6 +73,11 @@ export default function LandingPage() {
         <span className="drop-shadow-sm tracking-wide">신나는 보물지도 펼치기!</span>
         <span className="text-3xl group-hover:animate-bounce">🗺️</span>
       </Link>
+
+      {/* 워드프레스 블로그 글 소개 연동 섹션 */}
+      <div className="w-full max-w-5xl mx-auto relative z-10 mt-16 pt-16 border-t border-slate-200 text-left">
+        <WordPressSection limit={3} layout="grid" />
+      </div>
     </div>
   );
 }

@@ -14,16 +14,14 @@ export default function FloatingAds() {
 
   return (
     <>
-      {/* 왼쪽 사이드바 광고 (데스크탑에서만 보임) */}
-      <div className="hidden 2xl:flex fixed top-1/2 -translate-y-1/2 left-4 z-40 flex-col gap-4 max-h-screen overflow-y-auto custom-scrollbar p-2">
-        <AdBanner type="vertical" slot="floating-left-adsense" provider="adsense" className="shadow-xl border-2 border-white" />
-        <AdBanner type="square" slot="floating-left-coupang" provider="coupang" className="shadow-xl border-2 border-white shrink-0 h-[250px] w-[160px]" />
+      {/* 왼쪽 사이드바 광고 (데스크탑에서만 보임, 쿠팡 파트너스만 컴팩트하게 노출) */}
+      <div className="hidden 2xl:flex fixed top-1/2 -translate-y-1/2 left-4 z-40 flex-col gap-4 max-h-screen p-2">
+        <AdBanner type="square" slot="floating-left-coupang" provider="coupang" className="shadow-lg border border-slate-150 w-[150px] min-h-[150px]" />
       </div>
       
-      {/* 오른쪽 사이드바 광고 (데스크탑에서만 보임) */}
-      <div className="hidden 2xl:flex fixed top-1/2 -translate-y-1/2 right-4 z-40 flex-col gap-4 max-h-screen overflow-y-auto custom-scrollbar p-2">
-        <AdBanner type="vertical" slot="floating-right-adsense" provider="adsense" className="shadow-xl border-2 border-white" />
-        <AdBanner type="square" slot="floating-right-coupang" provider="coupang" className="shadow-xl border-2 border-white shrink-0 h-[250px] w-[160px]" />
+      {/* 오른쪽 사이드바 광고 (데스크탑에서만 보임, 쿠팡 파트너스만 컴팩트하게 노출) */}
+      <div className="hidden 2xl:flex fixed top-1/2 -translate-y-1/2 right-4 z-40 flex-col gap-4 max-h-screen p-2">
+        <AdBanner type="square" slot="floating-right-coupang" provider="coupang" className="shadow-lg border border-slate-150 w-[150px] min-h-[150px]" />
       </div>
     </>
   );
