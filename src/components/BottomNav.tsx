@@ -13,17 +13,17 @@ export default function BottomNav() {
         <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>map</span>
         <span className="text-xs font-bold mt-1">Map</span>
       </Link>
-      <Link href="/dashboard" className="flex flex-col items-center justify-center text-slate-500 px-4 py-2 hover:text-slate-800 hover:bg-black/5 rounded-2xl active:scale-90 transition-all duration-200 ease-out group">
-        <span className="material-symbols-outlined text-[24px]">bookmark</span>
-        <span className="text-xs font-bold mt-1">Saved</span>
+      <Link href="/talk" className="flex flex-col items-center justify-center text-slate-500 px-4 py-2 hover:text-slate-800 hover:bg-black/5 rounded-2xl active:scale-90 transition-all duration-200 ease-out group">
+        <span className="material-symbols-outlined text-[24px]">chat</span>
+        <span className="text-xs font-bold mt-1">Talk</span>
+      </Link>
+      <Link href="/planner" className="flex flex-col items-center justify-center text-slate-500 px-4 py-2 hover:text-slate-800 hover:bg-black/5 rounded-2xl active:scale-90 transition-all duration-200 ease-out group">
+        <span className="material-symbols-outlined text-[24px]">calendar_month</span>
+        <span className="text-xs font-bold mt-1">Planner</span>
       </Link>
       <Link href="/themes" className="flex flex-col items-center justify-center text-slate-500 px-4 py-2 hover:text-slate-800 hover:bg-black/5 rounded-2xl active:scale-90 transition-all duration-200 ease-out group">
         <span className="material-symbols-outlined text-[24px]">explore</span>
         <span className="text-xs font-bold mt-1">Themes</span>
-      </Link>
-      <Link href="/dashboard" className="flex flex-col items-center justify-center text-slate-500 px-4 py-2 hover:text-slate-800 hover:bg-black/5 rounded-2xl active:scale-90 transition-all duration-200 ease-out group">
-        <span className="material-symbols-outlined text-[24px]">person</span>
-        <span className="text-xs font-bold mt-1">Profile</span>
       </Link>
     </nav>
   );

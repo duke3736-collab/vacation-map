@@ -27,6 +27,14 @@ export default function Header() {
           <span className="material-symbols-outlined text-[22px]">explore</span>
           <span>테마추천</span>
         </Link>
+        <Link href="/talk" className="flex items-center gap-2 text-base font-bold text-slate-600 hover:text-slate-900 transition-colors">
+          <span className="material-symbols-outlined text-[22px]">chat</span>
+          <span>방학 톡톡</span>
+        </Link>
+        <Link href="/planner" className="flex items-center gap-2 text-base font-bold text-slate-600 hover:text-slate-900 transition-colors">
+          <span className="material-symbols-outlined text-[22px]">calendar_month</span>
+          <span>방학 계획서</span>
+        </Link>
         <Link href="/dashboard" className="flex items-center gap-2 text-base font-bold text-slate-600 hover:text-slate-900 transition-colors">
           <span className="material-symbols-outlined text-[22px]">dashboard</span>
           <span>대시보드</span>
