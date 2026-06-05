@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMapStore } from "@/store/useMapStore";
-import { places, Category, getCategoryIcon } from "@/data/places";
+import { places, Category } from "@/data/places";
 import AdBanner from "@/components/AdBanner";
 import clsx from "clsx";
 
