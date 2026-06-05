@@ -12,6 +12,50 @@ interface GuestbookMessage {
   passwordHash: string; // 로컬 간단 검증용 비밀번호 (단순 텍스트 매칭)
 }
 
+export interface WordPressPost {
+  id: number;
+  title: string;
+  excerpt: string;
+  category: string;
+  date: string;
+  imageUrl: string;
+  link: string;
+}
+
+// 사용자의 워드프레스 블로그 주소 기본값 (weknews.com)
+const WORDPRESS_BASE_URL = "https://weknews.com";
+
+// 워드프레스 API 지연 또는 오류 시 노출할 기본 정보성 칼럼 데이터셋
+const FALLBACK_POSTS: WordPressPost[] = [
+  {
+    id: 9001,
+    title: "2026년 정부지원금 및 서민 생활 지원 혜택 총정리",
+    excerpt: "내 소득 수준과 나이에 맞는 정부지원금은? 청년, 다자녀, 소상공인별 맞춤형 지원 정책과 실시간 신청 가이드를 소개합니다.",
+    category: "정부 지원금",
+    date: new Date().toISOString().split("T")[0],
+    imageUrl: "https://images.unsplash.com/photo-1579621970795-87faff2f9050?w=500&auto=format&fit=crop&q=60",
+    link: `${WORDPRESS_BASE_URL}`
+  },
+  {
+    id: 9002,
+    title: "여름 휴가철 고속도로 통행료 면제 & 관광 혜택 가이드",
+    excerpt: "정부에서 지원하는 국내 관광 활성화 프로젝트! 숙박 쿠폰 할인 혜택, 고속도로 통행료 감면 기간 및 대중교통 할인 정보를 알려드립니다.",
+    category: "생활 꿀팁",
+    date: new Date().toISOString().split("T")[0],
+    imageUrl: "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?w=500&auto=format&fit=crop&q=60",
+    link: `${WORDPRESS_BASE_URL}`
+  },
+  {
+    id: 9003,
+    title: "숨은 내 돈 찾기! 카드포인트 통합조회 및 계좌 환급 방법",
+    excerpt: "흩어져서 안 쓰고 소멸되기 직전인 내 신용카드 포인트들을 한 번에 조회하고 계좌로 즉시 현금 환급받는 초간단 프로세스 정리.",
+    category: "혜택 정보",
+    date: new Date().toISOString().split("T")[0],
+    imageUrl: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=500&auto=format&fit=crop&q=60",
+    link: `${WORDPRESS_BASE_URL}`
+  }
+];
+
 // 칠판/코르크보드에 붙일 은은한 포스트잇 파스텔 색상 목록
 const POSTIT_COLORS = [
   { name: "파스텔 노랑", bg: "bg-amber-100 border-amber-200 text-amber-900", dot: "bg-amber-400" },
@@ -62,9 +106,36 @@ export default function TalkPage() {
   const [deletePassword, setDeletePassword] = useState("");
   const [isClient, setIsClient] = useState(false);
 
-  // 컴포넌트 마운트 시 LocalStorage에서 메시지 로드 (SSR 하이드레이션 오류 방지)
+  // 워드프레스 연동용 상태
+  const [wpPosts, setWpPosts] = useState<WordPressPost[]>([]);
+  const [isLoadingWp, setIsLoadingWp] = useState(true);
+
+  // 컴포넌트 마운트 시 LocalStorage에서 메시지 로드 및 워드프레스 API 연동
   useEffect(() => {
     setIsClient(true);
+
+    const fetchWpPosts = async () => {
+      try {
+        const res = await fetch("/api/wordpress");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setWpPosts(data);
+          } else {
+            setWpPosts(FALLBACK_POSTS);
+          }
+        } else {
+          setWpPosts(FALLBACK_POSTS);
+        }
+      } catch (err) {
+        console.error("Failed to fetch wp posts", err);
+        setWpPosts(FALLBACK_POSTS);
+      } finally {
+        setIsLoadingWp(false);
+      }
+    };
+
+    fetchWpPosts();
     const saved = localStorage.getItem("vacation_map_guestbook");
     if (saved) {
       try {
@@ -157,7 +228,7 @@ export default function TalkPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#627768] bg-[radial-gradient(#738c7b_1px,transparent_1px)] [background-size:24px_24px] pt-28 pb-24 px-6 md:px-10 text-white font-sans relative">
+    <div className="min-h-screen bg-[#768e7d] bg-[radial-gradient(#8fae98_1px,transparent_1px)] [background-size:24px_24px] pt-28 pb-24 px-6 md:px-10 text-white font-sans relative">
       
       {/* 칠판 테두리 스타일링 */}
       <div className="max-w-6xl mx-auto space-y-10 relative z-10">
@@ -319,6 +390,90 @@ export default function TalkPage() {
             </div>
           </div>
 
+        </div>
+
+        {/* 워드프레스 최신 소식 섹션 */}
+        <div className="border-t border-white/10 pt-10 mt-12">
+          <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-2 text-left">
+            <div>
+              <h3 className="text-xl md:text-2xl font-black text-[#c5dfb8] tracking-tight flex items-center gap-2">
+                <span className="material-symbols-outlined text-[24px]">lightbulb</span>
+                <span>오늘의 핫한 생활 꿀팁 & 혜택 정보 💡</span>
+              </h3>
+              <p className="text-slate-200 text-xs md:text-sm mt-1 opacity-90">
+                워드프레스 블로그 최신 글을 실시간으로 연동하여 노출합니다. 혜택을 놓치지 말고 확인해 보세요!
+              </p>
+            </div>
+            <a
+              href="https://weknews.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-bold text-[#c5dfb8] hover:text-white bg-white/10 px-4 py-2 rounded-full border border-white/15 hover:bg-white/20 transition-all shrink-0 cursor-pointer flex items-center gap-1"
+            >
+              <span>블로그 전체보기</span>
+              <span className="material-symbols-outlined text-[14px]">open_in_new</span>
+            </a>
+          </div>
+
+          {isLoadingWp ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="animate-pulse bg-[#1e2721]/50 border border-white/5 rounded-3xl p-5 space-y-4">
+                  <div className="aspect-[16/10] w-full bg-white/10 rounded-2xl" />
+                  <div className="h-4 bg-white/20 rounded w-1/3" />
+                  <div className="h-5 bg-white/20 rounded w-5/6" />
+                  <div className="h-12 bg-white/10 rounded" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {wpPosts.map((post) => (
+                <a
+                  key={post.id}
+                  href={post.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col bg-[#1e2721]/95 border border-white/10 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+                >
+                  {/* 이미지 영역 */}
+                  <div className="relative aspect-[16/10] w-full bg-slate-800 overflow-hidden">
+                    <img
+                      src={post.imageUrl}
+                      alt={post.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&auto=format&fit=crop&q=60";
+                      }}
+                    />
+                    <span className="absolute top-3 left-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-md">
+                      {post.category}
+                    </span>
+                  </div>
+
+                  {/* 텍스트 영역 */}
+                  <div className="flex-1 p-5 flex flex-col justify-between space-y-4 text-left">
+                    <div className="space-y-2">
+                      <span className="text-[10px] text-slate-400 font-bold">{post.date}</span>
+                      <h4 className="text-sm md:text-base font-black text-[#c5dfb8] leading-snug line-clamp-2 group-hover:text-white transition-colors">
+                        {post.title}
+                      </h4>
+                      <p className="text-xs text-slate-300 leading-relaxed line-clamp-3 opacity-90">
+                        {post.excerpt}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center text-xs font-bold text-emerald-400 group-hover:text-emerald-300 transition-colors pt-3 border-t border-white/10">
+                      <span>자세히 읽어보기</span>
+                      <span className="material-symbols-outlined text-[14px] ml-1 transition-transform group-hover:translate-x-1">
+                        arrow_forward_ios
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
 
       </div>

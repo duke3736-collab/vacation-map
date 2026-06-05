@@ -220,7 +220,7 @@ export default function PlannerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#e2e5e9] text-slate-900 pt-28 pb-24 px-6 md:px-10 font-sans relative">
+    <div className="min-h-screen bg-[#f0f2f5] text-slate-900 pt-32 md:pt-36 pb-24 px-6 md:px-10 font-sans relative">
       
       {/* 인쇄 최적화 스타일 주입 */}
       <style dangerouslySetInnerHTML={{__html: `
@@ -232,10 +232,18 @@ export default function PlannerPage() {
             box-shadow: none !important;
             padding: 0 !important;
           }
+          .print-card-bg {
+            background-color: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            box-shadow: none !important;
+          }
+          .print-circle-bg {
+            fill: #ffffff !important;
+          }
           /* 인쇄 화면에서 동그라미 계획표의 크기를 크게 고정합니다 */
           .print-svg-container {
-            width: 440px !important;
-            height: 440px !important;
+            width: 520px !important;
+            height: 520px !important;
             margin: 0 auto 20px auto !important;
           }
           /* 인쇄 시 가로 배치 대신 한 열로 나열하여 크기를 확대시킵니다 */
@@ -256,14 +264,14 @@ export default function PlannerPage() {
       <div className="max-w-6xl mx-auto space-y-10">
         
         {/* 설명 및 타이틀 (프린트 시 숨겨짐, 겹침 방지 정렬) */}
-        <div className="text-center flex flex-col items-center gap-3 print:hidden">
-          <span className="inline-block bg-indigo-50 border border-indigo-200 text-indigo-600 text-xs font-black tracking-widest px-4 py-1.5 rounded-full uppercase mb-1 shadow-sm">
+        <div className="text-center flex flex-col items-center gap-4 print:hidden">
+          <span className="inline-block bg-indigo-50 border border-indigo-200 text-indigo-600 text-xs font-black tracking-widest px-4 py-1.5 rounded-full uppercase shadow-sm">
             Study & Travel Planner
           </span>
-          <h1 className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight drop-shadow-sm leading-tight mt-1">
+          <h1 className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight drop-shadow-sm leading-snug mt-2">
             알찬 방학 계획서 📅
           </h1>
-          <p className="text-slate-500 text-sm md:text-base max-w-xl mx-auto break-keep mt-2 opacity-90">
+          <p className="text-slate-500 text-sm md:text-base max-w-xl mx-auto break-keep mt-3 opacity-90">
             아이와 함께 동그라미 하루 계획표를 이쁘게 채워보세요! 주간/달력 스케줄러에 방학 나들이 일정까지 정리한 뒤 종이로 프린트하거나 이미지 파일로 저장할 수 있습니다. 🖨️
           </p>
 
@@ -293,9 +301,9 @@ export default function PlannerPage() {
           <div className="lg:col-span-1 space-y-6 print:hidden">
             
             {/* 1. 일과표 편집 (눈부심 방지를 위해 톤다운) */}
-            <div className="bg-[#f4f5f7] rounded-3xl p-6 border border-slate-200 shadow-sm space-y-5">
-              <h3 className="text-base font-black text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-indigo-500">schedule</span>
+            <div className="bg-[#e9ecf0] rounded-3xl p-6 border border-slate-250/80 shadow-sm space-y-5">
+              <h3 className="text-base font-black text-slate-850 border-b border-slate-200/60 pb-3 flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-indigo-600">schedule</span>
                 <span>하루 일과 등록 ⏱️</span>
               </h3>
               
@@ -307,7 +315,7 @@ export default function PlannerPage() {
                     placeholder="예: 늦잠자기 😴, 독서 📚"
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-indigo-400"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-indigo-400"
                   />
                 </div>
 
@@ -317,7 +325,7 @@ export default function PlannerPage() {
                     <select
                       value={newStart}
                       onChange={(e) => setNewStart(Number(e.target.value))}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-2 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-indigo-400"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-2 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-indigo-400"
                     >
                       {Array.from({ length: 49 }, (_, i) => i * 0.5).map(h => (
                         <option key={h} value={h}>
@@ -331,7 +339,7 @@ export default function PlannerPage() {
                     <select
                       value={newEnd}
                       onChange={(e) => setNewEnd(Number(e.target.value))}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-2 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-indigo-400"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-2 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-indigo-400"
                     >
                       {Array.from({ length: 49 }, (_, i) => i * 0.5).map(h => (
                         <option key={h} value={h}>
@@ -368,9 +376,9 @@ export default function PlannerPage() {
             </div>
 
             {/* 2. 달력 나들이 일정 편집 (눈부심 방지를 위해 톤다운) */}
-            <div className="bg-[#f4f5f7] rounded-3xl p-6 border border-slate-200 shadow-sm space-y-5">
-              <h3 className="text-base font-black text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-indigo-500">calendar_month</span>
+            <div className="bg-[#e9ecf0] rounded-3xl p-6 border border-slate-250/80 shadow-sm space-y-5">
+              <h3 className="text-base font-black text-slate-855 border-b border-slate-200/60 pb-3 flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-indigo-600">calendar_month</span>
                 <span>방학 나들이 스케줄 등록 🗺️</span>
               </h3>
 
@@ -381,7 +389,7 @@ export default function PlannerPage() {
                     type="date"
                     value={eventDate}
                     onChange={(e) => setEventDate(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-indigo-400"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-indigo-400"
                   />
                 </div>
 
@@ -392,7 +400,7 @@ export default function PlannerPage() {
                     placeholder="예: 가평 키즈풀빌라 여행 🏊"
                     value={eventTitle}
                     onChange={(e) => setEventTitle(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-indigo-400"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-indigo-400"
                   />
                 </div>
 
@@ -403,7 +411,7 @@ export default function PlannerPage() {
                     placeholder="예: 물놀이 구명조끼 필수!"
                     value={eventMemo}
                     onChange={(e) => setEventMemo(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-indigo-400"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-indigo-400"
                   />
                 </div>
 
@@ -424,7 +432,7 @@ export default function PlannerPage() {
             {/* 캡처/인쇄 대상 래퍼 (눈부심 방지 톤다운, 인쇄 시에는 흰색 강제) */}
             <div 
               ref={printAreaRef} 
-              className="bg-[#f4f5f7] border border-slate-200 rounded-3xl p-8 md:p-10 shadow-sm print-area-bg space-y-12"
+              className="bg-[#e9ecf0] border border-slate-250/80 rounded-3xl p-8 md:p-10 shadow-sm print-area-bg space-y-12"
             >
               
               {/* 인쇄 모드 헤더 (일반 화면에선 숨김) */}
@@ -438,13 +446,13 @@ export default function PlannerPage() {
               <div className="flex flex-col md:flex-row items-center gap-8 justify-center print-layout-flex">
                 
                 {/* SVG 24시간 원형 계획표 (웹 창 및 인쇄에서 크게 확대) */}
-                <div className="relative w-full aspect-square max-w-[340px] sm:max-w-[370px] md:max-w-[400px] flex-shrink-0 mx-auto print-svg-container">
+                <div className="relative w-full aspect-square max-w-[380px] sm:max-w-[420px] md:max-w-[460px] flex-shrink-0 mx-auto print-svg-container">
                   <svg 
                     viewBox="0 0 200 200" 
                     className="w-full h-full drop-shadow-[0_4px_12px_rgba(0,0,0,0.06)]"
                   >
                     {/* 기본 24시간 시간 눈금과 부채꼴들 */}
-                    <circle cx="100" cy="100" r="90" fill="#ffffff" stroke="#e2e8f0" strokeWidth="2" />
+                    <circle cx="100" cy="100" r="90" fill="#fafbfc" stroke="#cbd5e1" strokeWidth="2" className="print-circle-bg" />
                     
                     {/* 시간 조각들 렌더링 */}
                     {plans.map((item) => {
@@ -483,7 +491,7 @@ export default function PlannerPage() {
                     })}
 
                     {/* 정중앙 도넛 흰색 구멍 */}
-                    <circle cx="100" cy="100" r="22" fill="#ffffff" stroke="#e2e8f0" strokeWidth="1" />
+                    <circle cx="100" cy="100" r="22" fill="#fafbfc" stroke="#cbd5e1" strokeWidth="1" className="print-circle-bg" />
                     <text x="100" y="100" textAnchor="middle" dominantBaseline="middle" fontSize="6.5" fontWeight="black" fill="#4a5568">
                       하루 일과
                     </text>
@@ -527,7 +535,7 @@ export default function PlannerPage() {
                       plans.map(p => (
                         <div 
                           key={p.id}
-                          className="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-150 group"
+                          className="flex items-center justify-between bg-[#edf1f5] p-2.5 rounded-xl border border-slate-200 group print-card-bg"
                         >
                           <div className="flex items-center gap-3">
                             <span 
@@ -574,7 +582,7 @@ export default function PlannerPage() {
                     events.map(ev => (
                       <div 
                         key={ev.id}
-                        className="bg-white border border-slate-150 p-4 rounded-2xl flex justify-between items-start gap-3 text-left relative group/ev"
+                        className="bg-[#edf1f5] border border-slate-200 p-4 rounded-2xl flex justify-between items-start gap-3 text-left relative group/ev print-card-bg"
                       >
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
