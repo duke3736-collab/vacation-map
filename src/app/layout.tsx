@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
     other: {
-      "naver-site-verification": process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION ? [process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION] : [],
+      "naver-site-verification": ["f06535ad9461630a49f7b3747e10eff57ae550c1"],
     },
   },
 };
