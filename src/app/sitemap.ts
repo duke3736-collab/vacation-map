@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // 실제 서비스 도메인이 확정되면 교체해주세요. (환경변수 권장)
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vacation-map.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vacation.weknews.com";
 
   return [
     {
