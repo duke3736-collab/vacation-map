@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import Sidebar from "@/components/Sidebar";
 import MapClient from "@/components/MapClient";
 import CoupangBanner from "@/components/CoupangBanner";
@@ -43,7 +44,13 @@ export default function MapPage() {
     <div className="fixed inset-0 w-full h-full overflow-hidden bg-blue-50 text-slate-900 pt-16">
       {/* 맵 컨테이너 (가장 아래 깔림) */}
       <div className="absolute inset-0 z-0">
-        <MapClient />
+        <Suspense fallback={
+          <div className="w-full h-full flex items-center justify-center bg-blue-50 text-blue-500 font-bold">
+            <div className="animate-pulse">지도를 불러오는 중입니다...</div>
+          </div>
+        }>
+          <MapClient />
+        </Suspense>
       </div>
 
       {/* 우측 하단 컨트롤러 (루트 레벨 배치로 화면 밀림 및 잘림 현상 방지) */}
