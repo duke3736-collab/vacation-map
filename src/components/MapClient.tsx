@@ -124,9 +124,25 @@ export default function MapClient() {
     }
   }, [focusedPlaceId, filteredPlaces, setCenter, setLevel]);
 
+  if (error) {
+    return (
+      <div className="w-full h-full flex flex-col items-center justify-center bg-blue-50 text-red-500 font-bold p-6 text-center">
+        <span className="material-symbols-outlined text-5xl mb-3 text-red-400">error</span>
+        <div className="text-lg">지도 로드 실패 (Kakao Map Load Error)</div>
+        <div className="text-sm text-slate-500 mt-2 max-w-md leading-relaxed">
+          접속하신 도메인이 카카오 개발자 콘솔에 등록되어 있지 않거나, 앱 키가 유효하지 않을 수 있습니다.
+        </div>
+        <div className="text-xs text-slate-400 mt-3 max-w-md bg-black/5 p-3 rounded-xl text-left font-mono space-y-1">
+          <div>• 도메인: {typeof window !== "undefined" ? window.location.origin : ""}</div>
+          <div className="break-all">• 에러 내용: {error.message || error.toString()}</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
-      {!loading && !error ? (
+      {!loading ? (
         <Map
           center={center}
           level={level}

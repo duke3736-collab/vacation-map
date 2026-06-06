@@ -62,7 +62,7 @@ function imgFallback(e: React.SyntheticEvent<HTMLImageElement>, fallback: string
 export default function PlaceDetailClient({ place, gallery, similarPlaces }: PlaceDetailClientProps) {
   const router = useRouter();
   const [showAllPhotos, setShowAllPhotos] = useState(false);
-  const [mapLoading] = useKakaoLoader({
+  const [mapLoading, mapError] = useKakaoLoader({
     appkey: process.env.NEXT_PUBLIC_KAKAO_APP_KEY || "11032eefd7d0111cb94d93c0ab41eb01",
   });
 
@@ -319,7 +319,16 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
                 위치
               </h2>
               <div className="rounded-xl overflow-hidden border border-gray-200 shadow-sm" style={{ height: 320 }}>
-                {!mapLoading && (
+                {mapError ? (
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-red-50 text-red-500 p-4 text-center">
+                    <span className="material-symbols-outlined text-2xl text-red-400 mb-1">error</span>
+                    <div className="text-sm font-bold">지도 로드 실패</div>
+                    <div className="text-xs text-slate-400 mt-1 leading-normal break-all">
+                      도메인 등록 확인 필요: {typeof window !== "undefined" ? window.location.hostname : ""}<br/>
+                      {mapError.message || mapError.toString()}
+                    </div>
+                  </div>
+                ) : !mapLoading ? (
                   <Map
                     center={{ lat: place.lat, lng: place.lng }}
                     level={4}
@@ -331,6 +340,10 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
                       </div>
                     </MapMarker>
                   </Map>
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-blue-50 text-blue-500 font-bold">
+                    <div className="animate-pulse">지도를 불러오는 중입니다...</div>
+                  </div>
                 )}
               </div>
               <p className="mt-3 text-base font-semibold text-gray-700 flex items-center gap-1.5">
