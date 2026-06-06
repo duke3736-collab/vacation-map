@@ -235,13 +235,13 @@ export default function TalkPage() {
         
         {/* 상단 타이틀 */}
         <div className="text-center flex flex-col items-center gap-3">
-          <span className="inline-block bg-[#e2f0d9]/10 border border-[#e2f0d9]/25 text-[#c5dfb8] text-xs font-black tracking-widest px-4 py-1.5 rounded-full uppercase mb-1 shadow-sm">
+          <span className="inline-block bg-[#e2f0d9]/10 border border-[#e2f0d9]/25 text-[#c5dfb8] text-sm font-black tracking-widest px-4 py-1.5 rounded-full uppercase mb-1 shadow-sm">
             Community Board
           </span>
           <h1 className="text-4xl md:text-5xl font-black text-[#c5dfb8] tracking-tight drop-shadow-md leading-tight mt-1">
             방학 톡톡 💬
           </h1>
-          <p className="text-slate-200 text-sm md:text-base max-w-xl mx-auto break-keep mt-2 opacity-90">
+          <p className="text-slate-200 text-base md:text-base max-w-xl mx-auto break-keep mt-2 opacity-90">
             학부모들의 생생한 체험학습 후기, 꿀팁, 고민거리를 포스트잇으로 붙여보세요! 로그인 없이 익명으로 소통하는 따뜻한 칠판입니다. 📌
           </p>
         </div>
@@ -266,7 +266,7 @@ export default function TalkPage() {
                   maxLength={10}
                   value={nickname}
                   onChange={(e) => setNickname(e.target.value)}
-                  className="w-full bg-white/90 border-0 rounded-xl px-3 py-2 text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-400 placeholder:text-slate-400"
+                  className="w-full bg-white/90 border-0 rounded-xl px-3 py-2 text-base font-semibold outline-none focus:ring-2 focus:ring-emerald-400 placeholder:text-slate-400"
                 />
               </div>
 
@@ -279,7 +279,7 @@ export default function TalkPage() {
                   maxLength={4}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-white/90 border-0 rounded-xl px-3 py-2 text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-400 placeholder:text-slate-400"
+                  className="w-full bg-white/90 border-0 rounded-xl px-3 py-2 text-base font-semibold outline-none focus:ring-2 focus:ring-emerald-400 placeholder:text-slate-400"
                 />
               </div>
 
@@ -292,7 +292,7 @@ export default function TalkPage() {
                   rows={4}
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  className="w-full bg-white/90 border-0 rounded-xl px-3 py-2 text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-400 placeholder:text-slate-400 resize-none"
+                  className="w-full bg-white/90 border-0 rounded-xl px-3 py-2 text-base font-semibold outline-none focus:ring-2 focus:ring-emerald-400 placeholder:text-slate-400 resize-none"
                 />
               </div>
 
@@ -315,7 +315,7 @@ export default function TalkPage() {
               {/* 제출 버튼 */}
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-black text-sm py-3 px-4 rounded-xl shadow-md hover:from-emerald-600 hover:to-teal-600 transition-all flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer mt-4"
+                className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-black text-base py-3 px-4 rounded-xl shadow-md hover:from-emerald-600 hover:to-teal-600 transition-all flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer mt-4"
               >
                 <span>칠판에 붙이기 📌</span>
               </button>
@@ -333,7 +333,7 @@ export default function TalkPage() {
                 <div className="col-span-full py-20 text-center space-y-3 text-slate-400">
                   <span className="material-symbols-outlined text-[64px]">sticky_note_2</span>
                   <p className="font-bold">칠판에 붙은 포스트잇이 없습니다.</p>
-                  <p className="text-xs">첫 번째 소식을 남겨 보세요!</p>
+                  <p className="text-sm">첫 번째 소식을 남겨 보세요!</p>
                 </div>
               ) : (
                 messages.map((msg) => (
@@ -355,7 +355,7 @@ export default function TalkPage() {
                       </div>
 
                       {/* 내용 */}
-                      <p className="text-xs sm:text-sm font-bold leading-relaxed break-all whitespace-pre-wrap line-clamp-6">
+                      <p className="text-sm sm:text-base font-bold leading-relaxed break-all whitespace-pre-wrap line-clamp-6">
                         {msg.content}
                       </p>
                     </div>
@@ -365,7 +365,7 @@ export default function TalkPage() {
                       {/* 공감/좋아요 */}
                       <button
                         onClick={(e) => handleLike(msg.id, e)}
-                        className="flex items-center gap-1.5 text-xs font-black text-rose-600 bg-rose-500/10 px-2.5 py-1.5 rounded-full hover:bg-rose-500/20 active:scale-90 transition-all cursor-pointer"
+                        className="flex items-center gap-1.5 text-sm font-black text-rose-600 bg-rose-500/10 px-2.5 py-1.5 rounded-full hover:bg-rose-500/20 active:scale-90 transition-all cursor-pointer"
                       >
                         <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>
                           favorite
@@ -400,7 +400,7 @@ export default function TalkPage() {
                 <span className="material-symbols-outlined text-[24px]">lightbulb</span>
                 <span>오늘의 핫한 생활 꿀팁 & 혜택 정보 💡</span>
               </h3>
-              <p className="text-slate-200 text-xs md:text-sm mt-1 opacity-90">
+              <p className="text-slate-200 text-sm md:text-base mt-1 opacity-90">
                 정부 지원금 신청 정보부터 실시간 생활 꿀팁까지! 우리 아이에게 꼭 필요한 알찬 정보들을 확인해 보세요.
               </p>
             </div>
@@ -408,7 +408,7 @@ export default function TalkPage() {
               href="https://weknews.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-bold text-[#c5dfb8] hover:text-white bg-white/10 px-4 py-2 rounded-full border border-white/15 hover:bg-white/20 transition-all shrink-0 cursor-pointer flex items-center gap-1"
+              className="text-sm font-bold text-[#c5dfb8] hover:text-white bg-white/10 px-4 py-2 rounded-full border border-white/15 hover:bg-white/20 transition-all shrink-0 cursor-pointer flex items-center gap-1"
             >
               <span>블로그 전체보기</span>
               <span className="material-symbols-outlined text-[14px]">open_in_new</span>
@@ -446,7 +446,7 @@ export default function TalkPage() {
                         (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&auto=format&fit=crop&q=60";
                       }}
                     />
-                    <span className="absolute top-3 left-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-md">
+                    <span className="absolute top-3 left-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs font-black px-2.5 py-1 rounded-full shadow-md">
                       {post.category}
                     </span>
                   </div>
@@ -454,16 +454,16 @@ export default function TalkPage() {
                   {/* 텍스트 영역 */}
                   <div className="flex-1 p-5 flex flex-col justify-between space-y-4 text-left">
                     <div className="space-y-2">
-                      <span className="text-[10px] text-slate-400 font-bold">{post.date}</span>
-                      <h4 className="text-sm md:text-base font-black text-[#c5dfb8] leading-snug line-clamp-2 group-hover:text-white transition-colors">
+                      <span className="text-xs text-slate-400 font-bold">{post.date}</span>
+                      <h4 className="text-base md:text-base font-black text-[#c5dfb8] leading-snug line-clamp-2 group-hover:text-white transition-colors">
                         {post.title}
                       </h4>
-                      <p className="text-xs text-slate-300 leading-relaxed line-clamp-3 opacity-90">
+                      <p className="text-sm text-slate-300 leading-relaxed line-clamp-3 opacity-90">
                         {post.excerpt}
                       </p>
                     </div>
 
-                    <div className="flex items-center text-xs font-bold text-emerald-400 group-hover:text-emerald-300 transition-colors pt-3 border-t border-white/10">
+                    <div className="flex items-center text-sm font-bold text-emerald-400 group-hover:text-emerald-300 transition-colors pt-3 border-t border-white/10">
                       <span>자세히 읽어보기</span>
                       <span className="material-symbols-outlined text-[14px] ml-1 transition-transform group-hover:translate-x-1">
                         arrow_forward_ios
@@ -486,7 +486,7 @@ export default function TalkPage() {
               <span className="material-symbols-outlined text-rose-500">lock</span>
               <span>포스트잇 삭제</span>
             </h4>
-            <p className="text-xs text-slate-500 leading-relaxed mb-4">
+            <p className="text-sm text-slate-500 leading-relaxed mb-4">
               작성 시 설정했던 4자리 비밀번호를 입력해 주세요.
             </p>
             <input
@@ -495,18 +495,18 @@ export default function TalkPage() {
               maxLength={4}
               value={deletePassword}
               onChange={(e) => setDeletePassword(e.target.value)}
-              className="w-full bg-slate-100 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold outline-none focus:ring-2 focus:ring-emerald-400 mb-4"
+              className="w-full bg-slate-100 border border-slate-200 rounded-xl px-4 py-3 text-base font-semibold outline-none focus:ring-2 focus:ring-emerald-400 mb-4"
             />
             <div className="flex gap-3">
               <button
                 onClick={() => setDeleteId(null)}
-                className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-xs py-3 rounded-xl transition-all cursor-pointer"
+                className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-sm py-3 rounded-xl transition-all cursor-pointer"
               >
                 취소
               </button>
               <button
                 onClick={handleDelete}
-                className="flex-1 bg-rose-500 hover:bg-rose-600 text-white font-black text-xs py-3 rounded-xl shadow-md transition-all cursor-pointer active:scale-95"
+                className="flex-1 bg-rose-500 hover:bg-rose-600 text-white font-black text-sm py-3 rounded-xl shadow-md transition-all cursor-pointer active:scale-95"
               >
                 삭제하기 🗑️
               </button>

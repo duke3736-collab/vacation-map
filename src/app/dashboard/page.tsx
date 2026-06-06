@@ -107,7 +107,7 @@ export default function DashboardPage() {
                           <span className="material-symbols-outlined text-[24px] font-[1000]">favorite</span>
                         </button>
                       </div>
-                      <p className="text-sm text-slate-500 font-medium truncate mt-0.5">{place.address}</p>
+                      <p className="text-base text-slate-500 font-medium truncate mt-0.5">{place.address}</p>
                       <div className="mt-2.5 flex items-center gap-2">
                         <button 
                           onClick={(e) => {
@@ -115,7 +115,7 @@ export default function DashboardPage() {
                             addPlaceToSchedule(selectedDay, place.id);
                           }}
                           disabled={schedules[selectedDay]?.includes(place.id)}
-                          className="text-xs font-bold text-white bg-blue-500 border border-blue-600 px-3 py-1.5 rounded-lg hover:bg-blue-600 transition-all flex items-center gap-1 w-fit shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="text-sm font-bold text-white bg-blue-500 border border-blue-600 px-3 py-1.5 rounded-lg hover:bg-blue-600 transition-all flex items-center gap-1 w-fit shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           <span className="material-symbols-outlined text-[14px]">{schedules[selectedDay]?.includes(place.id) ? 'check' : 'add'}</span>
                           {selectedDay}일차 코스에 추가
@@ -126,7 +126,7 @@ export default function DashboardPage() {
                             setPlaceForReport(place);
                             router.push("/report");
                           }}
-                          className="text-xs font-bold text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white transition-all flex items-center gap-1 w-fit shadow-sm"
+                          className="text-sm font-bold text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white transition-all flex items-center gap-1 w-fit shadow-sm"
                         >
                           <span className="material-symbols-outlined text-[14px]">edit_document</span>보고서
                         </button>
@@ -160,7 +160,7 @@ export default function DashboardPage() {
                   <span className="material-symbols-outlined text-blue-500 bg-white p-2.5 rounded-2xl shadow-sm text-2xl md:text-3xl shrink-0">event</span>
                   <div>
                     <h2 className="text-xl md:text-2xl font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">나만의 여행 코스 만들기</h2>
-                    <p className="text-sm font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] mt-1">찜한 장소들을 모아 날짜별 일정을 짜보세요!</p>
+                    <p className="text-base font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] mt-1">찜한 장소들을 모아 날짜별 일정을 짜보세요!</p>
                   </div>
                 </div>
                 <button 
@@ -176,7 +176,7 @@ export default function DashboardPage() {
                   <button
                     key={day}
                     onClick={() => setSelectedDay(day)}
-                    className={`px-5 py-2 rounded-lg font-black text-sm transition-all ${
+                    className={`px-5 py-2 rounded-lg font-black text-base transition-all ${
                       selectedDay === day 
                         ? 'bg-white text-blue-600 shadow-md scale-105' 
                         : 'text-white hover:bg-white/30'
@@ -200,21 +200,21 @@ export default function DashboardPage() {
                     <span className="material-symbols-outlined">close</span>
                   </button>
                 </div>
-                <div className="text-slate-700 font-bold text-sm md:text-base leading-relaxed space-y-3 flex-1 pb-4">
+                <div className="text-slate-700 font-bold text-base md:text-base leading-relaxed space-y-3 flex-1 pb-4">
                   <div className="flex items-start gap-3 bg-blue-50 p-4 rounded-2xl">
-                    <span className="bg-blue-500 text-white w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full shrink-0 mt-0.5 text-sm md:text-base">1</span>
+                    <span className="bg-blue-500 text-white w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full shrink-0 mt-0.5 text-base md:text-base">1</span>
                     <p className="pt-1 md:pt-0.5">상단에서 <strong>1일차, 2일차</strong> 탭을 선택하세요.</p>
                   </div>
                   <div className="flex items-start gap-3 bg-blue-50 p-4 rounded-2xl">
-                    <span className="bg-blue-500 text-white w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full shrink-0 mt-0.5 text-sm md:text-base">2</span>
+                    <span className="bg-blue-500 text-white w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full shrink-0 mt-0.5 text-base md:text-base">2</span>
                     <p className="pt-1 md:pt-0.5">왼쪽 <strong>'저장한 장소'</strong> 카드에서 장소를 찾으세요.</p>
                   </div>
                   <div className="flex items-start gap-3 bg-blue-50 p-4 rounded-2xl">
-                    <span className="bg-blue-500 text-white w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full shrink-0 mt-0.5 text-sm md:text-base">3</span>
+                    <span className="bg-blue-500 text-white w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full shrink-0 mt-0.5 text-base md:text-base">3</span>
                     <p className="pt-1 md:pt-0.5 break-keep">파란색 <strong>[+ N일차 코스에 추가]</strong> 버튼을 누르세요!</p>
                   </div>
                   <div className="flex items-start gap-3 bg-blue-50 p-4 rounded-2xl">
-                    <span className="bg-blue-500 text-white w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full shrink-0 mt-0.5 text-sm md:text-base">4</span>
+                    <span className="bg-blue-500 text-white w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full shrink-0 mt-0.5 text-base md:text-base">4</span>
                     <p className="pt-1 md:pt-0.5">위아래 화살표를 눌러 방문 순서를 바꿀 수 있습니다.</p>
                   </div>
                 </div>
@@ -251,14 +251,14 @@ export default function DashboardPage() {
                       
                       <div className="flex-1 min-w-0">
                         <h4 className="font-bold text-slate-800 truncate">{place.name}</h4>
-                        <p className="text-xs text-slate-500 truncate">{place.category}</p>
+                        <p className="text-sm text-slate-500 truncate">{place.category}</p>
                       </div>
 
                       <button
                         onClick={() => removePlaceFromSchedule(selectedDay, placeId)}
                         className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 hover:bg-rose-100 hover:text-rose-500 transition-colors"
                       >
-                        <span className="material-symbols-outlined text-sm">close</span>
+                        <span className="material-symbols-outlined text-base">close</span>
                       </button>
                     </div>
                   );
@@ -269,7 +269,7 @@ export default function DashboardPage() {
                 <div className="text-5xl mb-1 animate-bounce">💡</div>
                 <div className="space-y-3 px-4">
                   <h3 className="font-black text-blue-800 text-lg">여행 코스 짜는 방법</h3>
-                  <div className="text-slate-600 font-medium text-sm leading-relaxed text-left bg-white p-5 rounded-2xl shadow-sm border border-blue-100 flex flex-col gap-2">
+                  <div className="text-slate-600 font-medium text-base leading-relaxed text-left bg-white p-5 rounded-2xl shadow-sm border border-blue-100 flex flex-col gap-2">
                     <p>1. 상단에서 <strong>1일차, 2일차</strong> 탭을 선택하세요.</p>
                     <p>2. 왼쪽 <strong>'저장한 장소'</strong> 카드에서 장소를 찾으세요.</p>
                     <p>3. 파란색 <strong>[+ {selectedDay}일차 코스에 추가]</strong> 버튼을 누르세요!</p>

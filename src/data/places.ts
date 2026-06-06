@@ -8,6 +8,11 @@ export interface Place {
   lng: number;
   address: string;
   isIndoor?: boolean;
+  hours?: string;
+  fee?: string;
+  phone?: string;
+  age?: string;
+  imageUrl?: string;
 }
 
 export const places: Place[] = [
@@ -20,6 +25,11 @@ export const places: Place[] = [
     lng: 127.0054,
     address: "경기 과천시 상하벌로 110",
     isIndoor: true,
+    hours: "09:30 ~ 17:30 (매주 월요일 휴관)",
+    fee: "대인 4,000원 / 소인 2,000원",
+    phone: "02-3677-1500",
+    age: "5세 ~ 16세",
+    imageUrl: "https://images.unsplash.com/photo-1517976487492-5750f3195933?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "2",
@@ -29,6 +39,11 @@ export const places: Place[] = [
     lng: 126.9804,
     address: "서울 용산구 서빙고로 137",
     isIndoor: true,
+    hours: "10:00 ~ 18:00 (수/토 21:00 야간개장)",
+    fee: "무료 (특별기획전 별도)",
+    phone: "02-2077-9000",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1594191395568-d055106b653d?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "3",
@@ -38,6 +53,11 @@ export const places: Place[] = [
     lng: 126.9378,
     address: "서울 서대문구 연희로32길 51",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "어른 6,000원 / 어린이 2,000원",
+    phone: "02-330-8899",
+    age: "3세 ~ 12세",
+    imageUrl: "https://images.unsplash.com/photo-1519694938892-9e75a9f7a4bc?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "4",
@@ -47,6 +67,11 @@ export const places: Place[] = [
     lng: 126.7417,
     address: "경기 부천시 길주로 1",
     isIndoor: true,
+    hours: "10:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "일반 5,000원 / 가족권(3인) 12,000원",
+    phone: "032-310-3090",
+    age: "5세 ~ 15세",
+    imageUrl: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "5",
@@ -56,6 +81,11 @@ export const places: Place[] = [
     lng: 126.3283,
     address: "제주 서귀포시 안덕면 녹차분재로 218",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (첫번째 월요일 휴관)",
+    fee: "성인 10,000원 / 소인 8,000원",
+    phone: "064-800-2000",
+    age: "6세 ~ 16세",
+    imageUrl: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "6",
@@ -65,6 +95,11 @@ export const places: Place[] = [
     lng: 129.2132,
     address: "부산 기장군 기장읍 과학관로 59",
     isIndoor: true,
+    hours: "09:30 ~ 17:30 (매주 월요일 휴관)",
+    fee: "성인 3,000원 / 청소년 2,000원",
+    phone: "051-750-2300",
+    age: "5세 ~ 15세",
+    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "7",
@@ -74,6 +109,11 @@ export const places: Place[] = [
     lng: 128.4164,
     address: "대구 달성군 유가읍 테크노대로6길 20",
     isIndoor: true,
+    hours: "09:30 ~ 17:30 (매주 월요일 휴관)",
+    fee: "성인 3,000원 / 영유아 무료",
+    phone: "053-670-6114",
+    age: "5세 ~ 15세",
+    imageUrl: "https://images.unsplash.com/photo-1495592822108-9e6261896da8?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "8",
@@ -83,6 +123,11 @@ export const places: Place[] = [
     lng: 126.8437,
     address: "광주 북구 첨단과기로 235",
     isIndoor: true,
+    hours: "09:30 ~ 17:30 (매주 월요일 휴관)",
+    fee: "대인 3,000원 / 청소년 2,000원",
+    phone: "062-960-6210",
+    age: "5세 ~ 15세",
+    imageUrl: "https://images.unsplash.com/photo-1581093577421-f561a654a353?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "9",
@@ -92,6 +137,11 @@ export const places: Place[] = [
     lng: 129.3402,
     address: "강원 삼척시 원덕읍 임원항구로 11",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "무료 입장",
+    phone: "033-570-3545",
+    age: "3세 ~ 9세",
+    imageUrl: "https://images.unsplash.com/photo-1519974719765-e6559eac2575?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "10",
@@ -101,6 +151,11 @@ export const places: Place[] = [
     lng: 126.8015,
     address: "서울 강서구 하늘길 177",
     isIndoor: true,
+    hours: "10:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "박물관 무료 (시뮬레이터 체험 유료)",
+    phone: "02-6940-3000",
+    age: "6세 이상",
+    imageUrl: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "11",
@@ -110,6 +165,11 @@ export const places: Place[] = [
     lng: 127.2974,
     address: "경기 광주시 곤지암읍 경충대로 727",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "성인 3,000원 / 초등학생 무료",
+    phone: "031-799-1500",
+    age: "7세 이상",
+    imageUrl: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "12",
@@ -119,6 +179,11 @@ export const places: Place[] = [
     lng: 126.3533,
     address: "제주 서귀포시 안덕면 한창로 340",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (연중무휴)",
+    fee: "성인 14,000원 / 소인 11,000원",
+    phone: "064-792-6114",
+    age: "3세 ~ 10세",
+    imageUrl: "https://images.unsplash.com/photo-1618172193763-c511deb635ca?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "13",
@@ -128,6 +193,11 @@ export const places: Place[] = [
     lng: 128.1408,
     address: "경남 고성군 하이면 자란만로 618",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "어른 3,000원 / 어린이 1,500원",
+    phone: "055-670-4451",
+    age: "4세 ~ 12세",
+    imageUrl: "https://images.unsplash.com/photo-1519694938892-9e75a9f7a4bc?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "14",
@@ -137,6 +207,11 @@ export const places: Place[] = [
     lng: 129.0801,
     address: "부산 영도구 해양로301번길 45",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "무료 (4D 영상관 유료)",
+    phone: "051-309-1900",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1503503330641-40ac8be7cf0b?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "15",
@@ -146,6 +221,11 @@ export const places: Place[] = [
     lng: 126.9472,
     address: "경기 의왕시 철도박물관로 142",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "성인 2,000원 / 아동 1,000원",
+    phone: "031-461-3610",
+    age: "4세 ~ 12세",
+    imageUrl: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "16",
@@ -155,6 +235,11 @@ export const places: Place[] = [
     lng: 126.4302,
     address: "전남 목포시 남농로 135",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "어른 3,000원 / 초등학생 1,000원",
+    phone: "061-270-4101",
+    age: "5세 ~ 13세",
+    imageUrl: "https://images.unsplash.com/photo-1550159930-40066082a4fc?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "17",
@@ -164,6 +249,11 @@ export const places: Place[] = [
     lng: 126.9822,
     address: "서울 중구 남대문로 104",
     isIndoor: true,
+    hours: "10:00 ~ 17:00 (매주 일요일/공휴일 휴관)",
+    fee: "무료 입장",
+    phone: "02-2151-3114",
+    age: "초등학생 이상",
+    imageUrl: "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "18",
@@ -173,6 +263,11 @@ export const places: Place[] = [
     lng: 127.3488,
     address: "전남 보성군 벌교읍 홍암로 89-19",
     isIndoor: true,
+    hours: "09:00 ~ 17:00 (매주 월요일 휴관)",
+    fee: "어른 2,000원 / 청소년 1,500원",
+    phone: "061-850-8653",
+    age: "초등학생 이상",
+    imageUrl: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "19",
@@ -182,6 +277,11 @@ export const places: Place[] = [
     lng: 127.1522,
     address: "전북 전주시 완산구 한지길 100",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "무료 (체험비 별도)",
+    phone: "063-281-2917",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "20",
@@ -191,6 +291,11 @@ export const places: Place[] = [
     lng: 129.2274,
     address: "경북 경주시 일정로 186",
     isIndoor: true,
+    hours: "10:00 ~ 18:00 (토요일 야간 21:00)",
+    fee: "무료 입장",
+    phone: "054-740-0600",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1609780447631-05b93e5a88ea?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "21",
@@ -200,6 +305,11 @@ export const places: Place[] = [
     lng: 127.1122,
     address: "충남 공주시 관광단지길 34",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "무료 입장",
+    phone: "041-850-6300",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1509726578-de563b39faad?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "22",
@@ -209,6 +319,11 @@ export const places: Place[] = [
     lng: 126.9185,
     address: "충남 부여군 부여읍 금성로 5",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "무료 입장",
+    phone: "041-833-8507",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "23",
@@ -218,6 +333,11 @@ export const places: Place[] = [
     lng: 128.0778,
     address: "경남 진주시 남강로 626-35",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "무료 입장",
+    phone: "055-742-5951",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "24",
@@ -227,6 +347,11 @@ export const places: Place[] = [
     lng: 126.9715,
     address: "서울 종로구 새문안로 55",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "무료 입장",
+    phone: "02-724-0274",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "25",
@@ -236,6 +361,11 @@ export const places: Place[] = [
     lng: 127.1235,
     address: "서울 송파구 위례성대로 71",
     isIndoor: true,
+    hours: "09:00 ~ 19:00 (매주 월요일 휴관)",
+    fee: "무료 입장",
+    phone: "02-2152-5800",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1597476978603-0ff43c6f1b27?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "26",
@@ -245,6 +375,11 @@ export const places: Place[] = [
     lng: 126.8622,
     address: "경기 고양시 덕양구 고양대로 1695",
     isIndoor: true,
+    hours: "09:30 ~ 17:30 (매주 월요일 휴관)",
+    fee: "무료 입장",
+    phone: "031-8075-4274",
+    age: "5세 ~ 12세",
+    imageUrl: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "27",
@@ -254,6 +389,11 @@ export const places: Place[] = [
     lng: 127.7478,
     address: "강원 춘천시 우석로 70",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "무료 입장",
+    phone: "033-260-1500",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "28",
@@ -263,6 +403,11 @@ export const places: Place[] = [
     lng: 126.9792,
     address: "서울 종로구 삼청로 37",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (연중무휴)",
+    fee: "무료 입장",
+    phone: "02-3704-3114",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1626623768097-dd2dbbdc6da8?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "29",
@@ -272,6 +417,11 @@ export const places: Place[] = [
     lng: 126.7622,
     address: "경기 화성시 송산면 공룡로 659",
     isIndoor: true,
+    hours: "09:00 ~ 17:00 (매주 월요일 휴관)",
+    fee: "무료 입장",
+    phone: "031-357-3951",
+    age: "5세 ~ 13세",
+    imageUrl: "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=500&auto=format&fit=crop&q=60"
   },
 
   // 2. 체험학습 (Amusement parks, aquariums, gardens, animal farms)
@@ -283,6 +433,11 @@ export const places: Place[] = [
     lng: 127.0982,
     address: "서울 송파구 올림픽로 240",
     isIndoor: true,
+    hours: "1부 10:00~15:00 / 2부 15:00~19:30",
+    fee: "어린이 반일권 45,000원 / 성인 20,000원",
+    phone: "1544-5110",
+    age: "4세 ~ 14세",
+    imageUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "31",
@@ -292,6 +447,11 @@ export const places: Place[] = [
     lng: 127.2026,
     address: "경기 용인시 처인구 포곡읍 에버랜드로 199",
     isIndoor: false,
+    hours: "10:00 ~ 22:00 (시즌별 변동)",
+    fee: "종일권 성인 52,000원~ / 어린이 42,000원~",
+    phone: "031-320-5000",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "32",
@@ -301,6 +461,11 @@ export const places: Place[] = [
     lng: 127.0169,
     address: "경기 과천시 대공원광장로 102",
     isIndoor: false,
+    hours: "09:00 ~ 18:00 (동절기 17:00)",
+    fee: "동물원 어른 5,000원 / 어린이 2,000원",
+    phone: "02-500-7335",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "33",
@@ -310,6 +475,11 @@ export const places: Place[] = [
     lng: 126.8659,
     address: "경기 광명시 가학로85번길 142",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴무)",
+    fee: "어른 6,000원 / 청소년 3,500원 / 어린이 2,000원",
+    phone: "1688-3399",
+    age: "4세 ~ 13세",
+    imageUrl: "https://images.unsplash.com/photo-1507163879411-5e92ac7f8588?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "34",
@@ -319,6 +489,11 @@ export const places: Place[] = [
     lng: 126.7554,
     address: "경기 고양시 일산서구 한류월드로 282",
     isIndoor: true,
+    hours: "10:00 ~ 19:00 (입장마감 18:00)",
+    fee: "일반 31,000원 (온라인 예매 권장)",
+    phone: "1833-7001",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "35",
@@ -328,6 +503,11 @@ export const places: Place[] = [
     lng: 127.7011,
     address: "강원 춘천시 하중도길 128",
     isIndoor: false,
+    hours: "10:00 ~ 18:00 (주중 17:00 마감)",
+    fee: "1일 이용권 대인 50,000원~ / 소인 40,000원~",
+    phone: "033-815-2300",
+    age: "3세 ~ 12세",
+    imageUrl: "https://images.unsplash.com/photo-1560273832-8654-51ab2ae6c4ff?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "36",
@@ -337,6 +517,11 @@ export const places: Place[] = [
     lng: 127.1172,
     address: "경기 용인시 기흥구 민속촌로 90",
     isIndoor: false,
+    hours: "10:00 ~ 19:00 (주말 야간 21:30)",
+    fee: "입장권 대인 32,000원 / 청소년 25,000원",
+    phone: "031-288-0205",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "37",
@@ -346,6 +531,11 @@ export const places: Place[] = [
     lng: 128.7188,
     address: "강원 평창군 대관령면 꽃밭양지길 458-23",
     isIndoor: false,
+    hours: "09:00 ~ 18:00 (매일 운영)",
+    fee: "대인 8,000원 / 소인 6,000원",
+    phone: "033-332-8061",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "38",
@@ -355,6 +545,11 @@ export const places: Place[] = [
     lng: 129.1302,
     address: "부산 해운대구 센텀4로 15",
     isIndoor: true,
+    hours: "1부 10:00~15:00 / 2부 15:00~19:30",
+    fee: "어린이 반일권 45,000원 / 성인 20,000원",
+    phone: "1544-5110",
+    age: "4세 ~ 14세",
+    imageUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "39",
@@ -364,6 +559,11 @@ export const places: Place[] = [
     lng: 126.9278,
     address: "제주 서귀포시 성산읍 섭지코지로 95",
     isIndoor: true,
+    hours: "09:30 ~ 19:00 (입장마감 18:30)",
+    fee: "풀패키지 대인 41,000원 / 소인 37,000원",
+    phone: "1833-7001",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "40",
@@ -373,6 +573,11 @@ export const places: Place[] = [
     lng: 127.1025,
     address: "서울 송파구 올림픽로 300",
     isIndoor: true,
+    hours: "10:30 ~ 22:00 (금/토 23:00)",
+    fee: "대인 27,000원 / 소인 24,000원",
+    phone: "02-1661-2000",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "41",
@@ -382,6 +587,11 @@ export const places: Place[] = [
     lng: 127.7492,
     address: "전남 여수시 오동도로 61-11",
     isIndoor: true,
+    hours: "09:30 ~ 19:00 (연중무휴)",
+    fee: "대인 32,000원 / 소인 28,000원",
+    phone: "1833-7001",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1546026423-cc4642628d2b?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "42",
@@ -391,6 +601,11 @@ export const places: Place[] = [
     lng: 126.3702,
     address: "제주 서귀포시 안덕면 병악로 269",
     isIndoor: true,
+    hours: "10:00 ~ 18:00 (연중무휴)",
+    fee: "타요 자유이용권 40,000원 (어린이)",
+    phone: "064-792-8888",
+    age: "2세 ~ 9세",
+    imageUrl: "https://images.unsplash.com/photo-1602738328654-51ab2ae6c4ff?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "43",
@@ -400,6 +615,11 @@ export const places: Place[] = [
     lng: 127.1522,
     address: "경기 안성시 공도읍 대신두길 28",
     isIndoor: false,
+    hours: "10:00 ~ 18:00 (주말 09:00 오픈)",
+    fee: "대인 12,000원 / 소인 10,000원",
+    phone: "031-692-4567",
+    age: "3세 ~ 12세",
+    imageUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "44",
@@ -409,6 +629,11 @@ export const places: Place[] = [
     lng: 127.5108,
     address: "경기 양평군 양평읍 경강로 1704",
     isIndoor: false,
+    hours: "09:30 ~ 18:00 (연중무휴)",
+    fee: "어른 8,000원 / 소인 5,000원",
+    phone: "031-772-1800",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "45",
@@ -418,6 +643,11 @@ export const places: Place[] = [
     lng: 127.4902,
     address: "경기 가평군 청평면 호반로 1063",
     isIndoor: false,
+    hours: "09:00 ~ 18:00 (연중무휴)",
+    fee: "통합대인 16,000원 / 통합소인 12,000원",
+    phone: "031-584-8200",
+    age: "4세 이상",
+    imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "46",
@@ -427,6 +657,11 @@ export const places: Place[] = [
     lng: 126.7122,
     address: "충남 서천군 마서면 금강로 1210",
     isIndoor: false,
+    hours: "09:30 ~ 18:00 (매주 월요일 휴관)",
+    fee: "대인 5,000원 / 청소년 3,000원",
+    phone: "041-950-5300",
+    age: "5세 ~ 15세",
+    imageUrl: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "47",
@@ -436,6 +671,11 @@ export const places: Place[] = [
     lng: 127.5085,
     address: "전남 순천시 순천만길 513",
     isIndoor: false,
+    hours: "08:00 ~ 일몰시까지 (연중무휴)",
+    fee: "성인 8,000원 / 청소년 6,000원",
+    phone: "061-749-6052",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "48",
@@ -445,6 +685,11 @@ export const places: Place[] = [
     lng: 128.5285,
     address: "강원 속초시 바람꽃마을길 164",
     isIndoor: false,
+    hours: "09:00 ~ 18:00 (연중무휴)",
+    fee: "무료 입장",
+    phone: "033-639-2928",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1463936575829-25148e1db1b8?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "49",
@@ -454,6 +699,11 @@ export const places: Place[] = [
     lng: 127.2922,
     address: "경기 광주시 도척면 도척윗로 278-1",
     isIndoor: false,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴원)",
+    fee: "입장권 10,000원 (사전예약 필수)",
+    phone: "031-8026-6666",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "50",
@@ -463,6 +713,11 @@ export const places: Place[] = [
     lng: 127.5255,
     address: "강원 춘천시 남산면 남이섬길 1",
     isIndoor: false,
+    hours: "08:00 ~ 21:00 (연중무휴)",
+    fee: "일반 16,000원 / 중고생 13,000원",
+    phone: "031-580-8114",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "51",
@@ -472,6 +727,11 @@ export const places: Place[] = [
     lng: 128.6022,
     address: "대구 달성군 가창면 가창로 1003",
     isIndoor: false,
+    hours: "10:00 ~ 18:00 (매주 월/화 휴무)",
+    fee: "자유이용권 대인 18,000원 / 소인 16,000원",
+    phone: "1688-8511",
+    age: "3세 ~ 12세",
+    imageUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "52",
@@ -481,6 +741,11 @@ export const places: Place[] = [
     lng: 126.8322,
     address: "경기 고양시 덕양구 화중로 26",
     isIndoor: true,
+    hours: "10:00 ~ 17:30 (매주 월요일 휴관)",
+    fee: "개인 5,000원 (사전예약)",
+    phone: "031-839-0300",
+    age: "3세 ~ 10세",
+    imageUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "53",
@@ -490,6 +755,11 @@ export const places: Place[] = [
     lng: 128.8322,
     address: "경북 봉화군 춘양면 서벽리 520-9",
     isIndoor: false,
+    hours: "09:00 ~ 18:00 (월요일 휴원)",
+    fee: "성인 5,000원 / 청소년 4,000원",
+    phone: "054-789-4000",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "54",
@@ -499,6 +769,11 @@ export const places: Place[] = [
     lng: 129.3015,
     address: "울산 중구 태화강국가정원길 154",
     isIndoor: false,
+    hours: "24시간 운영 (일부 전시관 제외)",
+    fee: "무료 입장",
+    phone: "052-229-3147",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "55",
@@ -508,6 +783,11 @@ export const places: Place[] = [
     lng: 126.8122,
     address: "경기 부천시 길주로 660",
     isIndoor: false,
+    hours: "09:00 ~ 18:00 (월요일 휴원)",
+    fee: "통합권 어른 5,000원 / 아동 2,500원",
+    phone: "032-625-3500",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "56",
@@ -517,6 +797,11 @@ export const places: Place[] = [
     lng: 127.1822,
     address: "경기 포천시 신북면 청신로947번길 35",
     isIndoor: false,
+    hours: "10:00 ~ 22:00 (매주 수요일 휴무)",
+    fee: "일반 9,000원 / 소인 7,000원",
+    phone: "031-535-6494",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "57",
@@ -526,6 +811,11 @@ export const places: Place[] = [
     lng: 127.7122,
     address: "경기 양평군 용문면 은고개길 112",
     isIndoor: false,
+    hours: "09:30 ~ 18:00 (매주 화요일 휴무)",
+    fee: "입장료 6,000원 (건초 먹이 포함)",
+    phone: "031-774-3258",
+    age: "3세 ~ 12세",
+    imageUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "58",
@@ -535,6 +825,11 @@ export const places: Place[] = [
     lng: 127.8115,
     address: "강원 춘천시 신북읍 배후령로 78",
     isIndoor: false,
+    hours: "09:00 ~ 18:00 (연중무휴)",
+    fee: "무료 입장 (체험 패키지 유료)",
+    phone: "033-930-0500",
+    age: "7세 이상",
+    imageUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "59",
@@ -544,6 +839,11 @@ export const places: Place[] = [
     lng: 127.2942,
     address: "경기 광주시 도척면 도척윗로 278",
     isIndoor: false,
+    hours: "10:00 ~ 18:00 (주말 19:00 오픈)",
+    fee: "1회탑승 16,000원 / 2회 27,000원",
+    phone: "031-8026-5070",
+    age: "6세 이상 (단독탑승 키 120cm 이상)",
+    imageUrl: "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "60",
@@ -553,6 +853,11 @@ export const places: Place[] = [
     lng: 127.6622,
     address: "전남 여수시 소라면 안심산길 155",
     isIndoor: false,
+    hours: "10:00 ~ 19:00 (성수기 변동)",
+    fee: "루지 3회권 29,900원",
+    phone: "061-810-3000",
+    age: "5세 이상",
+    imageUrl: "https://images.unsplash.com/photo-1595275313337-562a1293a71b?w=500&auto=format&fit=crop&q=60"
   },
 
   // 3. 축제 (Annual Festivals)
@@ -564,6 +869,11 @@ export const places: Place[] = [
     lng: 126.5169,
     address: "충남 보령시 대천해수욕장 머드광장",
     isIndoor: false,
+    hours: "7~8월 개최 · 10:00 ~ 18:00",
+    fee: "일반 12,000원 / 청소년 10,000원",
+    phone: "041-930-0891",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "62",
@@ -573,6 +883,11 @@ export const places: Place[] = [
     lng: 127.6974,
     address: "강원 화천군 화천천 일원",
     isIndoor: false,
+    hours: "1월 개최 · 09:00 ~ 18:00",
+    fee: "얼음낚시 체험료 15,000원",
+    phone: "1688-3005",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1472653431158-6364773b2a56?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "63",
@@ -582,6 +897,11 @@ export const places: Place[] = [
     lng: 128.0818,
     address: "경남 진주시 남강로 626",
     isIndoor: false,
+    hours: "10월 개최 · 13:00 ~ 23:00",
+    fee: "무료 입장 (유료 체험 별도)",
+    phone: "055-755-9111",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "64",
@@ -591,6 +911,11 @@ export const places: Place[] = [
     lng: 127.5255,
     address: "경기 가평군 가평읍 자라섬로 60",
     isIndoor: false,
+    hours: "10월 개최 · 축제 기간 상시 운영",
+    fee: "일반 티켓 50,000원~",
+    phone: "031-581-2814",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "65",
@@ -600,6 +925,11 @@ export const places: Place[] = [
     lng: 127.5029,
     address: "전남 순천시 국가정원1호길 47",
     isIndoor: false,
+    hours: "09:00 ~ 21:00 (정기 개최 기간)",
+    fee: "성인 15,000원 / 청소년 12,000원",
+    phone: "061-749-8000",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "66",
@@ -609,6 +939,11 @@ export const places: Place[] = [
     lng: 129.1604,
     address: "부산 해운대구 우동 해운대해수욕장",
     isIndoor: false,
+    hours: "5월 개최 · 10:00 ~ 21:00",
+    fee: "무료 관람",
+    phone: "051-749-4000",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "67",
@@ -618,24 +953,11 @@ export const places: Place[] = [
     lng: 128.7077,
     address: "경북 안동시 육사로 239",
     isIndoor: false,
-  },
-  {
-    id: "68",
-    name: "함평나비대축제",
-    category: "축제",
-    lat: 35.0645,
-    lng: 126.5208,
-    address: "전남 함평군 함평읍 곤재로 27",
-    isIndoor: false,
-  },
-  {
-    id: "69",
-    name: "청도반시축제",
-    category: "축제",
-    lat: 35.6515,
-    lng: 128.7302,
-    address: "경북 청도군 화양읍 청려로 1846",
-    isIndoor: false,
+    hours: "9~10월 개최 · 10:00 ~ 22:00",
+    fee: "탈춤 공연 입장료 7,000원",
+    phone: "054-841-6397",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "70",
@@ -645,15 +967,11 @@ export const places: Place[] = [
     lng: 127.4885,
     address: "충남 금산군 금산읍 인삼광장로 30",
     isIndoor: false,
-  },
-  {
-    id: "71",
-    name: "완주와일드푸드축제",
-    category: "축제",
-    lat: 36.0028,
-    lng: 127.2215,
-    address: "전북 완주군 고산면 고산휴양림로 246",
-    isIndoor: false,
+    hours: "9~10월 개최 · 10:00 ~ 21:00",
+    fee: "무료 관람 (체험비 별도)",
+    phone: "041-750-2411",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1472653431158-6364773b2a56?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "72",
@@ -663,6 +981,11 @@ export const places: Place[] = [
     lng: 128.9185,
     address: "강원 강릉시 난설헌로 131",
     isIndoor: false,
+    hours: "10월 개최 · 10:00 ~ 19:00",
+    fee: "무료 입장 (시음 및 푸드 유료)",
+    phone: "033-647-6802",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "73",
@@ -672,6 +995,11 @@ export const places: Place[] = [
     lng: 126.3522,
     address: "제주 제주시 애월읍 평화로 1529",
     isIndoor: false,
+    hours: "3월 개최 · 축제 기간 상시 운영",
+    fee: "무료 입장",
+    phone: "064-728-2752",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "74",
@@ -681,6 +1009,11 @@ export const places: Place[] = [
     lng: 127.7022,
     address: "전남 광양시 다압면 지막길 86",
     isIndoor: false,
+    hours: "3월 개최 · 상시 개방",
+    fee: "무료 입장 (주차비 유료)",
+    phone: "061-797-2721",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "75",
@@ -690,6 +1023,11 @@ export const places: Place[] = [
     lng: 127.4608,
     address: "전남 구례군 산동면 상관1길 45",
     isIndoor: false,
+    hours: "3월 개최 · 상시 개방",
+    fee: "무료 입장",
+    phone: "061-780-2726",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
   },
 
   // 4. 1달 살기 (Month-long Family stays)
@@ -701,6 +1039,11 @@ export const places: Place[] = [
     lng: 126.3204,
     address: "제주 제주시 애월읍 애월해안로",
     isIndoor: true,
+    hours: "입실 15:00 / 퇴실 11:00",
+    fee: "한달 장기 숙박 요금 별도 문의",
+    phone: "064-799-0001",
+    age: "전연령 (가족 최적)",
+    imageUrl: "https://images.unsplash.com/photo-1582719478250-c89cae4db85b?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "77",
@@ -710,6 +1053,11 @@ export const places: Place[] = [
     lng: 128.5634,
     address: "강원 고성군 토성면 토성로",
     isIndoor: true,
+    hours: "체크인 15:00 / 체크아웃 11:00",
+    fee: "한달 살기 요금 협의",
+    phone: "033-631-0002",
+    age: "2세 ~ 10세 동반 가족",
+    imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "78",
@@ -719,6 +1067,11 @@ export const places: Place[] = [
     lng: 129.2778,
     address: "경북 경주시 보문로",
     isIndoor: true,
+    hours: "체크인 15:00 / 체크아웃 11:00",
+    fee: "장기 숙박 할인 프로모션 적용",
+    phone: "054-772-0003",
+    age: "전연령 (조부모 동반 가족 추천)",
+    imageUrl: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "79",
@@ -728,6 +1081,11 @@ export const places: Place[] = [
     lng: 128.0322,
     address: "경남 남해군 삼동면 독일로",
     isIndoor: true,
+    hours: "체크인 15:00 / 체크아웃 11:00",
+    fee: "오션뷰 객실 장기 투숙가 문의",
+    phone: "055-867-0004",
+    age: "전연령 (힐링 여행 추천)",
+    imageUrl: "https://images.unsplash.com/photo-1582719478250-c89cae4db85b?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "80",
@@ -737,96 +1095,11 @@ export const places: Place[] = [
     lng: 127.7408,
     address: "전남 여수시 시청로",
     isIndoor: true,
-  },
-  {
-    id: "81",
-    name: "강원 평창 알프스 해피 포레스트",
-    category: "1달 살기",
-    lat: 37.6625,
-    lng: 128.6922,
-    address: "강원 평창군 대관령면 솔봉로",
-    isIndoor: true,
-  },
-  {
-    id: "82",
-    name: "충남 태안 안면도 키즈 펜션 타운",
-    category: "1달 살기",
-    lat: 36.4258,
-    lng: 126.3502,
-    address: "충남 태안군 안면읍 해안관광로",
-    isIndoor: true,
-  },
-  {
-    id: "83",
-    name: "제주 조천읍 스위스마을 키즈룸",
-    category: "1달 살기",
-    lat: 33.5115,
-    lng: 126.6622,
-    address: "제주 제주시 조천읍 함와로",
-    isIndoor: true,
-  },
-  {
-    id: "84",
-    name: "경남 거제도 몽돌 해변 패밀리 하우스",
-    category: "1달 살기",
-    lat: 34.7925,
-    lng: 128.6185,
-    address: "경남 거제시 동부면 거제대로",
-    isIndoor: true,
-  },
-  {
-    id: "85",
-    name: "강원 양양 라이프서핑 비치타운",
-    category: "1달 살기",
-    lat: 37.9715,
-    lng: 128.7622,
-    address: "강원 양양군 현남면 인구길",
-    isIndoor: true,
-  },
-  {
-    id: "86",
-    name: "부산 송정 해수욕장 키즈 빌리지",
-    category: "1달 살기",
-    lat: 35.1788,
-    lng: 129.2015,
-    address: "부산 해운대구 송정해변로",
-    isIndoor: true,
-  },
-  {
-    id: "87",
-    name: "충북 단양 남한강 뷰 가족 한옥 독채",
-    category: "1달 살기",
-    lat: 36.9835,
-    lng: 128.3685,
-    address: "충북 단양군 단양읍 삼봉로",
-    isIndoor: true,
-  },
-  {
-    id: "88",
-    name: "전북 전주 한옥마을 한 달 살기 가옥",
-    category: "1달 살기",
-    lat: 35.8145,
-    lng: 127.1508,
-    address: "전북 전주시 완산구 은행로",
-    isIndoor: true,
-  },
-  {
-    id: "89",
-    name: "전남 완도 슬로시티 가족 펜션",
-    category: "1달 살기",
-    lat: 34.3415,
-    lng: 126.7022,
-    address: "전남 완도군 군외면 청해진서로",
-    isIndoor: true,
-  },
-  {
-    id: "90",
-    name: "제주 서귀포 중문 가족 독채 스테이",
-    category: "1달 살기",
-    lat: 33.2458,
-    lng: 126.4122,
-    address: "제주 서귀포시 중문관광로",
-    isIndoor: true,
+    hours: "24시간 로비 운영 (체크인 15:00)",
+    fee: "패밀리룸 장기 정액제 별도 문의",
+    phone: "061-681-0005",
+    age: "전연령 (아동 동반 특화)",
+    imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=500&auto=format&fit=crop&q=60"
   },
 
   // 5. 색다른 경험 (Unique Adventures & Transport)
@@ -838,6 +1111,11 @@ export const places: Place[] = [
     lng: 127.5255,
     address: "경기 가평군 가평읍 북한강변로 1024",
     isIndoor: false,
+    hours: "09:00 ~ 18:00 (기상 조건에 따라 변동)",
+    fee: "이용료 49,000원 (남이섬 입장료 포함)",
+    phone: "031-582-8091",
+    age: "체중 35kg ~ 120kg 탑승 가능",
+    imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "92",
@@ -847,6 +1125,11 @@ export const places: Place[] = [
     lng: 126.5135,
     address: "충남 보령시 해수욕장10길 79",
     isIndoor: false,
+    hours: "10:00 ~ 18:00 (대기 번호 마감 주의)",
+    fee: "일반 바이크(4인승) 30,000원",
+    phone: "041-931-1180",
+    age: "아동 동반 탑승 가능 (보호자 페달)",
+    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "93",
@@ -856,6 +1139,11 @@ export const places: Place[] = [
     lng: 126.5678,
     address: "인천 중구 구읍로 75",
     isIndoor: false,
+    hours: "09:00 ~ 18:00 (주중/주말 공통)",
+    fee: "2인승 25,000원 / 4인승 32,000원",
+    phone: "032-719-7778",
+    age: "전연령 (영유아 보호자 동반 필수)",
+    imageUrl: "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "94",
@@ -865,6 +1153,11 @@ export const places: Place[] = [
     lng: 128.3904,
     address: "충북 단양군 가곡면 두산길 196-86",
     isIndoor: false,
+    hours: "08:30 ~ 18:30 (예약제 운영)",
+    fee: "체험비 80,000원~ (코스별 상이)",
+    phone: "043-422-9900",
+    age: "6세 이상 (성인 보호자 필요)",
+    imageUrl: "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "95",
@@ -874,6 +1167,11 @@ export const places: Place[] = [
     lng: 128.4069,
     address: "경남 통영시 발개로 178",
     isIndoor: false,
+    hours: "10:00 ~ 18:00 (주말 19:00 마감)",
+    fee: "루지 3회권 30,000원 / 어린이 동반권 12,000원",
+    phone: "1522-8889",
+    age: "신장 110cm 이상 단독 탑승 가능",
+    imageUrl: "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "96",
@@ -883,123 +1181,11 @@ export const places: Place[] = [
     lng: 130.7988,
     address: "경북 울릉군 서면 태하길 236",
     isIndoor: false,
-  },
-  {
-    id: "97",
-    name: "가평 레일파크",
-    category: "색다른 경험",
-    lat: 37.8305,
-    lng: 127.5108,
-    address: "경기 가평군 가평읍 장터길 14",
-    isIndoor: false,
-  },
-  {
-    id: "98",
-    name: "춘천 강촌레일파크",
-    category: "색다른 경험",
-    lat: 37.8189,
-    lng: 127.7142,
-    address: "강원 춘천시 신동면 김유정로 1383",
-    isIndoor: false,
-  },
-  {
-    id: "99",
-    name: "삼척 해양레일바이크",
-    category: "색다른 경험",
-    lat: 37.3185,
-    lng: 129.2315,
-    address: "강원 삼척시 근덕면 공양왕길 2",
-    isIndoor: false,
-  },
-  {
-    id: "100",
-    name: "여수 해상케이블카",
-    category: "색다른 경험",
-    lat: 34.7295,
-    lng: 127.7508,
-    address: "전남 여수시 돌산읍 돌산로 3600-1",
-    isIndoor: false,
-  },
-  {
-    id: "101",
-    name: "부산 송도 해상케이블카",
-    category: "색다른 경험",
-    lat: 35.0758,
-    lng: 129.0208,
-    address: "부산 서구 송도해변로 171",
-    isIndoor: false,
-  },
-  {
-    id: "102",
-    name: "사천 바다케이블카",
-    category: "색다른 경험",
-    lat: 34.9288,
-    lng: 128.0288,
-    address: "경남 사천시 사천대로 18",
-    isIndoor: false,
-  },
-  {
-    id: "103",
-    name: "정선 짚와이어",
-    category: "색다른 경험",
-    lat: 37.3825,
-    lng: 128.6508,
-    address: "강원 정선군 정선읍 병방치길 235",
-    isIndoor: false,
-  },
-  {
-    id: "104",
-    name: "제주 레일바이크",
-    category: "색다른 경험",
-    lat: 33.4615,
-    lng: 126.8322,
-    address: "제주 제주시 구좌읍 용눈이오름로 641",
-    isIndoor: false,
-  },
-  {
-    id: "105",
-    name: "하동 알프스 레일바이크",
-    category: "색다른 경험",
-    lat: 35.0815,
-    lng: 127.8508,
-    address: "경남 하동군 양보면 그림길 13-1",
-    isIndoor: false,
-  },
-  {
-    id: "106",
-    name: "춘천 소양강 스카이워크",
-    category: "색다른 경험",
-    lat: 37.8935,
-    lng: 127.7215,
-    address: "강원 춘천시 영서로 2663",
-    isIndoor: false,
-  },
-  {
-    id: "107",
-    name: "단양 만천하스카이워크",
-    category: "색다른 경험",
-    lat: 36.9712,
-    lng: 128.3415,
-    address: "충북 단양군 적성면 옷바위길 10",
-    isIndoor: false,
-  },
-  {
-    id: "108",
-    name: "울릉도 관음도 보행교",
-    category: "색다른 경험",
-    lat: 37.5255,
-    lng: 130.9208,
-    address: "경북 울릉군 북면 천부리",
-    isIndoor: false,
-  },
-  {
-    id: "109",
-    name: "완주 대둔산 구름다리",
-    category: "색다른 경험",
-    lat: 36.1215,
-    lng: 127.3215,
-    address: "전북 완주군 운주면 산북리",
-    isIndoor: false,
+    hours: "09:00 ~ 18:00 (정시 출발)",
+    fee: "어른 4,000원 / 어린이 2,000원",
+    phone: "054-791-6638",
+    age: "전연령 탑승 가능",
+    imageUrl: "https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=500&auto=format&fit=crop&q=60"
   },
 
   // 6. 학원 및 캠프 (Camps & Specialized Education)
@@ -1011,6 +1197,11 @@ export const places: Place[] = [
     lng: 126.6967,
     address: "경기 파주시 탄현면 얼음실로 40",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (주말 휴무, 정기 교육 별도)",
+    fee: "프로그램별 교육 수수료 상이",
+    phone: "1588-0554",
+    age: "7세 ~ 16세",
+    imageUrl: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "111",
@@ -1020,6 +1211,11 @@ export const places: Place[] = [
     lng: 127.0094,
     address: "서울 강북구 삼양로 621",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (단체 캠프 주중 운영)",
+    fee: "프로그램별 상이 (시 위탁 할인 가능)",
+    phone: "02-980-0554",
+    age: "7세 ~ 13세 (초등학생 권장)",
+    imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "112",
@@ -1029,6 +1225,11 @@ export const places: Place[] = [
     lng: 126.9422,
     address: "경기 양주시 장흥면 권율로 185-95",
     isIndoor: true,
+    hours: "13:00 ~ 21:00 (일/월 정기 휴무)",
+    fee: "이용료(성인) 28,000원 / 천문관측 패키지",
+    phone: "031-894-6000",
+    age: "6세 이상 권장",
+    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "113",
@@ -1038,6 +1239,11 @@ export const places: Place[] = [
     lng: 127.2408,
     address: "충남 천안시 동남구 목천읍 서리골길 21",
     isIndoor: false,
+    hours: "09:00 ~ 18:00 (사전 단체예약제)",
+    fee: "청소년 교육비 및 숙식비 실비 정산",
+    phone: "041-620-7700",
+    age: "9세 ~ 19세 청소년 대상",
+    imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&auto=format&fit=crop&q=60"
   },
   {
     id: "114",
@@ -1047,140 +1253,654 @@ export const places: Place[] = [
     lng: 128.5342,
     address: "강원 속초시 미시령로 3054",
     isIndoor: false,
+    hours: "09:00 ~ 17:00 (매주 월요일 휴원)",
+    fee: "무료 관람 (인공클라이밍 체험료 2,000원)",
+    phone: "033-638-4459",
+    age: "6세 이상 (클라이밍 체험)",
+    imageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500&auto=format&fit=crop&q=60"
+  },
+
+  // 추가 박물관 (id 200~)
+  {
+    id: "200",
+    name: "국립현대미술관 (서울관)",
+    category: "박물관",
+    lat: 37.5788,
+    lng: 126.9797,
+    address: "서울 종로구 삼청로 30",
+    isIndoor: true,
+    hours: "10:00 ~ 18:00 (금/토 21:00 야간개장, 월요일 휴관)",
+    fee: "성인 4,000원 / 청소년 2,000원",
+    phone: "02-3701-9500",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1575223970966-76ae61ee7838?w=500&auto=format&fit=crop&q=60"
   },
   {
-    id: "115",
+    id: "201",
+    name: "리움미술관",
+    category: "박물관",
+    lat: 37.5344,
+    lng: 126.9996,
+    address: "서울 용산구 이태원로55길 60-16",
+    isIndoor: true,
+    hours: "10:00 ~ 18:00 (월요일 휴관)",
+    fee: "성인 20,000원 / 청소년 10,000원",
+    phone: "02-2014-6900",
+    age: "8세 이상 권장",
+    imageUrl: "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "202",
+    name: "국립중앙과학관",
+    category: "박물관",
+    lat: 36.3686,
+    lng: 127.3838,
+    address: "대전 유성구 대덕대로 481",
+    isIndoor: true,
+    hours: "09:30 ~ 17:30 (월요일 휴관)",
+    fee: "성인 1,000원 / 청소년 500원",
+    phone: "042-601-7894",
+    age: "5세 ~ 16세",
+    imageUrl: "https://images.unsplash.com/photo-1532094349884-543559244cac?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "203",
+    name: "국립전주박물관",
+    category: "박물관",
+    lat: 35.8072,
+    lng: 127.1467,
+    address: "전북 전주시 완산구 쑥고개로 249",
+    isIndoor: true,
+    hours: "09:00 ~ 18:00 (월요일 휴관)",
+    fee: "무료 입장",
+    phone: "063-223-5651",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1609780447631-05b93e5a88ea?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "204",
+    name: "국립광주박물관",
+    category: "박물관",
+    lat: 35.1725,
+    lng: 126.8942,
+    address: "광주 북구 하서로 110",
+    isIndoor: true,
+    hours: "09:00 ~ 18:00 (월요일 휴관)",
+    fee: "무료 입장",
+    phone: "062-570-7000",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1596803244535-925769f389fc?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "205",
+    name: "국립제주박물관",
+    category: "박물관",
+    lat: 33.4845,
+    lng: 126.5404,
+    address: "제주 제주시 일주동로 17",
+    isIndoor: true,
+    hours: "10:00 ~ 18:00 (월요일 휴관)",
+    fee: "무료 입장",
+    phone: "064-720-8000",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1527576539890-dfa815648363?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "206",
+    name: "전쟁기념관",
+    category: "박물관",
+    lat: 37.5370,
+    lng: 126.9773,
+    address: "서울 용산구 이태원로 29",
+    isIndoor: true,
+    hours: "09:00 ~ 18:00 (월요일 휴관)",
+    fee: "무료 입장 (특별전 유료)",
+    phone: "02-709-3139",
+    age: "7세 이상 권장",
+    imageUrl: "https://images.unsplash.com/photo-1572979201538-4b72dc7db0b5?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "207",
+    name: "경남과학교육원 과학관",
+    category: "박물관",
+    lat: 35.2342,
+    lng: 128.6801,
+    address: "경남 창원시 의창구 명서로 247",
+    isIndoor: true,
+    hours: "09:00 ~ 17:30 (월요일 휴관)",
+    fee: "어른 2,000원 / 어린이 1,000원",
+    phone: "055-268-7700",
+    age: "5세 ~ 15세",
+    imageUrl: "https://images.unsplash.com/photo-1495592822108-9e6261896da8?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "208",
+    name: "독립기념관",
+    category: "박물관",
+    lat: 36.8698,
+    lng: 127.2013,
+    address: "충남 천안시 동남구 목천읍 삼방로 95",
+    isIndoor: true,
+    hours: "09:30 ~ 18:00 (1월~2월 17:00, 월요일 휴관)",
+    fee: "무료 입장",
+    phone: "041-560-0114",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "209",
+    name: "울산암각화박물관",
+    category: "박물관",
+    lat: 35.6082,
+    lng: 129.0352,
+    address: "울산 울주군 언양읍 반구대안길 285",
+    isIndoor: true,
+    hours: "09:00 ~ 18:00 (월요일 휴관)",
+    fee: "무료 입장",
+    phone: "052-229-4797",
+    age: "6세 이상",
+    imageUrl: "https://images.unsplash.com/photo-1551699522-72878dd6fec5?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "210",
+    name: "조선왕릉전시관 (선정릉)",
+    category: "박물관",
+    lat: 37.5115,
+    lng: 127.0477,
+    address: "서울 강남구 선릉로100길 1",
+    isIndoor: true,
+    hours: "06:00 ~ 21:00 (동절기 단축, 월요일 휴관)",
+    fee: "대인 1,000원 / 소인 500원",
+    phone: "02-568-1330",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1573152143286-0c422b4d2175?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "211",
+    name: "국립어린이과학관",
+    category: "박물관",
+    lat: 37.5862,
+    lng: 127.0528,
+    address: "서울 종로구 창경궁로 215",
+    isIndoor: true,
+    hours: "09:30 ~ 17:30 (월요일 휴관, 사전예약 권장)",
+    fee: "어린이 2,000원 / 어른 4,000원",
+    phone: "02-3668-3300",
+    age: "4세 ~ 13세",
+    imageUrl: "https://images.unsplash.com/photo-1503676382389-4809596d5290?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "212",
+    name: "경주 신라역사과학관",
+    category: "박물관",
+    lat: 35.8395,
+    lng: 129.2202,
+    address: "경북 경주시 하동 8-1",
+    isIndoor: true,
+    hours: "09:00 ~ 18:00 (월요일 휴관)",
+    fee: "성인 3,000원 / 청소년 2,000원",
+    phone: "054-745-4600",
+    age: "6세 이상",
+    imageUrl: "https://images.unsplash.com/photo-1596810631965-8b2c52a02d69?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "213",
+    name: "안동 하회마을 민속박물관",
+    category: "박물관",
+    lat: 36.5405,
+    lng: 128.5178,
+    address: "경북 안동시 풍천면 하회리 769",
+    isIndoor: false,
+    hours: "09:00 ~ 18:00 (연중무휴)",
+    fee: "성인 5,000원 / 청소년 2,500원",
+    phone: "054-853-0109",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1601225998165-bf93cf7e2438?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "214",
+    name: "국립해양과학관",
+    category: "박물관",
+    lat: 35.5168,
+    lng: 129.3815,
+    address: "울산 울주군 서생면 해양과학관로 100",
+    isIndoor: true,
+    hours: "09:30 ~ 17:30 (월요일 휴관)",
+    fee: "성인 3,000원 / 청소년 2,000원",
+    phone: "052-256-5555",
+    age: "5세 ~ 15세",
+    imageUrl: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=500&auto=format&fit=crop&q=60"
+  },
+
+  // 추가 체험학습 (id 300~)
+  {
+    id: "300",
+    name: "제주 성이시돌목장",
+    category: "체험학습",
+    lat: 33.4118,
+    lng: 126.3758,
+    address: "제주 제주시 한림읍 산록남로 53",
+    isIndoor: false,
+    hours: "09:00 ~ 18:00 (연중무휴)",
+    fee: "입장료 어른 5,000원 / 소인 3,000원",
+    phone: "064-796-0396",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "301",
+    name: "울진 엑스포아쿠아리움",
+    category: "체험학습",
+    lat: 37.0668,
+    lng: 129.4098,
+    address: "경북 울진군 죽변면 죽변해안길 166",
+    isIndoor: true,
+    hours: "09:30 ~ 18:00 (연중무휴)",
+    fee: "성인 15,000원 / 소인 12,000원",
+    phone: "054-783-0013",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1520366498724-709889c0c685?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "302",
+    name: "파주 임진각 평화누리공원",
+    category: "체험학습",
+    lat: 37.8828,
+    lng: 126.7348,
+    address: "경기 파주시 문산읍 임진각로 148-40",
+    isIndoor: false,
+    hours: "24시간 개방 (일부 시설 별도 운영)",
+    fee: "무료 입장",
+    phone: "031-953-4744",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "303",
+    name: "아이유 스타필드 키즈파크 (수원)",
+    category: "체험학습",
+    lat: 37.2686,
+    lng: 127.0505,
+    address: "경기 수원시 영통구 에듀타운로 115",
+    isIndoor: true,
+    hours: "10:00 ~ 20:00 (연중무휴)",
+    fee: "2시간 입장권 어린이 12,000원 / 성인 무료",
+    phone: "031-290-1580",
+    age: "2세 ~ 10세",
+    imageUrl: "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "304",
+    name: "충주 세계무술공원",
+    category: "체험학습",
+    lat: 36.9812,
+    lng: 127.9295,
+    address: "충북 충주시 국원대로 123",
+    isIndoor: false,
+    hours: "09:00 ~ 18:00 (연중무휴)",
+    fee: "무료 입장",
+    phone: "043-850-6622",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1555597673-b21d5c935865?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "305",
+    name: "부산 과학교육원 과학체험관",
+    category: "체험학습",
+    lat: 35.1612,
+    lng: 129.0742,
+    address: "부산 동래구 사직로 130",
+    isIndoor: true,
+    hours: "09:00 ~ 17:30 (월요일 휴관)",
+    fee: "어른 1,000원 / 청소년 무료",
+    phone: "051-830-0500",
+    age: "6세 ~ 16세",
+    imageUrl: "https://images.unsplash.com/photo-1581093577421-f561a654a353?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "306",
+    name: "수원화성 투어 (성곽길 걷기)",
+    category: "체험학습",
+    lat: 37.2884,
+    lng: 127.0153,
+    address: "경기 수원시 팔달구 행궁로 11",
+    isIndoor: false,
+    hours: "09:00 ~ 18:00 (연중무휴)",
+    fee: "성인 1,500원 / 소인 700원",
+    phone: "031-290-3600",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1601225998642-2ad59aef97c9?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "307",
+    name: "용인 한택식물원",
+    category: "체험학습",
+    lat: 37.2155,
+    lng: 127.2668,
+    address: "경기 용인시 처인구 백암면 한택로 2",
+    isIndoor: false,
+    hours: "09:00 ~ 18:00 (연중무휴, 동절기 단축)",
+    fee: "대인 12,000원 / 소인 7,000원",
+    phone: "031-333-3558",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=500&auto=format&fit=crop&q=60"
+  },
+
+  // 추가 색다른 경험 (id 400~)
+  {
+    id: "400",
+    name: "강원 정선 레일바이크",
+    category: "색다른 경험",
+    lat: 37.2825,
+    lng: 128.6618,
+    address: "강원 정선군 정선읍 봉양3리 707",
+    isIndoor: false,
+    hours: "09:00 ~ 16:20 (화요일 휴무)",
+    fee: "4인승 35,000원 / 2인승 25,000원",
+    phone: "033-563-8787",
+    age: "전연령 (영유아 보호자 필수)",
+    imageUrl: "https://images.unsplash.com/photo-1471958680802-1345a694ba6d?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "401",
+    name: "부산 오션뷰 패러세일링",
+    category: "색다른 경험",
+    lat: 35.1028,
+    lng: 129.0362,
+    address: "부산 중구 용두산길 37-55",
+    isIndoor: false,
+    hours: "10:00 ~ 17:00 (기상 조건에 따라 변동)",
+    fee: "1인 탑승 60,000원~",
+    phone: "051-462-7788",
+    age: "10세 이상 (보호자 동반 권장)",
+    imageUrl: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "402",
+    name: "속초 케이블카 (설악 오색)",
+    category: "색다른 경험",
+    lat: 38.0562,
+    lng: 128.3985,
+    address: "강원 속초시 설악산로 1085",
+    isIndoor: false,
+    hours: "08:30 ~ 17:00 (기상 상황에 따라 운행)",
+    fee: "대인 왕복 16,000원 / 소인 왕복 10,000원",
+    phone: "033-636-4300",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1558000143-a60921473212?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "403",
+    name: "태안 별빛정원 우주 (야간 테마파크)",
+    category: "색다른 경험",
+    lat: 36.7422,
+    lng: 126.2918,
+    address: "충남 태안군 남면 연꽃길 70",
+    isIndoor: false,
+    hours: "16:00 ~ 22:00 (연중무휴, 일몰 후 운영)",
+    fee: "성인 12,000원 / 소인 9,000원",
+    phone: "041-675-0327",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1502481851512-e9e2529bfbf9?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "404",
+    name: "제주 우도 스쿠버다이빙",
+    category: "색다른 경험",
+    lat: 33.5068,
+    lng: 126.9522,
+    address: "제주 제주시 우도면 우도해안길",
+    isIndoor: false,
+    hours: "08:00 ~ 17:00 (기상 조건에 따라 변동)",
+    fee: "체험다이빙 80,000원~",
+    phone: "064-784-0050",
+    age: "8세 이상 (보호자 동반 필수)",
+    imageUrl: "https://images.unsplash.com/photo-1586770703097-f40a0dc46d24?w=500&auto=format&fit=crop&q=60"
+  },
+
+  // 추가 축제 (id 500~)
+  {
+    id: "500",
+    name: "함평나비축제",
+    category: "축제",
+    lat: 35.0655,
+    lng: 126.5168,
+    address: "전남 함평군 함평읍 함평로 36",
+    isIndoor: false,
+    hours: "5월 개최 · 09:00 ~ 18:00",
+    fee: "성인 5,000원 / 어린이 3,000원",
+    phone: "061-320-2222",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "501",
+    name: "대구 치맥페스티벌",
+    category: "축제",
+    lat: 35.8714,
+    lng: 128.5956,
+    address: "대구 달서구 두류공원로 200",
+    isIndoor: false,
+    hours: "7월 개최 · 12:00 ~ 23:00",
+    fee: "무료 입장 (음식/음료 별도)",
+    phone: "053-250-7000",
+    age: "19세 이상 (음주 구역 제한)",
+    imageUrl: "https://images.unsplash.com/photo-1535025183041-0991a977e25b?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "502",
+    name: "이천 도자기축제",
+    category: "축제",
+    lat: 37.2722,
+    lng: 127.4462,
+    address: "경기 이천시 경충대로 2697번길 114",
+    isIndoor: false,
+    hours: "4~5월 개최 · 09:00 ~ 18:00",
+    fee: "무료 입장 (체험비 별도)",
+    phone: "031-644-2500",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "503",
+    name: "서울 빛초롱축제 (청계천)",
+    category: "축제",
+    lat: 37.5706,
+    lng: 126.9984,
+    address: "서울 중구 청계천로 일원",
+    isIndoor: false,
+    hours: "11~12월 개최 · 17:00 ~ 23:00",
+    fee: "무료 관람",
+    phone: "02-2290-7111",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "504",
+    name: "진해 군항제 (벚꽃축제)",
+    category: "축제",
+    lat: 35.1482,
+    lng: 128.6428,
+    address: "경남 창원시 진해구 중원로터리 일원",
+    isIndoor: false,
+    hours: "3~4월 개최 · 상시 개방",
+    fee: "무료 입장",
+    phone: "055-548-2425",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1522383225653-ed111181a951?w=500&auto=format&fit=crop&q=60"
+  },
+
+  // 추가 학원/캠프 (id 600~)
+  {
+    id: "600",
     name: "국립청소년우주센터",
     category: "학원",
-    lat: 34.5022,
-    lng: 127.4602,
-    address: "전남 고흥군 동일면 덕흥한성길 100",
+    lat: 36.0258,
+    lng: 126.6102,
+    address: "충남 서천군 마서면 국립청소년우주센터로 100",
     isIndoor: true,
+    hours: "09:00 ~ 18:00 (사전예약 필수, 월요일 휴무)",
+    fee: "청소년 프로그램 5,000원~",
+    phone: "041-750-2000",
+    age: "9세 ~ 18세",
+    imageUrl: "https://images.unsplash.com/photo-1517976547714-720226b864c1?w=500&auto=format&fit=crop&q=60"
   },
   {
-    id: "116",
-    name: "대전교육과학연구원",
+    id: "601",
+    name: "국립평창청소년수련원",
     category: "학원",
-    lat: 36.3768,
-    lng: 127.3854,
-    address: "대전 유성구 대덕대로 507",
-    isIndoor: true,
-  },
-  {
-    id: "117",
-    name: "울산과학관",
-    category: "학원",
-    lat: 35.5345,
-    lng: 129.2822,
-    address: "울산 남구 남부순환도로 111",
-    isIndoor: true,
-  },
-  {
-    id: "118",
-    name: "충청북도교육과학연구원",
-    category: "학원",
-    lat: 36.6542,
-    lng: 127.5022,
-    address: "충북 청주시 상당구 과학로 115",
-    isIndoor: true,
-  },
-  {
-    id: "119",
-    name: "서울시립과학관",
-    category: "학원",
-    lat: 37.6328,
-    lng: 127.0708,
-    address: "서울 노원구 한글비석로 160",
-    isIndoor: true,
-  },
-  {
-    id: "120",
-    name: "제주수학체험관",
-    category: "학원",
-    lat: 33.5042,
-    lng: 126.5208,
-    address: "제주 제주시 전농로 88",
-    isIndoor: true,
-  },
-  {
-    id: "121",
-    name: "국립대구기상과학관",
-    category: "학원",
-    lat: 35.8825,
-    lng: 128.6485,
-    address: "대구 동구 효동로2길 10",
-    isIndoor: true,
-  },
-  {
-    id: "122",
-    name: "국립낙동강생물자원관",
-    category: "학원",
-    lat: 36.4342,
-    lng: 128.2322,
-    address: "경북 상주시 도남2길 137",
-    isIndoor: true,
-  },
-  {
-    id: "123",
-    name: "경상북도교육청과학원",
-    category: "학원",
-    lat: 36.0545,
-    lng: 129.3522,
-    address: "경북 포항시 북구 우창동로 74",
-    isIndoor: true,
-  },
-  {
-    id: "124",
-    name: "창원과학체험관",
-    category: "학원",
-    lat: 35.2322,
-    lng: 128.6608,
-    address: "경남 창원시 성산구 창원대로524번길 11",
-    isIndoor: true,
-  },
-  {
-    id: "125",
-    name: "남원항공우주천문대",
-    category: "학원",
-    lat: 35.4025,
-    lng: 127.3912,
-    address: "전북 남원시 양림길 48-10",
-    isIndoor: true,
-  },
-  {
-    id: "126",
-    name: "전라남도과학교육원",
-    category: "학원",
-    lat: 35.0215,
-    lng: 126.7822,
-    address: "전남 나주시 금천면 영산로 5720",
-    isIndoor: true,
-  },
-  {
-    id: "127",
-    name: "인천나비공원 자연교육센터",
-    category: "학원",
-    lat: 37.5215,
-    lng: 126.7008,
-    address: "인천 부평구 평천로 26-47",
-    isIndoor: true,
-  },
-  {
-    id: "128",
-    name: "부산글로벌빌리지 영어체험센터",
-    category: "학원",
-    lat: 35.1585,
-    lng: 129.0435,
-    address: "부산 진구 가야대로 734",
-    isIndoor: true,
-  },
-  {
-    id: "129",
-    name: "대관령 의야지바람마을 정보화체험센터",
-    category: "학원",
-    lat: 37.6835,
-    lng: 128.7108,
-    address: "강원 평창군 대관령면 사리평길 38",
+    lat: 37.6062,
+    lng: 128.5798,
+    address: "강원 평창군 대관령면 올림픽로 715",
     isIndoor: false,
+    hours: "연중 운영 (단체 프로그램 예약제)",
+    fee: "숙박형 프로그램 50,000원~/박",
+    phone: "033-334-0100",
+    age: "10세 ~ 18세",
+    imageUrl: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "602",
+    name: "제주 사이언스파크 캠프",
+    category: "학원",
+    lat: 33.3885,
+    lng: 126.7202,
+    address: "제주 서귀포시 표선면 가시로 613",
+    isIndoor: true,
+    hours: "09:00 ~ 18:00 (연중 캠프 운영)",
+    fee: "2박 3일 캠프 150,000원~",
+    phone: "064-787-6500",
+    age: "8세 ~ 15세",
+    imageUrl: "https://images.unsplash.com/photo-1588072432836-e10032774350?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "603",
+    name: "광릉 국립수목원 해설 탐방",
+    category: "학원",
+    lat: 37.7538,
+    lng: 127.1802,
+    address: "경기 포천시 소흘읍 광릉수목원로 415",
+    isIndoor: false,
+    hours: "09:00 ~ 17:00 (월요일 휴원, 사전예약 필수)",
+    fee: "성인 1,000원 / 청소년 700원",
+    phone: "031-540-2000",
+    age: "7세 이상",
+    imageUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=500&auto=format&fit=crop&q=60"
+  },
+  // ── 추가 체험학습 장소 ──
+  {
+    id: "700",
+    name: "서울어린이대공원",
+    category: "체험학습",
+    lat: 37.5483,
+    lng: 127.0797,
+    address: "서울 광진구 능동로 216",
+    isIndoor: false,
+    hours: "05:00 ~ 22:00 (연중무휴)",
+    fee: "무료 입장 (놀이기구 유료)",
+    phone: "02-450-9311",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "701",
+    name: "과천 서울대공원 동물원",
+    category: "체험학습",
+    lat: 37.4285,
+    lng: 126.9831,
+    address: "경기 과천시 대공원광장로 102",
+    isIndoor: false,
+    hours: "09:00 ~ 19:00 (하절기), 09:00 ~ 17:00 (동절기)",
+    fee: "대인 5,000원 / 소인 3,000원",
+    phone: "02-500-7335",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1576394435006-f06c96a8edce?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "702",
+    name: "인천 차이나타운 & 자유공원",
+    category: "체험학습",
+    lat: 37.4763,
+    lng: 126.6178,
+    address: "인천 중구 차이나타운로 일대",
+    isIndoor: false,
+    hours: "상시 개방",
+    fee: "무료",
+    phone: "032-760-7860",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1547474619-6edd06df1fe6?w=500&auto=format&fit=crop&q=60"
+  },
+  // ── 추가 박물관 ──
+  {
+    id: "800",
+    name: "국립민주화운동기념관",
+    category: "박물관",
+    lat: 37.5648,
+    lng: 127.0114,
+    address: "서울 동대문구 무학로 20",
+    isIndoor: true,
+    hours: "10:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "무료",
+    phone: "02-3709-7900",
+    age: "초등학생 이상",
+    imageUrl: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "801",
+    name: "대한민국역사박물관",
+    category: "박물관",
+    lat: 37.5749,
+    lng: 126.9734,
+    address: "서울 종로구 세종대로 198",
+    isIndoor: true,
+    hours: "10:00 ~ 18:00 (매주 월요일 휴관)",
+    fee: "무료",
+    phone: "02-3703-9200",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1594191395568-d055106b653d?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "802",
+    name: "서울 암사동 유적지",
+    category: "박물관",
+    lat: 37.5518,
+    lng: 127.1311,
+    address: "서울 강동구 올림픽로875",
+    isIndoor: false,
+    hours: "09:30 ~ 17:30 (매주 월요일 휴관)",
+    fee: "어른 500원 / 어린이 300원",
+    phone: "02-3425-6520",
+    age: "초등학생 이상",
+    imageUrl: "https://images.unsplash.com/photo-1565060169194-19fabf63012c?w=500&auto=format&fit=crop&q=60"
+  },
+  // ── 추가 색다른 경험 ──
+  {
+    id: "900",
+    name: "강원 홍천 오션월드",
+    category: "색다른 경험",
+    lat: 37.7129,
+    lng: 127.9512,
+    address: "강원 홍천군 서면 한치골길 262",
+    isIndoor: true,
+    hours: "10:00 ~ 18:00 (여름 성수기 09:00 ~ 20:00)",
+    fee: "대인 59,000원 / 소인 49,000원",
+    phone: "033-434-0000",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1535025183041-0991a977e25b?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: "901",
+    name: "가평 자라섬 오토캠핑장",
+    category: "색다른 경험",
+    lat: 37.8278,
+    lng: 127.5108,
+    address: "경기 가평군 가평읍 달전리 100",
+    isIndoor: false,
+    hours: "체크인 14:00 / 체크아웃 12:00",
+    fee: "1박 30,000~50,000원",
+    phone: "031-580-4445",
+    age: "전연령",
+    imageUrl: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=500&auto=format&fit=crop&q=60"
   }
 ];
+

@@ -7,16 +7,18 @@ import WordPressSection from "@/components/WordPressSection";
 import { useMapStore } from "@/store/useMapStore";
 
 export default function MapPage() {
-  const { setCenter, setLevel, level } = useMapStore();
+  const { setCenter, setLevel, level, setMyLocation } = useMapStore();
 
   const handleMyLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setCenter({
+          const coords = {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
-          });
+          };
+          setCenter(coords);
+          setMyLocation(coords);
           setLevel(5); // zoom in closely
         },
         (error) => {
@@ -76,7 +78,7 @@ export default function MapPage() {
         
         {/* 메인 콘텐츠 영역 (사이드바 등) */}
         <div className="flex-1 flex relative pointer-events-none">
-          <div className="pointer-events-auto h-full p-4 md:p-6 pb-24 md:pb-6">
+          <div className="pointer-events-auto h-[calc(100vh-9.5rem)] md:h-[calc(100vh-6rem)] p-4 md:p-6 pb-24 md:pb-6">
             <Sidebar />
           </div>
           

@@ -23,6 +23,10 @@ interface MapState {
   level: number;
   setCenter: (center: { lat: number; lng: number }) => void;
   setLevel: (level: number) => void;
+  myLocation: { lat: number; lng: number } | null;
+  setMyLocation: (myLocation: { lat: number; lng: number } | null) => void;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
 }
 
 export const useMapStore = create<MapState>()(
@@ -32,6 +36,8 @@ export const useMapStore = create<MapState>()(
       level: 12,
       setCenter: (center) => set({ center }),
       setLevel: (level) => set({ level }),
+      myLocation: null,
+      setMyLocation: (myLocation) => set({ myLocation }),
       activeCategories: [],
       filteredPlaces: places,
       selectedPlaceForReport: null,
@@ -65,11 +71,22 @@ export const useMapStore = create<MapState>()(
           ? state.savedPlaceIds.filter(savedId => savedId !== id)
           : [...state.savedPlaceIds, id]
       })),
-      setActiveCategory: (category) => set(() => {
+      searchQuery: "",
+      setSearchQuery: (query) => set((state) => {
+        const newFilteredPlaces = places.filter((p) => {
+          const matchCat = state.activeCategories.length === 0 || state.activeCategories.includes(p.category);
+          const matchQuery = !query || p.name.includes(query) || p.address.includes(query);
+          return matchCat && matchQuery;
+        });
+        return { searchQuery: query, filteredPlaces: newFilteredPlaces };
+      }),
+      setActiveCategory: (category) => set((state) => {
         const newCategories = category ? [category] : [];
-        const newFilteredPlaces = newCategories.length === 0
-          ? places
-          : places.filter((p) => newCategories.includes(p.category));
+        const newFilteredPlaces = places.filter((p) => {
+          const matchCat = newCategories.length === 0 || newCategories.includes(p.category);
+          const matchQuery = !state.searchQuery || p.name.includes(state.searchQuery) || p.address.includes(state.searchQuery);
+          return matchCat && matchQuery;
+        });
         return {
           activeCategories: newCategories,
           filteredPlaces: newFilteredPlaces,
@@ -82,9 +99,11 @@ export const useMapStore = create<MapState>()(
             ? state.activeCategories.filter((c) => c !== category)
             : [...state.activeCategories, category];
           
-          const newFilteredPlaces = newCategories.length === 0
-            ? places
-            : places.filter((p) => newCategories.includes(p.category));
+          const newFilteredPlaces = places.filter((p) => {
+            const matchCat = newCategories.length === 0 || newCategories.includes(p.category);
+            const matchQuery = !state.searchQuery || p.name.includes(state.searchQuery) || p.address.includes(state.searchQuery);
+            return matchCat && matchQuery;
+          });
 
           return {
             activeCategories: newCategories,
