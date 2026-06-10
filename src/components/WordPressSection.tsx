@@ -24,12 +24,12 @@ const DEFAULT_POSTS: WordPressPost[] = [
     category: "국내 여행 / 체험 학습",
     date: "2026-06-01",
     imageUrl: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=500&auto=format&fit=crop&q=60",
-    link: `${WORDPRESS_BASE_URL}/free-vacation-spots-for-kids` // 💡 여기에 사용자분의 워드프레스 글 주소를 넣으세요!
+    link: "https://weknews.com/recommended-field-trip-spots/"
   },
   {
     id: 2,
     title: "박물관 200% 즐기기! 어린이 도슨트 예약 꿀팁 및 사전 준비물",
-    excerpt: "어렵게 느껴지는 미술관และ박물관을 아이 눈높이에 맞춰 설명해 주는 전문 가이드 프로그램 무료 예약 방법과 아이들의 주의를 끄는 추천 미션지를 공유합니다.",
+    excerpt: "어렵게 느껴지는 미술관과 박물관을 아이 눈높이에 맞춰 설명해 주는 전문 가이드 프로그램 무료 예약 방법과 아이들의 주의를 끄는 추천 미션지를 공유합니다.",
     category: "방학 교육 팁",
     date: "2026-05-28",
     imageUrl: "https://images.unsplash.com/photo-1582880787361-b541349f7cf7?w=500&auto=format&fit=crop&q=60",
@@ -60,15 +60,17 @@ interface WordPressSectionProps {
   layout?: "grid" | "vertical";
   className?: string;
   title?: string;
+  customPosts?: WordPressPost[];
 }
 
 export default function WordPressSection({
   limit = 3,
   layout = "grid",
   className = "",
-  title = "방학 여행 준비를 위한 에디터 추천 칼럼 💡"
+  title = "방학 여행 준비를 위한 에디터 추천 칼럼 💡",
+  customPosts
 }: WordPressSectionProps) {
-  const posts = DEFAULT_POSTS.slice(0, limit);
+  const posts = (customPosts || DEFAULT_POSTS).slice(0, limit);
 
   return (
     <div className={`w-full ${className}`}>

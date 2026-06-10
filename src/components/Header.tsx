@@ -2,11 +2,23 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { useMapStore } from "@/store/useMapStore";
 
 export default function Header() {
   const router = useRouter();
+  const pathname = usePathname();
   const [query, setQuery] = useState("");
+  const { showFilters, setShowFilters } = useMapStore();
+
+  const handleFilterClick = () => {
+    if (pathname === "/map") {
+      setShowFilters(!showFilters);
+    } else {
+      setShowFilters(true);
+      router.push("/map");
+    }
+  };
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && query.trim() !== "") {
@@ -23,7 +35,7 @@ export default function Header() {
       </div>
       
       {/* Search Bar (Desktop) */}
-      <div className="hidden md:flex flex-1 max-w-2xl mx-10 relative">
+      <div className="hidden md:flex flex-1 max-w-2xl min-w-[240px] mx-10 relative">
         <input 
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -39,20 +51,28 @@ export default function Header() {
         </button>
       </div>
 
-      <nav className="hidden md:flex items-center gap-8 mr-6">
-        <Link href="/themes" className="flex items-center gap-2 text-base font-bold text-slate-600 hover:text-slate-900 transition-colors">
+      <nav className="hidden lg:flex items-center gap-4 mr-4">
+        <Link href="/themes" className="flex items-center gap-1.5 text-base font-bold text-slate-600 hover:text-slate-900 transition-colors">
           <span className="material-symbols-outlined text-[22px]">explore</span>
           <span>테마추천</span>
         </Link>
-        <Link href="/talk" className="flex items-center gap-2 text-base font-bold text-slate-600 hover:text-slate-900 transition-colors">
+        <Link href="/talk" className="flex items-center gap-1.5 text-base font-bold text-slate-600 hover:text-slate-900 transition-colors">
           <span className="material-symbols-outlined text-[22px]">chat</span>
           <span>방학 톡톡</span>
         </Link>
-        <Link href="/planner" className="flex items-center gap-2 text-base font-bold text-slate-600 hover:text-slate-900 transition-colors">
+        <Link href="/report/plan" className="flex items-center gap-1.5 text-base font-bold text-slate-600 hover:text-blue-600 transition-colors">
+          <span className="material-symbols-outlined text-[22px]">edit_document</span>
+          <span>신청서 작성</span>
+        </Link>
+        <Link href="/report/result" className="flex items-center gap-1.5 text-base font-bold text-slate-600 hover:text-indigo-600 transition-colors">
+          <span className="material-symbols-outlined text-[22px]">task</span>
+          <span>보고서 작성</span>
+        </Link>
+        <Link href="/planner" className="flex items-center gap-1.5 text-base font-bold text-slate-600 hover:text-slate-900 transition-colors">
           <span className="material-symbols-outlined text-[22px]">calendar_month</span>
           <span>방학 계획서</span>
         </Link>
-        <Link href="/dashboard" className="flex items-center gap-2 text-base font-bold text-slate-600 hover:text-slate-900 transition-colors">
+        <Link href="/dashboard" className="flex items-center gap-1.5 text-base font-bold text-slate-600 hover:text-slate-900 transition-colors">
           <span className="material-symbols-outlined text-[22px]">dashboard</span>
           <span>대시보드</span>
         </Link>
@@ -82,10 +102,22 @@ export default function Header() {
       </nav>
 
       <div className="flex items-center gap-2">
-        <button className="p-2 rounded-full hover:bg-black/5 transition-colors text-slate-600 hover:text-slate-900 flex items-center justify-center h-12 w-12">
+        <button 
+          onClick={handleFilterClick}
+          className={`p-2 rounded-full hover:bg-black/5 transition-colors flex items-center justify-center h-12 w-12 ${
+            pathname === "/map" && showFilters 
+              ? "text-blue-600 bg-blue-50/80 hover:bg-blue-100/80 shadow-sm border border-blue-100" 
+              : "text-slate-600 hover:text-slate-900"
+          }`}
+          title="필터 켜기/끄기"
+        >
           <span className="material-symbols-outlined text-[24px]">filter_list</span>
         </button>
-        <button className="p-2 rounded-full hover:bg-black/5 transition-colors text-slate-600 hover:text-slate-900 flex items-center justify-center h-12 w-12">
+        <button 
+          onClick={() => router.push("/dashboard")}
+          className="p-2 rounded-full hover:bg-black/5 transition-colors text-slate-600 hover:text-slate-900 flex items-center justify-center h-12 w-12"
+          title="대시보드"
+        >
           <span className="material-symbols-outlined text-[24px]">account_circle</span>
         </button>
       </div>

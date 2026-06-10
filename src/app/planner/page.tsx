@@ -544,7 +544,7 @@ export default function PlannerPage() {
                       <p className="text-xs text-slate-400">등록된 일과가 없습니다. 왼쪽 폼에서 일과를 등록하세요!</p>
                     ) : (
                       plans.map(p => (
-                        <div className="flex items-center justify-between bg-white p-3.5 rounded-xl border border-slate-200 group print-card-bg hover:border-indigo-200 transition-colors">
+                        <div key={p.id} className="flex items-center justify-between bg-white p-3.5 rounded-xl border border-slate-200 group print-card-bg hover:border-indigo-200 transition-colors">
                           <div className="flex items-center gap-3">
                             <span
                               className="w-5 h-5 rounded-full border border-black/10 shrink-0"

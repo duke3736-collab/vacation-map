@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useMapStore } from "@/store/useMapStore";
-import { Category, Place } from "@/data/places";
+import { Category, Place, GradeGroup, SubjectType } from "@/data/places";
 import clsx from "clsx";
 
 // 카테고리별 대표 이미지 목록 (Unsplash 고해상도 이미지 매핑)
@@ -198,7 +198,6 @@ function PlaceCard({
 export default function Sidebar() {
   const router = useRouter();
   const listRef = useRef<HTMLDivElement>(null);
-
   const { 
     activeCategories, 
     filteredPlaces, 
@@ -207,9 +206,17 @@ export default function Sidebar() {
     toggleSavePlace,
     focusedPlaceId,
     setFocusedPlaceId,
-    setActiveCategory
+    setActiveCategory,
+    gradeFilter,
+    setGradeFilter,
+    subjectFilter,
+    setSubjectFilter,
+    showFilters,
+    setShowFilters
   } = useMapStore();
   const categories: Category[] = ["박물관", "색다른 경험", "1달 살기", "학원", "체험학습", "축제"];
+  const grades: GradeGroup[] = ["초1-2", "초3-4", "초5-6", "중등"];
+  const subjects: SubjectType[] = ["사회", "과학", "역사", "수학", "국어", "미술/음악"];
 
   // 카테고리 필터가 바뀔 때 리스트 영역 스크롤을 맨 위로 초기화
   useEffect(() => {
@@ -231,7 +238,10 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="hidden md:flex flex-col w-[420px] premium-glass rounded-3xl z-10 h-full overflow-hidden">
+    <aside className={clsx(
+      "flex-col w-full md:w-[420px] premium-glass rounded-3xl z-10 h-full overflow-hidden shadow-xl md:shadow-none bg-white/90 md:bg-white/80",
+      focusedPlaceId ? "hidden md:flex" : "flex"
+    )}>
       {/* Category Chips */}
       <div className="p-5 border-b border-black/5 overflow-x-auto custom-scrollbar">
         <div className="flex gap-2 min-w-max pb-2">
@@ -273,6 +283,62 @@ export default function Sidebar() {
           })}
         </div>
       </div>
+
+      {/* Grade & Subject Filters (PC Only) */}
+      <div className="hidden md:flex px-5 py-3 border-b border-black/5 bg-slate-50/50 flex-col gap-3">
+        {/* 학년 필터 */}
+        <div className="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-1">
+          <span className="text-xs font-bold text-slate-500 shrink-0 uppercase tracking-wider">학년</span>
+          <button 
+            onClick={() => setGradeFilter(null)} 
+            className={clsx(
+              "px-3 py-1 rounded-full border text-xs font-bold transition-colors whitespace-nowrap",
+              gradeFilter === null ? "bg-blue-500 text-white border-blue-600" : "bg-white text-slate-600 border-slate-200 hover:bg-slate-100"
+            )}
+          >
+            전체
+          </button>
+          {grades.map(grade => (
+            <button 
+              key={grade}
+              onClick={() => setGradeFilter(grade === gradeFilter ? null : grade)} 
+              className={clsx(
+                "px-3 py-1 rounded-full border text-xs font-bold transition-colors whitespace-nowrap",
+                grade === gradeFilter ? "bg-blue-500 text-white border-blue-600" : "bg-white text-slate-600 border-slate-200 hover:bg-slate-100"
+              )}
+            >
+              {grade}
+            </button>
+          ))}
+        </div>
+
+        {/* 교과목 필터 */}
+        <div className="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-1">
+          <span className="text-xs font-bold text-slate-500 shrink-0 uppercase tracking-wider">교과</span>
+          <button 
+            onClick={() => setSubjectFilter(null)} 
+            className={clsx(
+              "px-3 py-1 rounded-full border text-xs font-bold transition-colors whitespace-nowrap",
+              subjectFilter === null ? "bg-emerald-500 text-white border-emerald-600" : "bg-white text-slate-600 border-slate-200 hover:bg-slate-100"
+            )}
+          >
+            전체
+          </button>
+          {subjects.map(subject => (
+            <button 
+              key={subject}
+              onClick={() => setSubjectFilter(subject === subjectFilter ? null : subject)} 
+              className={clsx(
+                "px-3 py-1 rounded-full border text-xs font-bold transition-colors whitespace-nowrap",
+                subject === subjectFilter ? "bg-emerald-500 text-white border-emerald-600" : "bg-white text-slate-600 border-slate-200 hover:bg-slate-100"
+              )}
+            >
+              {subject}
+            </button>
+          ))}
+        </div>
+      </div>
+      
       
       {/* Sorting & Results Count */}
       <div className="px-6 py-4 flex justify-between items-center bg-black/5 border-b border-black/5 backdrop-blur-sm">

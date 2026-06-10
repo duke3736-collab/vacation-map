@@ -238,6 +238,51 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
               </div>
             </div>
 
+            {/* 교과 연계 정보 카드 (있을 경우만 표시) */}
+            {(place.targetGrades || (place.curriculumLinks && place.curriculumLinks.length > 0)) && (
+              <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-blue-50">
+                <h2 className="text-xl font-black text-gray-900 mb-4 flex items-center gap-2">
+                  <span className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white text-base">📚</span>
+                  교과 연계 정보
+                </h2>
+                
+                {place.targetGrades && (
+                  <div className="mb-4">
+                    <div className="text-sm font-bold text-gray-500 mb-2">추천 학년</div>
+                    <div className="flex flex-wrap gap-2">
+                      {place.targetGrades.map(grade => (
+                        <span key={grade} className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-bold border border-blue-100">
+                          {grade}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {place.curriculumLinks && place.curriculumLinks.length > 0 && (
+                  <div>
+                    <div className="text-sm font-bold text-gray-500 mb-2">연계 단원</div>
+                    <div className="space-y-3">
+                      {place.curriculumLinks.map((link, i) => (
+                        <div key={i} className="flex flex-col gap-1 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                          <div className="flex items-center gap-2">
+                            <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded text-xs font-bold">{link.subject}</span>
+                            <span className="text-sm font-bold text-gray-900">{link.grade} - {link.unit}</span>
+                          </div>
+                          {link.hint && (
+                            <p className="text-sm text-gray-600 mt-1 leading-relaxed">
+                              <span className="font-bold text-blue-600 mr-1">💡 힌트:</span>
+                              {link.hint}
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* 방문 정보 카드 */}
             <div className="bg-white rounded-2xl p-6 shadow-sm">
               <h2 className="text-xl font-black text-gray-900 mb-5 flex items-center gap-2">

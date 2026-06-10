@@ -148,6 +148,7 @@ export default function MapClient() {
           level={level}
           onDragEnd={(map) => setCenter({ lat: map.getCenter().getLat(), lng: map.getCenter().getLng() })}
           onZoomChanged={(map) => setLevel(map.getLevel())}
+          onClick={() => setFocusedPlaceId(null)}
           style={{ width: "100%", height: "100%" }}
         >
           {/* 내 위치 (GPS) 커스텀 마커 표시 */}

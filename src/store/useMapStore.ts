@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Category, Place, places } from "@/data/places";
+import { Category, Place, places, GradeGroup, SubjectType } from "@/data/places";
 
 interface MapState {
   activeCategories: Category[];
@@ -27,7 +27,28 @@ interface MapState {
   setMyLocation: (myLocation: { lat: number; lng: number } | null) => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
+  gradeFilter: GradeGroup | null;
+  setGradeFilter: (grade: GradeGroup | null) => void;
+  subjectFilter: SubjectType | null;
+  setSubjectFilter: (subject: SubjectType | null) => void;
+  showFilters: boolean;
+  setShowFilters: (show: boolean) => void;
 }
+
+const computeFilteredPlaces = (
+  query: string,
+  categories: Category[],
+  grade: GradeGroup | null,
+  subject: SubjectType | null
+) => {
+  return places.filter((p) => {
+    const matchCat = categories.length === 0 || categories.includes(p.category);
+    const matchQuery = !query || p.name.includes(query) || p.address.includes(query);
+    const matchGrade = !grade || (p.targetGrades && p.targetGrades.includes(grade));
+    const matchSubject = !subject || (p.curriculumLinks && p.curriculumLinks.some(link => link.subject === subject));
+    return matchCat && matchQuery && matchGrade && matchSubject;
+  });
+};
 
 export const useMapStore = create<MapState>()(
   persist(
@@ -72,24 +93,31 @@ export const useMapStore = create<MapState>()(
           : [...state.savedPlaceIds, id]
       })),
       searchQuery: "",
-      setSearchQuery: (query) => set((state) => {
-        const newFilteredPlaces = places.filter((p) => {
-          const matchCat = state.activeCategories.length === 0 || state.activeCategories.includes(p.category);
-          const matchQuery = !query || p.name.includes(query) || p.address.includes(query);
-          return matchCat && matchQuery;
-        });
-        return { searchQuery: query, filteredPlaces: newFilteredPlaces };
-      }),
+      gradeFilter: null,
+      subjectFilter: null,
+      showFilters: false,
+      setShowFilters: (show) => set({ showFilters: show }),
+      setGradeFilter: (grade) => set((state) => ({
+        gradeFilter: grade,
+        activeCategories: [], // Reset category filter
+        filteredPlaces: computeFilteredPlaces(state.searchQuery, [], grade, state.subjectFilter)
+      })),
+      setSubjectFilter: (subject) => set((state) => ({
+        subjectFilter: subject,
+        activeCategories: [], // Reset category filter
+        filteredPlaces: computeFilteredPlaces(state.searchQuery, [], state.gradeFilter, subject)
+      })),
+      setSearchQuery: (query) => set((state) => ({
+        searchQuery: query, 
+        filteredPlaces: computeFilteredPlaces(query, state.activeCategories, state.gradeFilter, state.subjectFilter)
+      })),
       setActiveCategory: (category) => set((state) => {
         const newCategories = category ? [category] : [];
-        const newFilteredPlaces = places.filter((p) => {
-          const matchCat = newCategories.length === 0 || newCategories.includes(p.category);
-          const matchQuery = !state.searchQuery || p.name.includes(state.searchQuery) || p.address.includes(state.searchQuery);
-          return matchCat && matchQuery;
-        });
         return {
           activeCategories: newCategories,
-          filteredPlaces: newFilteredPlaces,
+          gradeFilter: null, // Reset grade filter
+          subjectFilter: null, // Reset subject filter
+          filteredPlaces: computeFilteredPlaces(state.searchQuery, newCategories, null, null),
         };
       }),
       toggleCategory: (category) =>
@@ -99,15 +127,11 @@ export const useMapStore = create<MapState>()(
             ? state.activeCategories.filter((c) => c !== category)
             : [...state.activeCategories, category];
           
-          const newFilteredPlaces = places.filter((p) => {
-            const matchCat = newCategories.length === 0 || newCategories.includes(p.category);
-            const matchQuery = !state.searchQuery || p.name.includes(state.searchQuery) || p.address.includes(state.searchQuery);
-            return matchCat && matchQuery;
-          });
-
           return {
             activeCategories: newCategories,
-            filteredPlaces: newFilteredPlaces,
+            gradeFilter: null, // Reset grade filter
+            subjectFilter: null, // Reset subject filter
+            filteredPlaces: computeFilteredPlaces(state.searchQuery, newCategories, null, null),
           };
         }),
     }),

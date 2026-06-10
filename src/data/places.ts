@@ -1,4 +1,13 @@
 export type Category = "박물관" | "색다른 경험" | "1달 살기" | "학원" | "체험학습" | "축제";
+export type GradeGroup = "초1-2" | "초3-4" | "초5-6" | "중등";
+export type SubjectType = "사회" | "과학" | "역사" | "수학" | "국어" | "미술/음악" | "도덕" | "체육";
+
+export interface CurriculumLink {
+  subject: SubjectType;
+  grade: string;       // 예: "초등 3학년"
+  unit: string;        // 예: "우리 고장의 공공기관"
+  hint?: string;       // 보고서 작성 힌트 문장
+}
 
 export interface Place {
   id: string;
@@ -13,7 +22,10 @@ export interface Place {
   phone?: string;
   age?: string;
   imageUrl?: string;
+  curriculumLinks?: CurriculumLink[];   // 교과 연계 데이터
+  targetGrades?: GradeGroup[];          // 권장 학년 그룹
 }
+
 
 export const places: Place[] = [
   // 1. 박물관 (Museums & Science Centers)
@@ -29,7 +41,13 @@ export const places: Place[] = [
     fee: "대인 4,000원 / 소인 2,000원",
     phone: "02-3677-1500",
     age: "5세 ~ 16세",
-    imageUrl: "https://images.unsplash.com/photo-1517976487492-5750f3195933?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1517976487492-5750f3195933?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 한살이", hint: "과학관의 곤충관에서 실제로 다양한 동물의 한살이 과정을 관찰했습니다. 특히 나비의 변태 과정인 알→애벌레→번데기→나비 단계를 직접 눈으로 확인했고, 이를 통해 교과서에서 배운 완전변태와 불완전변태의 차이를 더 깊이 이해할 수 있었습니다." },
+      { subject: "과학", grade: "초등 4학년", unit: "식물의 생활", hint: "과학관의 식물 전시실에서 다양한 환경에 적응한 식물들을 관찰했습니다. 사막, 습지, 고산 등 서로 다른 환경에서 어떻게 생존하는지 실물로 보며 생태계에 대한 이해를 넓혔습니다." },
+      { subject: "과학", grade: "초등 6학년", unit: "지구와 달의 운동", hint: "천체관에서 지구의 자전과 공전, 달의 위상 변화를 3D 시뮬레이션으로 체험했습니다. 교과서의 추상적인 개념이 눈앞에 생생하게 펼쳐지면서 낮과 밤이 생기는 원리와 계절의 변화를 확실히 이해하게 되었습니다." }
+    ]
   },
   {
     id: "2",
@@ -43,7 +61,13 @@ export const places: Place[] = [
     fee: "무료 (특별기획전 별도)",
     phone: "02-2077-9000",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1594191395568-d055106b653d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1594191395568-d055106b653d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사 (선사~삼국시대)", hint: "박물관의 선사·고대관에서 구석기·신석기 시대의 유물부터 삼국시대 유물까지 시대 순서대로 관람했습니다. 청동기 시대 고인돌과 삼국시대 금관을 직접 보며 교과서 속 역사가 실제로 존재했다는 것을 실감했습니다." },
+      { subject: "역사", grade: "초등 6학년", unit: "우리나라의 역사 (고려~조선시대)", hint: "고려·조선 전시실에서 금속활자, 측우기, 혼천의 등 역사적인 발명품들을 관람했습니다. 직지심체요절이 세계 최초의 금속활자 인쇄물임을 배우고, 조선 시대 과학기술의 우수함을 느낄 수 있었습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   },
   {
     id: "3",
@@ -57,7 +81,12 @@ export const places: Place[] = [
     fee: "어른 6,000원 / 어린이 2,000원",
     phone: "02-330-8899",
     age: "3세 ~ 12세",
-    imageUrl: "https://images.unsplash.com/photo-1519694938892-9e75a9f7a4bc?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1519694938892-9e75a9f7a4bc?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활", hint: "박물관에서 공룡 화석과 다양한 동물의 표본을 관찰했습니다. 서로 다른 환경에 살았던 동물들의 특징을 비교하고, 멸종된 동물과 현재 동물을 연결지어 생각해 보았습니다." },
+      { subject: "과학", grade: "초등 4학년", unit: "지층과 화석", hint: "지층 전시실에서 실제 지층 단면과 화석을 관찰했습니다. 교과서에서 배운 퇴적암, 화석의 생성 원리를 실물로 확인하고, 화석이 우리에게 옛날의 환경을 어떻게 알려주는지 이해했습니다." }
+    ]
   },
   {
     id: "4",
@@ -85,7 +114,12 @@ export const places: Place[] = [
     fee: "성인 10,000원 / 소인 8,000원",
     phone: "064-800-2000",
     age: "6세 ~ 16세",
-    imageUrl: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "6",
@@ -99,7 +133,12 @@ export const places: Place[] = [
     fee: "성인 3,000원 / 청소년 2,000원",
     phone: "051-750-2300",
     age: "5세 ~ 15세",
-    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "7",
@@ -113,7 +152,12 @@ export const places: Place[] = [
     fee: "성인 3,000원 / 영유아 무료",
     phone: "053-670-6114",
     age: "5세 ~ 15세",
-    imageUrl: "https://images.unsplash.com/photo-1495592822108-9e6261896da8?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1495592822108-9e6261896da8?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "8",
@@ -127,7 +171,12 @@ export const places: Place[] = [
     fee: "대인 3,000원 / 청소년 2,000원",
     phone: "062-960-6210",
     age: "5세 ~ 15세",
-    imageUrl: "https://images.unsplash.com/photo-1581093577421-f561a654a353?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1581093577421-f561a654a353?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "9",
@@ -141,7 +190,14 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "033-570-3545",
     age: "3세 ~ 9세",
-    imageUrl: "https://images.unsplash.com/photo-1519974719765-e6559eac2575?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1519974719765-e6559eac2575?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "국어", grade: "초등 2학년", unit: "인물의 마음을 짐작해요", hint: "다양한 그림책을 읽고 상상력을 키우며, 이야기 속 인물의 마음을 헤아려 봅니다." },
+
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "10",
@@ -155,7 +211,12 @@ export const places: Place[] = [
     fee: "박물관 무료 (시뮬레이터 체험 유료)",
     phone: "02-6940-3000",
     age: "6세 이상",
-    imageUrl: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구 (힘과 운동)", hint: "항공박물관에서 비행기가 날 수 있는 원리인 양력을 배웠습니다. 날개의 모양에 따라 위아래 기압 차이가 생기는 베르누이의 원리를 비행 시뮬레이터 체험을 통해 직접 느껴보았습니다." },
+      { subject: "사회", grade: "초등 5학년", unit: "우리나라의 발전과 미래 (교통·통신)", hint: "한국 항공 역사 전시실에서 한국전쟁 이후 항공 산업이 성장하는 과정을 시간 순서대로 관람했습니다. 교통의 발달이 우리나라 경제 성장에 어떤 영향을 미쳤는지 이해할 수 있었습니다." }
+    ]
   },
   {
     id: "11",
@@ -183,7 +244,12 @@ export const places: Place[] = [
     fee: "성인 14,000원 / 소인 11,000원",
     phone: "064-792-6114",
     age: "3세 ~ 10세",
-    imageUrl: "https://images.unsplash.com/photo-1618172193763-c511deb635ca?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1618172193763-c511deb635ca?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "13",
@@ -197,7 +263,12 @@ export const places: Place[] = [
     fee: "어른 3,000원 / 어린이 1,500원",
     phone: "055-670-4451",
     age: "4세 ~ 12세",
-    imageUrl: "https://images.unsplash.com/photo-1519694938892-9e75a9f7a4bc?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1519694938892-9e75a9f7a4bc?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "14",
@@ -211,7 +282,12 @@ export const places: Place[] = [
     fee: "무료 (4D 영상관 유료)",
     phone: "051-309-1900",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1503503330641-40ac8be7cf0b?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1503503330641-40ac8be7cf0b?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "15",
@@ -225,7 +301,12 @@ export const places: Place[] = [
     fee: "성인 2,000원 / 아동 1,000원",
     phone: "031-461-3610",
     age: "4세 ~ 12세",
-    imageUrl: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "16",
@@ -239,7 +320,12 @@ export const places: Place[] = [
     fee: "어른 3,000원 / 초등학생 1,000원",
     phone: "061-270-4101",
     age: "5세 ~ 13세",
-    imageUrl: "https://images.unsplash.com/photo-1550159930-40066082a4fc?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1550159930-40066082a4fc?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "17",
@@ -253,7 +339,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "02-2151-3114",
     age: "초등학생 이상",
-    imageUrl: "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 6학년", unit: "우리나라의 경제 발전", hint: "금융박물관에서 화폐의 역사와 경제의 흐름을 배웠습니다. 물물교환 시대부터 현대의 전자화폐까지 화폐가 어떻게 발전해왔는지 이해하고, 국가 경제에서 금융이 차지하는 역할에 대해 생각해 보았습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   },
   {
     id: "18",
@@ -281,7 +372,12 @@ export const places: Place[] = [
     fee: "무료 (체험비 별도)",
     phone: "063-281-2917",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "20",
@@ -295,7 +391,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "054-740-0600",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1609780447631-05b93e5a88ea?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1609780447631-05b93e5a88ea?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "21",
@@ -309,7 +410,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "041-850-6300",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1509726578-de563b39faad?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1509726578-de563b39faad?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "22",
@@ -323,7 +429,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "041-833-8507",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "23",
@@ -337,7 +448,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "055-742-5951",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "24",
@@ -351,7 +467,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "02-724-0274",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "25",
@@ -365,7 +486,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "02-2152-5800",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1597476978603-0ff43c6f1b27?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1597476978603-0ff43c6f1b27?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "26",
@@ -379,7 +505,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "031-8075-4274",
     age: "5세 ~ 12세",
-    imageUrl: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "27",
@@ -393,7 +524,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "033-260-1500",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "28",
@@ -407,7 +543,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "02-3704-3114",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1626623768097-dd2dbbdc6da8?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1626623768097-dd2dbbdc6da8?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "29",
@@ -421,7 +562,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "031-357-3951",
     age: "5세 ~ 13세",
-    imageUrl: "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
 
   // 2. 체험학습 (Amusement parks, aquariums, gardens, animal farms)
@@ -437,7 +583,12 @@ export const places: Place[] = [
     fee: "어린이 반일권 45,000원 / 성인 20,000원",
     phone: "1544-5110",
     age: "4세 ~ 14세",
-    imageUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리 고장의 공공 기관", hint: "키자니아에서 직접 주유소 직원, 소방관, 직업 체험을 하며 다양한 직업의 역할을 알았습니다. 특히 소방관 체험에서 화재 발생 시 기관이 어떻게 협력하는지 이해하고, 공공 기관의 역할과 필요성에 대해 생각해 보았습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 다양한 인물들의 삶이는 모습 (직업의 세계)", hint: "키자니아에서 의사, 고곤, 기자, 요리사 등 80가지 이상의 직업을 체험했습니다. 직접 직업 체험을 통해 서로 다른 직업이 어떻게 협력하여 사회를 이루는지 이해하고, 도시와 시민의 관계에 대해 사고해 보았습니다." }
+    ]
   },
   {
     id: "31",
@@ -465,7 +616,12 @@ export const places: Place[] = [
     fee: "동물원 어른 5,000원 / 어린이 2,000원",
     phone: "02-500-7335",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 한살이", hint: "동물원에서 존재인류의 샶이를 비교하며 동물의 특징을 관찰했습니다. 특히 아기를 탌 동물들의 아기 키우는 방식을 전시판으로 확인하갍습니다." },
+      { subject: "과학", grade: "초등 4학년", unit: "식물의 생활", hint: "대공원 내 식물원에서 다양한 환경의 식물을 관찰했습니다. 물에 떠 살는 식물부터 사막 식물까지 다양한 생태계 속 식물들을 직접 보며 엄청난 다양성을 느껴습니다." }
+    ]
   },
   {
     id: "33",
@@ -479,7 +635,12 @@ export const places: Place[] = [
     fee: "어른 6,000원 / 청소년 3,500원 / 어린이 2,000원",
     phone: "1688-3399",
     age: "4세 ~ 13세",
-    imageUrl: "https://images.unsplash.com/photo-1507163879411-5e92ac7f8588?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1507163879411-5e92ac7f8588?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 4학년", unit: "지층과 화석", hint: "광명동굴 내부에서 실제 존재하는 지층 단면을 관찰했습니다. 수체광 환체와 종유석, 석순 등 동굴 생성물을 직접 보며 잠단면이 어떻게 시작되는지 실제로 확인했습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "초등 3-4학년 사회: 지역의 표시와 지리", hint: "틀 채굴 실적이었던 광명동굴의 역사와 산업화 시대에 광산업이 우리 사회에 어떤 영향을 미쳤는지 화부 전시실을 통해 배움으로써 지역 스토리가 담햨된 예시를 찾는 햸트를 얻었습니다." }
+    ]
   },
   {
     id: "34",
@@ -507,7 +668,12 @@ export const places: Place[] = [
     fee: "1일 이용권 대인 50,000원~ / 소인 40,000원~",
     phone: "033-815-2300",
     age: "3세 ~ 12세",
-    imageUrl: "https://images.unsplash.com/photo-1560273832-8654-51ab2ae6c4ff?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1560273832-8654-51ab2ae6c4ff?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "36",
@@ -521,7 +687,12 @@ export const places: Place[] = [
     fee: "입장권 대인 32,000원 / 청소년 25,000원",
     phone: "031-288-0205",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "다양한 우리 고장의 모습", hint: "민속촌에서 조선 시대의 초가와 도자쟥, 농기 체험을 직접 해보았습니다. 우리의 조상들이 어떤 집에서 어떻게 살았는지 직접 보고 느낄 수 있었고, 현대와 어떤 점이 다른지 비교할 수 있었습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "조선 시대 사람들의 삶이는 모습", hint: "민속촌에서 초가, 기와, 누력 집의 차이를 보며 조선의 신분 제도에 대해 배움습니다. 전통 옛릴글민기, 노리게이 체험을 통해 조상의 지혜를 누리고 역사에 대한 외경심을 눈으로 느낄 수 있었습니다." }
+    ]
   },
   {
     id: "37",
@@ -535,7 +706,12 @@ export const places: Place[] = [
     fee: "대인 8,000원 / 소인 6,000원",
     phone: "033-332-8061",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 한살이", hint: "하늘목장에서 양, 말, 젖소 등 다양한 동물들을 직접 만져보고 체험했습니다. 동물의 한살이와 먹이 먹는 방식, 생활하는 모습을 관찰하며 생명의 소중함을 느꼈습니다." },
+      { subject: "과학", grade: "초등 4학년", unit: "식물의 생활", hint: "대관령 고산지대에서 자라는 다양한 풀과 식물을 탐색했습니다. 목장의 환경에서 식물들이 어떻게 적응하여 살아가는지 관찰했습니다." }
+    ]
   },
   {
     id: "38",
@@ -563,7 +739,12 @@ export const places: Place[] = [
     fee: "풀패키지 대인 41,000원 / 소인 37,000원",
     phone: "1833-7001",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "40",
@@ -577,7 +758,12 @@ export const places: Place[] = [
     fee: "대인 27,000원 / 소인 24,000원",
     phone: "02-1661-2000",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "41",
@@ -591,7 +777,12 @@ export const places: Place[] = [
     fee: "대인 32,000원 / 소인 28,000원",
     phone: "1833-7001",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1546026423-cc4642628d2b?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1546026423-cc4642628d2b?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "42",
@@ -605,7 +796,12 @@ export const places: Place[] = [
     fee: "타요 자유이용권 40,000원 (어린이)",
     phone: "064-792-8888",
     age: "2세 ~ 9세",
-    imageUrl: "https://images.unsplash.com/photo-1602738328654-51ab2ae6c4ff?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1602738328654-51ab2ae6c4ff?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "43",
@@ -619,7 +815,12 @@ export const places: Place[] = [
     fee: "대인 12,000원 / 소인 10,000원",
     phone: "031-692-4567",
     age: "3세 ~ 12세",
-    imageUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "44",
@@ -633,7 +834,12 @@ export const places: Place[] = [
     fee: "어른 8,000원 / 소인 5,000원",
     phone: "031-772-1800",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "45",
@@ -647,7 +853,12 @@ export const places: Place[] = [
     fee: "통합대인 16,000원 / 통합소인 12,000원",
     phone: "031-584-8200",
     age: "4세 이상",
-    imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "46",
@@ -661,7 +872,12 @@ export const places: Place[] = [
     fee: "대인 5,000원 / 청소년 3,000원",
     phone: "041-950-5300",
     age: "5세 ~ 15세",
-    imageUrl: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "47",
@@ -675,7 +891,12 @@ export const places: Place[] = [
     fee: "성인 8,000원 / 청소년 6,000원",
     phone: "061-749-6052",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "48",
@@ -689,7 +910,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "033-639-2928",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1463936575829-25148e1db1b8?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1463936575829-25148e1db1b8?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "49",
@@ -703,7 +929,12 @@ export const places: Place[] = [
     fee: "입장권 10,000원 (사전예약 필수)",
     phone: "031-8026-6666",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "50",
@@ -717,7 +948,12 @@ export const places: Place[] = [
     fee: "일반 16,000원 / 중고생 13,000원",
     phone: "031-580-8114",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "51",
@@ -731,7 +967,12 @@ export const places: Place[] = [
     fee: "자유이용권 대인 18,000원 / 소인 16,000원",
     phone: "1688-8511",
     age: "3세 ~ 12세",
-    imageUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "52",
@@ -745,7 +986,12 @@ export const places: Place[] = [
     fee: "개인 5,000원 (사전예약)",
     phone: "031-839-0300",
     age: "3세 ~ 10세",
-    imageUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "53",
@@ -759,7 +1005,12 @@ export const places: Place[] = [
     fee: "성인 5,000원 / 청소년 4,000원",
     phone: "054-789-4000",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "54",
@@ -773,7 +1024,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "052-229-3147",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "55",
@@ -787,7 +1043,12 @@ export const places: Place[] = [
     fee: "통합권 어른 5,000원 / 아동 2,500원",
     phone: "032-625-3500",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "56",
@@ -801,7 +1062,12 @@ export const places: Place[] = [
     fee: "일반 9,000원 / 소인 7,000원",
     phone: "031-535-6494",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "57",
@@ -815,7 +1081,12 @@ export const places: Place[] = [
     fee: "입장료 6,000원 (건초 먹이 포함)",
     phone: "031-774-3258",
     age: "3세 ~ 12세",
-    imageUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "58",
@@ -829,7 +1100,12 @@ export const places: Place[] = [
     fee: "무료 입장 (체험 패키지 유료)",
     phone: "033-930-0500",
     age: "7세 이상",
-    imageUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "59",
@@ -843,7 +1119,12 @@ export const places: Place[] = [
     fee: "1회탑승 16,000원 / 2회 27,000원",
     phone: "031-8026-5070",
     age: "6세 이상 (단독탑승 키 120cm 이상)",
-    imageUrl: "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "60",
@@ -857,7 +1138,12 @@ export const places: Place[] = [
     fee: "루지 3회권 29,900원",
     phone: "061-810-3000",
     age: "5세 이상",
-    imageUrl: "https://images.unsplash.com/photo-1595275313337-562a1293a71b?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1595275313337-562a1293a71b?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
 
   // 3. 축제 (Annual Festivals)
@@ -873,7 +1159,12 @@ export const places: Place[] = [
     fee: "일반 12,000원 / 청소년 10,000원",
     phone: "041-930-0891",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "62",
@@ -887,7 +1178,12 @@ export const places: Place[] = [
     fee: "얼음낚시 체험료 15,000원",
     phone: "1688-3005",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1472653431158-6364773b2a56?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1472653431158-6364773b2a56?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "63",
@@ -901,7 +1197,12 @@ export const places: Place[] = [
     fee: "무료 입장 (유료 체험 별도)",
     phone: "055-755-9111",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "64",
@@ -915,7 +1216,12 @@ export const places: Place[] = [
     fee: "일반 티켓 50,000원~",
     phone: "031-581-2814",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "65",
@@ -929,7 +1235,12 @@ export const places: Place[] = [
     fee: "성인 15,000원 / 청소년 12,000원",
     phone: "061-749-8000",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "66",
@@ -943,7 +1254,12 @@ export const places: Place[] = [
     fee: "무료 관람",
     phone: "051-749-4000",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "67",
@@ -957,7 +1273,12 @@ export const places: Place[] = [
     fee: "탈춤 공연 입장료 7,000원",
     phone: "054-841-6397",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "70",
@@ -971,7 +1292,12 @@ export const places: Place[] = [
     fee: "무료 관람 (체험비 별도)",
     phone: "041-750-2411",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1472653431158-6364773b2a56?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1472653431158-6364773b2a56?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "72",
@@ -985,7 +1311,12 @@ export const places: Place[] = [
     fee: "무료 입장 (시음 및 푸드 유료)",
     phone: "033-647-6802",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "73",
@@ -999,7 +1330,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "064-728-2752",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "74",
@@ -1013,7 +1349,12 @@ export const places: Place[] = [
     fee: "무료 입장 (주차비 유료)",
     phone: "061-797-2721",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "75",
@@ -1027,7 +1368,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "061-780-2726",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
 
   // 4. 1달 살기 (Month-long Family stays)
@@ -1043,7 +1389,12 @@ export const places: Place[] = [
     fee: "한달 장기 숙박 요금 별도 문의",
     phone: "064-799-0001",
     age: "전연령 (가족 최적)",
-    imageUrl: "https://images.unsplash.com/photo-1582719478250-c89cae4db85b?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1582719478250-c89cae4db85b?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "새로운 지역에서 장기간 생활하며 그 지역만의 고유한 자연환경과 인문환경을 몸소 체험했습니다." },
+      { subject: "도덕", grade: "초등 3학년", unit: "자연을 사랑해요", hint: "자연 속에서 여유를 즐기며 환경 보호의 중요성을 깨닫고 가족 간의 유대감을 강화했습니다." }
+    ]
   },
   {
     id: "77",
@@ -1057,7 +1408,12 @@ export const places: Place[] = [
     fee: "한달 살기 요금 협의",
     phone: "033-631-0002",
     age: "2세 ~ 10세 동반 가족",
-    imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "새로운 지역에서 장기간 생활하며 그 지역만의 고유한 자연환경과 인문환경을 몸소 체험했습니다." },
+      { subject: "도덕", grade: "초등 3학년", unit: "자연을 사랑해요", hint: "자연 속에서 여유를 즐기며 환경 보호의 중요성을 깨닫고 가족 간의 유대감을 강화했습니다." }
+    ]
   },
   {
     id: "78",
@@ -1071,7 +1427,12 @@ export const places: Place[] = [
     fee: "장기 숙박 할인 프로모션 적용",
     phone: "054-772-0003",
     age: "전연령 (조부모 동반 가족 추천)",
-    imageUrl: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "새로운 지역에서 장기간 생활하며 그 지역만의 고유한 자연환경과 인문환경을 몸소 체험했습니다." },
+      { subject: "도덕", grade: "초등 3학년", unit: "자연을 사랑해요", hint: "자연 속에서 여유를 즐기며 환경 보호의 중요성을 깨닫고 가족 간의 유대감을 강화했습니다." }
+    ]
   },
   {
     id: "79",
@@ -1085,7 +1446,12 @@ export const places: Place[] = [
     fee: "오션뷰 객실 장기 투숙가 문의",
     phone: "055-867-0004",
     age: "전연령 (힐링 여행 추천)",
-    imageUrl: "https://images.unsplash.com/photo-1582719478250-c89cae4db85b?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1582719478250-c89cae4db85b?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "새로운 지역에서 장기간 생활하며 그 지역만의 고유한 자연환경과 인문환경을 몸소 체험했습니다." },
+      { subject: "도덕", grade: "초등 3학년", unit: "자연을 사랑해요", hint: "자연 속에서 여유를 즐기며 환경 보호의 중요성을 깨닫고 가족 간의 유대감을 강화했습니다." }
+    ]
   },
   {
     id: "80",
@@ -1099,7 +1465,12 @@ export const places: Place[] = [
     fee: "패밀리룸 장기 정액제 별도 문의",
     phone: "061-681-0005",
     age: "전연령 (아동 동반 특화)",
-    imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "새로운 지역에서 장기간 생활하며 그 지역만의 고유한 자연환경과 인문환경을 몸소 체험했습니다." },
+      { subject: "도덕", grade: "초등 3학년", unit: "자연을 사랑해요", hint: "자연 속에서 여유를 즐기며 환경 보호의 중요성을 깨닫고 가족 간의 유대감을 강화했습니다." }
+    ]
   },
 
   // 5. 색다른 경험 (Unique Adventures & Transport)
@@ -1115,7 +1486,13 @@ export const places: Place[] = [
     fee: "이용료 49,000원 (남이섬 입장료 포함)",
     phone: "031-582-8091",
     age: "체중 35kg ~ 120kg 탑승 가능",
-    imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "체육", grade: "초등 5학년", unit: "도전 활동", hint: "새로운 액티비티에 도전하며 신체적 한계를 극복하고 성취감과 자신감을 얻었습니다." },
+      { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구", hint: "놀이기구 및 체험 기구에 숨어 있는 힘과 운동, 에너지 전환 원리를 몸소 체험했습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   },
   {
     id: "92",
@@ -1129,7 +1506,13 @@ export const places: Place[] = [
     fee: "일반 바이크(4인승) 30,000원",
     phone: "041-931-1180",
     age: "아동 동반 탑승 가능 (보호자 페달)",
-    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "체육", grade: "초등 5학년", unit: "도전 활동", hint: "새로운 액티비티에 도전하며 신체적 한계를 극복하고 성취감과 자신감을 얻었습니다." },
+      { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구", hint: "놀이기구 및 체험 기구에 숨어 있는 힘과 운동, 에너지 전환 원리를 몸소 체험했습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   },
   {
     id: "93",
@@ -1143,7 +1526,13 @@ export const places: Place[] = [
     fee: "2인승 25,000원 / 4인승 32,000원",
     phone: "032-719-7778",
     age: "전연령 (영유아 보호자 동반 필수)",
-    imageUrl: "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "체육", grade: "초등 5학년", unit: "도전 활동", hint: "새로운 액티비티에 도전하며 신체적 한계를 극복하고 성취감과 자신감을 얻었습니다." },
+      { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구", hint: "놀이기구 및 체험 기구에 숨어 있는 힘과 운동, 에너지 전환 원리를 몸소 체험했습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   },
   {
     id: "94",
@@ -1157,7 +1546,13 @@ export const places: Place[] = [
     fee: "체험비 80,000원~ (코스별 상이)",
     phone: "043-422-9900",
     age: "6세 이상 (성인 보호자 필요)",
-    imageUrl: "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "체육", grade: "초등 5학년", unit: "도전 활동", hint: "새로운 액티비티에 도전하며 신체적 한계를 극복하고 성취감과 자신감을 얻었습니다." },
+      { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구", hint: "놀이기구 및 체험 기구에 숨어 있는 힘과 운동, 에너지 전환 원리를 몸소 체험했습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   },
   {
     id: "95",
@@ -1171,7 +1566,13 @@ export const places: Place[] = [
     fee: "루지 3회권 30,000원 / 어린이 동반권 12,000원",
     phone: "1522-8889",
     age: "신장 110cm 이상 단독 탑승 가능",
-    imageUrl: "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "체육", grade: "초등 5학년", unit: "도전 활동", hint: "새로운 액티비티에 도전하며 신체적 한계를 극복하고 성취감과 자신감을 얻었습니다." },
+      { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구", hint: "놀이기구 및 체험 기구에 숨어 있는 힘과 운동, 에너지 전환 원리를 몸소 체험했습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   },
   {
     id: "96",
@@ -1185,7 +1586,13 @@ export const places: Place[] = [
     fee: "어른 4,000원 / 어린이 2,000원",
     phone: "054-791-6638",
     age: "전연령 탑승 가능",
-    imageUrl: "https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "체육", grade: "초등 5학년", unit: "도전 활동", hint: "새로운 액티비티에 도전하며 신체적 한계를 극복하고 성취감과 자신감을 얻었습니다." },
+      { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구", hint: "놀이기구 및 체험 기구에 숨어 있는 힘과 운동, 에너지 전환 원리를 몸소 체험했습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   },
 
   // 6. 학원 및 캠프 (Camps & Specialized Education)
@@ -1201,7 +1608,11 @@ export const places: Place[] = [
     fee: "프로그램별 교육 수수료 상이",
     phone: "1588-0554",
     age: "7세 ~ 16세",
-    imageUrl: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "수학", grade: "초등 4학년", unit: "규칙 찾기", hint: "다양한 문제 해결 과정을 통해 논리적 사고력과 창의력을 키웠습니다." }
+    ]
   },
   {
     id: "111",
@@ -1215,7 +1626,11 @@ export const places: Place[] = [
     fee: "프로그램별 상이 (시 위탁 할인 가능)",
     phone: "02-980-0554",
     age: "7세 ~ 13세 (초등학생 권장)",
-    imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "수학", grade: "초등 4학년", unit: "규칙 찾기", hint: "다양한 문제 해결 과정을 통해 논리적 사고력과 창의력을 키웠습니다." }
+    ]
   },
   {
     id: "112",
@@ -1229,7 +1644,13 @@ export const places: Place[] = [
     fee: "이용료(성인) 28,000원 / 천문관측 패키지",
     phone: "031-894-6000",
     age: "6세 이상 권장",
-    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "수학", grade: "초등 5학년", unit: "합동과 대칭", hint: "별자리와 행성의 궤도를 관찰하며 대칭과 각도, 거리 등 수학적 개념을 자연스럽게 익힙니다." },
+
+      { subject: "수학", grade: "초등 4학년", unit: "규칙 찾기", hint: "다양한 문제 해결 과정을 통해 논리적 사고력과 창의력을 키웠습니다." }
+    ]
   },
   {
     id: "113",
@@ -1243,7 +1664,11 @@ export const places: Place[] = [
     fee: "청소년 교육비 및 숙식비 실비 정산",
     phone: "041-620-7700",
     age: "9세 ~ 19세 청소년 대상",
-    imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "수학", grade: "초등 4학년", unit: "규칙 찾기", hint: "다양한 문제 해결 과정을 통해 논리적 사고력과 창의력을 키웠습니다." }
+    ]
   },
   {
     id: "114",
@@ -1257,7 +1682,11 @@ export const places: Place[] = [
     fee: "무료 관람 (인공클라이밍 체험료 2,000원)",
     phone: "033-638-4459",
     age: "6세 이상 (클라이밍 체험)",
-    imageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "수학", grade: "초등 4학년", unit: "규칙 찾기", hint: "다양한 문제 해결 과정을 통해 논리적 사고력과 창의력을 키웠습니다." }
+    ]
   },
 
   // 추가 박물관 (id 200~)
@@ -1273,7 +1702,12 @@ export const places: Place[] = [
     fee: "성인 4,000원 / 청소년 2,000원",
     phone: "02-3701-9500",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1575223970966-76ae61ee7838?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1575223970966-76ae61ee7838?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "201",
@@ -1287,7 +1721,12 @@ export const places: Place[] = [
     fee: "성인 20,000원 / 청소년 10,000원",
     phone: "02-2014-6900",
     age: "8세 이상 권장",
-    imageUrl: "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "202",
@@ -1301,7 +1740,12 @@ export const places: Place[] = [
     fee: "성인 1,000원 / 청소년 500원",
     phone: "042-601-7894",
     age: "5세 ~ 16세",
-    imageUrl: "https://images.unsplash.com/photo-1532094349884-543559244cac?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1532094349884-543559244cac?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "203",
@@ -1315,7 +1759,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "063-223-5651",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1609780447631-05b93e5a88ea?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1609780447631-05b93e5a88ea?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "204",
@@ -1329,7 +1778,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "062-570-7000",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1596803244535-925769f389fc?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1596803244535-925769f389fc?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "205",
@@ -1343,7 +1797,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "064-720-8000",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1527576539890-dfa815648363?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1527576539890-dfa815648363?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "206",
@@ -1357,7 +1816,14 @@ export const places: Place[] = [
     fee: "무료 입장 (특별전 유료)",
     phone: "02-709-3139",
     age: "7세 이상 권장",
-    imageUrl: "https://images.unsplash.com/photo-1572979201538-4b72dc7db0b5?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1572979201538-4b72dc7db0b5?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["중등", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "역사", grade: "중등 3학년", unit: "근현대사의 전개", hint: "전쟁과 분단의 아픔을 간직한 전시물을 통해 평화의 소중함을 깨닫고 올바른 국가관을 확립합니다." },
+
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "207",
@@ -1371,7 +1837,12 @@ export const places: Place[] = [
     fee: "어른 2,000원 / 어린이 1,000원",
     phone: "055-268-7700",
     age: "5세 ~ 15세",
-    imageUrl: "https://images.unsplash.com/photo-1495592822108-9e6261896da8?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1495592822108-9e6261896da8?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "208",
@@ -1385,7 +1856,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "041-560-0114",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "209",
@@ -1399,7 +1875,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "052-229-4797",
     age: "6세 이상",
-    imageUrl: "https://images.unsplash.com/photo-1551699522-72878dd6fec5?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1551699522-72878dd6fec5?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "210",
@@ -1413,7 +1894,12 @@ export const places: Place[] = [
     fee: "대인 1,000원 / 소인 500원",
     phone: "02-568-1330",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1573152143286-0c422b4d2175?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1573152143286-0c422b4d2175?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "211",
@@ -1427,7 +1913,12 @@ export const places: Place[] = [
     fee: "어린이 2,000원 / 어른 4,000원",
     phone: "02-3668-3300",
     age: "4세 ~ 13세",
-    imageUrl: "https://images.unsplash.com/photo-1503676382389-4809596d5290?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1503676382389-4809596d5290?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "212",
@@ -1441,7 +1932,12 @@ export const places: Place[] = [
     fee: "성인 3,000원 / 청소년 2,000원",
     phone: "054-745-4600",
     age: "6세 이상",
-    imageUrl: "https://images.unsplash.com/photo-1596810631965-8b2c52a02d69?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1596810631965-8b2c52a02d69?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "213",
@@ -1455,7 +1951,12 @@ export const places: Place[] = [
     fee: "성인 5,000원 / 청소년 2,500원",
     phone: "054-853-0109",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1601225998165-bf93cf7e2438?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1601225998165-bf93cf7e2438?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "214",
@@ -1469,7 +1970,12 @@ export const places: Place[] = [
     fee: "성인 3,000원 / 청소년 2,000원",
     phone: "052-256-5555",
     age: "5세 ~ 15세",
-    imageUrl: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
 
   // 추가 체험학습 (id 300~)
@@ -1485,7 +1991,14 @@ export const places: Place[] = [
     fee: "입장료 어른 5,000원 / 소인 3,000원",
     phone: "064-796-0396",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "미술/음악", grade: "초등 3학년", unit: "자연을 닮은 우리 동네", hint: "목장의 아름다운 자연 경관과 독특한 건축물인 테쉬폰을 관찰하고 그림으로 표현하며 심미적 감수성을 기릅니다." },
+
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "301",
@@ -1499,7 +2012,12 @@ export const places: Place[] = [
     fee: "성인 15,000원 / 소인 12,000원",
     phone: "054-783-0013",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1520366498724-709889c0c685?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1520366498724-709889c0c685?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "302",
@@ -1513,7 +2031,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "031-953-4744",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "303",
@@ -1527,7 +2050,12 @@ export const places: Place[] = [
     fee: "2시간 입장권 어린이 12,000원 / 성인 무료",
     phone: "031-290-1580",
     age: "2세 ~ 10세",
-    imageUrl: "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "304",
@@ -1541,7 +2069,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "043-850-6622",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1555597673-b21d5c935865?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1555597673-b21d5c935865?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "305",
@@ -1555,7 +2088,12 @@ export const places: Place[] = [
     fee: "어른 1,000원 / 청소년 무료",
     phone: "051-830-0500",
     age: "6세 ~ 16세",
-    imageUrl: "https://images.unsplash.com/photo-1581093577421-f561a654a353?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1581093577421-f561a654a353?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "306",
@@ -1569,7 +2107,12 @@ export const places: Place[] = [
     fee: "성인 1,500원 / 소인 700원",
     phone: "031-290-3600",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1601225998642-2ad59aef97c9?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1601225998642-2ad59aef97c9?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "307",
@@ -1583,7 +2126,12 @@ export const places: Place[] = [
     fee: "대인 12,000원 / 소인 7,000원",
     phone: "031-333-3558",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
 
   // 추가 색다른 경험 (id 400~)
@@ -1599,7 +2147,13 @@ export const places: Place[] = [
     fee: "4인승 35,000원 / 2인승 25,000원",
     phone: "033-563-8787",
     age: "전연령 (영유아 보호자 필수)",
-    imageUrl: "https://images.unsplash.com/photo-1471958680802-1345a694ba6d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1471958680802-1345a694ba6d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "체육", grade: "초등 5학년", unit: "도전 활동", hint: "새로운 액티비티에 도전하며 신체적 한계를 극복하고 성취감과 자신감을 얻었습니다." },
+      { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구", hint: "놀이기구 및 체험 기구에 숨어 있는 힘과 운동, 에너지 전환 원리를 몸소 체험했습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   },
   {
     id: "401",
@@ -1613,7 +2167,13 @@ export const places: Place[] = [
     fee: "1인 탑승 60,000원~",
     phone: "051-462-7788",
     age: "10세 이상 (보호자 동반 권장)",
-    imageUrl: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "체육", grade: "초등 5학년", unit: "도전 활동", hint: "새로운 액티비티에 도전하며 신체적 한계를 극복하고 성취감과 자신감을 얻었습니다." },
+      { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구", hint: "놀이기구 및 체험 기구에 숨어 있는 힘과 운동, 에너지 전환 원리를 몸소 체험했습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   },
   {
     id: "402",
@@ -1627,7 +2187,13 @@ export const places: Place[] = [
     fee: "대인 왕복 16,000원 / 소인 왕복 10,000원",
     phone: "033-636-4300",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1558000143-a60921473212?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1558000143-a60921473212?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "체육", grade: "초등 5학년", unit: "도전 활동", hint: "새로운 액티비티에 도전하며 신체적 한계를 극복하고 성취감과 자신감을 얻었습니다." },
+      { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구", hint: "놀이기구 및 체험 기구에 숨어 있는 힘과 운동, 에너지 전환 원리를 몸소 체험했습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   },
   {
     id: "403",
@@ -1641,7 +2207,13 @@ export const places: Place[] = [
     fee: "성인 12,000원 / 소인 9,000원",
     phone: "041-675-0327",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1502481851512-e9e2529bfbf9?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1502481851512-e9e2529bfbf9?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "체육", grade: "초등 5학년", unit: "도전 활동", hint: "새로운 액티비티에 도전하며 신체적 한계를 극복하고 성취감과 자신감을 얻었습니다." },
+      { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구", hint: "놀이기구 및 체험 기구에 숨어 있는 힘과 운동, 에너지 전환 원리를 몸소 체험했습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   },
   {
     id: "404",
@@ -1655,7 +2227,13 @@ export const places: Place[] = [
     fee: "체험다이빙 80,000원~",
     phone: "064-784-0050",
     age: "8세 이상 (보호자 동반 필수)",
-    imageUrl: "https://images.unsplash.com/photo-1586770703097-f40a0dc46d24?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1586770703097-f40a0dc46d24?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "체육", grade: "초등 5학년", unit: "도전 활동", hint: "새로운 액티비티에 도전하며 신체적 한계를 극복하고 성취감과 자신감을 얻었습니다." },
+      { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구", hint: "놀이기구 및 체험 기구에 숨어 있는 힘과 운동, 에너지 전환 원리를 몸소 체험했습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   },
 
   // 추가 축제 (id 500~)
@@ -1671,7 +2249,12 @@ export const places: Place[] = [
     fee: "성인 5,000원 / 어린이 3,000원",
     phone: "061-320-2222",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "501",
@@ -1685,7 +2268,12 @@ export const places: Place[] = [
     fee: "무료 입장 (음식/음료 별도)",
     phone: "053-250-7000",
     age: "19세 이상 (음주 구역 제한)",
-    imageUrl: "https://images.unsplash.com/photo-1535025183041-0991a977e25b?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1535025183041-0991a977e25b?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "502",
@@ -1699,7 +2287,12 @@ export const places: Place[] = [
     fee: "무료 입장 (체험비 별도)",
     phone: "031-644-2500",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "503",
@@ -1713,7 +2306,12 @@ export const places: Place[] = [
     fee: "무료 관람",
     phone: "02-2290-7111",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
   {
     id: "504",
@@ -1727,7 +2325,12 @@ export const places: Place[] = [
     fee: "무료 입장",
     phone: "055-548-2425",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1522383225653-ed111181a951?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1522383225653-ed111181a951?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 4학년", unit: "지역의 공공기관과 주민 참여", hint: "지역 축제에 참여하며 우리 고장의 문화를 체험하고 지역 사회에 대한 애향심을 키웠습니다." },
+      { subject: "국어", grade: "초등 3학년", unit: "감동을 나누어요", hint: "축제에서 본 다양한 공연과 전시를 통해 느낀 점을 친구들과 나누고 감수성을 길렀습니다." }
+    ]
   },
 
   // 추가 학원/캠프 (id 600~)
@@ -1743,7 +2346,11 @@ export const places: Place[] = [
     fee: "청소년 프로그램 5,000원~",
     phone: "041-750-2000",
     age: "9세 ~ 18세",
-    imageUrl: "https://images.unsplash.com/photo-1517976547714-720226b864c1?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1517976547714-720226b864c1?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "수학", grade: "초등 4학년", unit: "규칙 찾기", hint: "다양한 문제 해결 과정을 통해 논리적 사고력과 창의력을 키웠습니다." }
+    ]
   },
   {
     id: "601",
@@ -1757,7 +2364,11 @@ export const places: Place[] = [
     fee: "숙박형 프로그램 50,000원~/박",
     phone: "033-334-0100",
     age: "10세 ~ 18세",
-    imageUrl: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "수학", grade: "초등 4학년", unit: "규칙 찾기", hint: "다양한 문제 해결 과정을 통해 논리적 사고력과 창의력을 키웠습니다." }
+    ]
   },
   {
     id: "602",
@@ -1771,7 +2382,11 @@ export const places: Place[] = [
     fee: "2박 3일 캠프 150,000원~",
     phone: "064-787-6500",
     age: "8세 ~ 15세",
-    imageUrl: "https://images.unsplash.com/photo-1588072432836-e10032774350?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1588072432836-e10032774350?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "수학", grade: "초등 4학년", unit: "규칙 찾기", hint: "다양한 문제 해결 과정을 통해 논리적 사고력과 창의력을 키웠습니다." }
+    ]
   },
   {
     id: "603",
@@ -1785,7 +2400,11 @@ export const places: Place[] = [
     fee: "성인 1,000원 / 청소년 700원",
     phone: "031-540-2000",
     age: "7세 이상",
-    imageUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "수학", grade: "초등 4학년", unit: "규칙 찾기", hint: "다양한 문제 해결 과정을 통해 논리적 사고력과 창의력을 키웠습니다." }
+    ]
   },
   // ── 추가 체험학습 장소 ──
   {
@@ -1800,7 +2419,12 @@ export const places: Place[] = [
     fee: "무료 입장 (놀이기구 유료)",
     phone: "02-450-9311",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "701",
@@ -1814,7 +2438,12 @@ export const places: Place[] = [
     fee: "대인 5,000원 / 소인 3,000원",
     phone: "02-500-7335",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1576394435006-f06c96a8edce?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1576394435006-f06c96a8edce?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   {
     id: "702",
@@ -1828,7 +2457,12 @@ export const places: Place[] = [
     fee: "무료",
     phone: "032-760-7860",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1547474619-6edd06df1fe6?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1547474619-6edd06df1fe6?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초1-2", "초3-4"],
+    curriculumLinks: [
+      { subject: "과학", grade: "초등 3학년", unit: "동물의 생활 / 식물의 생활", hint: "자연 속에서 다양한 동식물을 관찰하며 생태계의 다양성과 생명 존중의 마음을 길렀습니다." },
+      { subject: "사회", grade: "초등 4학년", unit: "촌락과 도시의 생활 모습", hint: "직접 체험하며 다양한 직업의 세계를 탐색하고 우리 사회가 어떻게 굴러가는지 배웠습니다." }
+    ]
   },
   // ── 추가 박물관 ──
   {
@@ -1843,7 +2477,12 @@ export const places: Place[] = [
     fee: "무료",
     phone: "02-3709-7900",
     age: "초등학생 이상",
-    imageUrl: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "801",
@@ -1857,7 +2496,12 @@ export const places: Place[] = [
     fee: "무료",
     phone: "02-3703-9200",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1594191395568-d055106b653d?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1594191395568-d055106b653d?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   {
     id: "802",
@@ -1871,7 +2515,12 @@ export const places: Place[] = [
     fee: "어른 500원 / 어린이 300원",
     phone: "02-3425-6520",
     age: "초등학생 이상",
-    imageUrl: "https://images.unsplash.com/photo-1565060169194-19fabf63012c?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1565060169194-19fabf63012c?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "사회", grade: "초등 3학년", unit: "우리가 알아보는 고장 이야기", hint: "박물관에 전시된 옛날 물건들을 관찰하며 우리 고장의 역사와 옛사람들의 생활 모습을 알아보았습니다." },
+      { subject: "역사", grade: "초등 5학년", unit: "우리나라의 역사", hint: "시대별 유물들을 관람하며 역사적 사건들의 흐름을 파악하고 교과서에서 배운 내용을 직접 눈으로 확인했습니다." }
+    ]
   },
   // ── 추가 색다른 경험 ──
   {
@@ -1886,7 +2535,13 @@ export const places: Place[] = [
     fee: "대인 59,000원 / 소인 49,000원",
     phone: "033-434-0000",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1535025183041-0991a977e25b?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1535025183041-0991a977e25b?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "체육", grade: "초등 5학년", unit: "도전 활동", hint: "새로운 액티비티에 도전하며 신체적 한계를 극복하고 성취감과 자신감을 얻었습니다." },
+      { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구", hint: "놀이기구 및 체험 기구에 숨어 있는 힘과 운동, 에너지 전환 원리를 몸소 체험했습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   },
   {
     id: "901",
@@ -1900,7 +2555,13 @@ export const places: Place[] = [
     fee: "1박 30,000~50,000원",
     phone: "031-580-4445",
     age: "전연령",
-    imageUrl: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=500&auto=format&fit=crop&q=60",
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "체육", grade: "초등 5학년", unit: "도전 활동", hint: "새로운 액티비티에 도전하며 신체적 한계를 극복하고 성취감과 자신감을 얻었습니다." },
+      { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구", hint: "놀이기구 및 체험 기구에 숨어 있는 힘과 운동, 에너지 전환 원리를 몸소 체험했습니다." },
+      { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
   }
 ];
 

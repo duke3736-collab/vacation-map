@@ -212,6 +212,100 @@ export default function ThemesPage() {
             );
           })}
         </div>
+
+        {/* 방학 숙제 치트키 코스 섹션 */}
+        <div className="mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black text-slate-800 mb-3">
+              📝 방학 숙제 치트키 코스
+            </h2>
+            <p className="text-slate-600 font-bold text-lg">
+              교과 연계 핵심 장소만 모은 하루 완성 코스를 플래너에 바로 담아보세요!
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* 코스 1 */}
+            <div className="bg-white rounded-3xl p-8 border-4 border-purple-100 shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-purple-500 text-white font-black px-6 py-2 rounded-bl-3xl">초5-6 역사</div>
+              <h3 className="text-2xl font-black text-gray-900 mb-2">조선시대 마스터 코스 👑</h3>
+              <p className="text-gray-600 font-medium mb-6">조선의 한양부터 서민들의 삶까지 하루만에 체험하는 핵심 루트</p>
+              
+              <div className="space-y-4 mb-8">
+                {['24', '36'].map((id, idx) => {
+                  const place = places.find(p => p.id === id);
+                  if (!place) return null;
+                  return (
+                    <div key={id} className="flex items-center gap-4 bg-purple-50 p-4 rounded-2xl border border-purple-100">
+                      <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0">
+                        <img src={place.imageUrl || "/images/bg_museum.png"} alt={place.name} className="w-full h-full object-cover" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-purple-600 mb-1">코스 {idx + 1}</div>
+                        <div className="font-black text-lg text-gray-900">{place.name}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="flex gap-3">
+                <button 
+                  onClick={() => {
+                    useMapStore.getState().addPlaceToSchedule(1, '24');
+                    useMapStore.getState().addPlaceToSchedule(1, '36');
+                    alert('플래너 1일차에 담겼습니다!');
+                    router.push('/planner');
+                  }}
+                  className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-black py-4 rounded-2xl text-lg flex items-center justify-center gap-2 transition-colors"
+                >
+                  <span className="material-symbols-outlined">playlist_add</span>
+                  플래너 1일차에 담기
+                </button>
+              </div>
+            </div>
+
+            {/* 코스 2 */}
+            <div className="bg-white rounded-3xl p-8 border-4 border-emerald-100 shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-emerald-500 text-white font-black px-6 py-2 rounded-bl-3xl">초3-4 과학</div>
+              <h3 className="text-2xl font-black text-gray-900 mb-2">동식물 생태 탐험 코스 🌿</h3>
+              <p className="text-gray-600 font-medium mb-6">목장 동물과 습지 식물의 한살이를 하루만에 관찰하는 코스</p>
+              
+              <div className="space-y-4 mb-8">
+                {['37', '46'].map((id, idx) => {
+                  const place = places.find(p => p.id === id);
+                  if (!place) return null;
+                  return (
+                    <div key={id} className="flex items-center gap-4 bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
+                      <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0">
+                        <img src={place.imageUrl || "/images/bg_experience.png"} alt={place.name} className="w-full h-full object-cover" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-emerald-600 mb-1">코스 {idx + 1}</div>
+                        <div className="font-black text-lg text-gray-900">{place.name}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="flex gap-3">
+                <button 
+                  onClick={() => {
+                    useMapStore.getState().addPlaceToSchedule(2, '37');
+                    useMapStore.getState().addPlaceToSchedule(2, '46');
+                    alert('플래너 2일차에 담겼습니다!');
+                    router.push('/planner');
+                  }}
+                  className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-2xl text-lg flex items-center justify-center gap-2 transition-colors"
+                >
+                  <span className="material-symbols-outlined">playlist_add</span>
+                  플래너 2일차에 담기
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

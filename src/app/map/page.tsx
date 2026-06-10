@@ -53,8 +53,8 @@ export default function MapPage() {
         </Suspense>
       </div>
 
-      {/* 우측 하단 컨트롤러 (루트 레벨 배치로 화면 밀림 및 잘림 현상 방지) */}
-      <div className="absolute right-5 md:right-10 xl:right-[350px] bottom-28 md:bottom-14 z-30 flex flex-col gap-3 pointer-events-auto transition-all duration-300">
+      {/* 우측 컨트롤러 (루트 레벨 배치로 화면 밀림 및 잘림 현상 방지) */}
+      <div className="absolute top-[120px] right-4 md:top-auto md:right-10 xl:right-[350px] md:bottom-14 z-30 flex flex-col gap-3 pointer-events-auto transition-all duration-300">
         <button 
           onClick={handleMyLocation}
           className="premium-glass w-12 h-12 rounded-full shadow-md flex items-center justify-center text-slate-700 hover:text-blue-600 transition-all active:scale-95 cursor-pointer"
@@ -62,7 +62,7 @@ export default function MapPage() {
         >
           <span className="material-symbols-outlined text-[24px]">my_location</span>
         </button>
-        <div className="premium-glass rounded-full shadow-md flex flex-col overflow-hidden">
+        <div className="hidden md:flex premium-glass rounded-full shadow-md flex-col overflow-hidden">
           <button 
             onClick={handleZoomIn}
             className="w-12 h-12 flex items-center justify-center text-slate-700 hover:bg-black/5 transition-colors border-b border-black/5 active:bg-black/10 cursor-pointer"
@@ -83,9 +83,11 @@ export default function MapPage() {
       {/* 플로팅 UI 레이어 (맵 위로 뜸, 포인터 이벤트 제어) */}
       <div className="absolute inset-0 z-10 pointer-events-none flex flex-col pt-16">
         
+
+
         {/* 메인 콘텐츠 영역 (사이드바 등) */}
         <div className="flex-1 flex relative pointer-events-none">
-          <div className="pointer-events-auto h-[calc(100vh-9.5rem)] md:h-[calc(100vh-6rem)] p-4 md:p-6 pb-24 md:pb-6">
+          <div className="hidden md:block pointer-events-auto absolute bottom-20 left-3 right-3 h-[40vh] md:relative md:bottom-auto md:left-auto md:right-auto md:h-[calc(100vh-4rem)] md:w-auto md:p-6 md:pb-4 transition-all shadow-2xl md:shadow-none rounded-3xl overflow-hidden md:rounded-none z-20">
             <Sidebar />
           </div>
           

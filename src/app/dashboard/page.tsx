@@ -63,7 +63,10 @@ export default function DashboardPage() {
           <h1 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-orange-500 tracking-tight drop-shadow-sm mb-2">내 대시보드 ✨</h1>
           <p className="text-slate-600 font-bold text-lg">저장한 장소와 이번 방학 일정을 관리하세요.</p>
         </div>
-        <button className="bg-gradient-to-r from-rose-400 to-orange-400 text-white px-8 py-3.5 rounded-full font-black text-lg shadow-[0_8px_24px_rgba(251,113,133,0.3)] hover:shadow-[0_12px_28px_rgba(251,113,133,0.4)] hover:-translate-y-1 active:scale-95 transition-all self-start md:self-auto border-2 border-white/50">
+        <button 
+          onClick={() => alert("로그인 기능은 준비 중입니다. 현재는 로그인 없이 모든 기능을 체험하실 수 있습니다!")}
+          className="bg-gradient-to-r from-rose-400 to-orange-400 text-white px-8 py-3.5 rounded-full font-black text-lg shadow-[0_8px_24px_rgba(251,113,133,0.3)] hover:shadow-[0_12px_28px_rgba(251,113,133,0.4)] hover:-translate-y-1 active:scale-95 transition-all self-start md:self-auto border-2 border-white/50"
+        >
           로그인 / 가입
         </button>
       </div>
