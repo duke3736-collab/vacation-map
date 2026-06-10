@@ -32,7 +32,7 @@ const DEFAULT_POSTS: WordPressPost[] = [
     excerpt: "어렵게 느껴지는 미술관과 박물관을 아이 눈높이에 맞춰 설명해 주는 전문 가이드 프로그램 무료 예약 방법과 아이들의 주의를 끄는 추천 미션지를 공유합니다.",
     category: "방학 교육 팁",
     date: "2026-05-28",
-    imageUrl: "https://weknews.com/wp-content/uploads/2026/06/Gemini_Generated_Image_qualowqualowqual.webp",
+    imageUrl: "/images/wp_museum.png",
     link: "https://weknews.com/childrens-museum-docent/"
   },
   {
@@ -41,7 +41,7 @@ const DEFAULT_POSTS: WordPressPost[] = [
     excerpt: "계곡, 수영장, 워터파크 갈 때 두고 오면 현장에서 비싸게 사야 하는 필수 아동 용품 리스트와 저체온증/피부염 예방을 위해 꼭 확인해야 할 수칙을 알아봅니다.",
     category: "안전 가이드",
     date: "2026-05-25",
-    imageUrl: "https://weknews.com/wp-content/uploads/2026/06/Gemini_Generated_Image_jft2gajft2gajft2.webp",
+    imageUrl: "/images/wp_water.png",
     link: "https://weknews.com/essential-items-for-water-play/"
   },
   {
@@ -52,6 +52,15 @@ const DEFAULT_POSTS: WordPressPost[] = [
     date: "2026-05-20",
     imageUrl: "https://images.unsplash.com/photo-1533038590840-1cde6b66b706?w=500&auto=format&fit=crop&q=60",
     link: `${WORDPRESS_BASE_URL}/animal-feeding-farms`
+  },
+  {
+    id: 5,
+    title: "현장체험학습 신청서 & 보고서, 이렇게만 쓰면 무조건 통과! ✍️",
+    excerpt: "학부모님들이 가장 어려워하는 체험학습 신청서와 결과보고서 작성법. 학교에서 좋아하는 필수 키워드와 교과 연계 목적 작성 꿀팁을 총정리했습니다.",
+    category: "작성 가이드",
+    date: "2026-06-05",
+    imageUrl: "/images/wp_report.png",
+    link: "https://weknews.com/experiential-learning-application-report/"
   }
 ];
 

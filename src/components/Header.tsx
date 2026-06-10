@@ -64,7 +64,7 @@ export default function Header() {
           <span className="material-symbols-outlined text-[22px]">edit_document</span>
           <span>신청서 작성</span>
         </Link>
-        <Link href="/report/result" className="flex items-center gap-1.5 text-base font-bold text-slate-600 hover:text-indigo-600 transition-colors">
+        <Link href="/report" className="flex items-center gap-1.5 text-base font-bold text-slate-600 hover:text-indigo-600 transition-colors">
           <span className="material-symbols-outlined text-[22px]">task</span>
           <span>보고서 작성</span>
         </Link>

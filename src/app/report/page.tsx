@@ -103,7 +103,7 @@ export default function ReportHubPage() {
                 excerpt: "학부모님들이 가장 어려워하는 체험학습 신청서와 결과보고서 작성법. 학교에서 좋아하는 필수 키워드와 교과 연계 목적 작성 꿀팁을 총정리했습니다.",
                 category: "작성 가이드",
                 date: "2026-06-05",
-                imageUrl: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=500&auto=format&fit=crop&q=60",
+                imageUrl: "/images/wp_report.png",
                 link: "https://weknews.com/experiential-learning-application-report/"
               },
               {
@@ -121,7 +121,7 @@ export default function ReportHubPage() {
                 excerpt: "어렵게 느껴지는 미술관과 박물관을 아이 눈높이에 맞춰 설명해 주는 전문 가이드 프로그램 무료 예약 방법과 아이들의 주의를 끄는 추천 미션지를 공유합니다.",
                 category: "방학 교육 팁",
                 date: "2026-05-28",
-                imageUrl: "https://weknews.com/wp-content/uploads/2026/06/Gemini_Generated_Image_qualowqualowqual.webp",
+                imageUrl: "/images/wp_museum.png",
                 link: "https://weknews.com/childrens-museum-docent/"
               }
             ]}
