@@ -9,6 +9,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  manifest: "/manifest.json",
   title: "방학 맵 (Vacation Map) | 지도 기반 전국 방학 체험학습 & 나들이 추천",
   description: "초등학생 및 중학생 자녀의 방학을 알차게 보내기 위한 지도 기반 원스톱 정보 플랫폼. 무료 체험학습 명소, 박물관 도슨트 투어, 축제, 물놀이 추천 및 학교 제출용 교외 현장체험학습 신청서/결과보고서 양식 자동 완성 기능을 제공합니다.",
   keywords: [
@@ -67,6 +68,7 @@ export const metadata: Metadata = {
 import Header from "@/components/Header";
 import BottomNav from "@/components/BottomNav";
 import FloatingAds from "@/components/FloatingAds";
+import AddToHomeScreen from "@/components/AddToHomeScreen";
 
 export default function RootLayout({
   children,
@@ -102,6 +104,7 @@ export default function RootLayout({
         </main>
         <div className="pointer-events-auto print:hidden">
           <BottomNav />
+          <AddToHomeScreen />
         </div>
       </body>
     </html>

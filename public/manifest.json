@@ -1,0 +1,16 @@
+{
+  "name": "방학 맵 (Vacation Map)",
+  "short_name": "방학 맵",
+  "description": "지도 기반 원스톱 방학 정보 큐레이션",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "/images/bg_museum.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
