@@ -121,8 +121,8 @@ export default function ReportHubPage() {
                 excerpt: "어렵게 느껴지는 미술관과 박물관을 아이 눈높이에 맞춰 설명해 주는 전문 가이드 프로그램 무료 예약 방법과 아이들의 주의를 끄는 추천 미션지를 공유합니다.",
                 category: "방학 교육 팁",
                 date: "2026-05-28",
-                imageUrl: "https://images.unsplash.com/photo-1582880787361-b541349f7cf7?w=500&auto=format&fit=crop&q=60",
-                link: "https://weknews.com/museum-guide-tips"
+                imageUrl: "https://weknews.com/wp-content/uploads/2026/06/Gemini_Generated_Image_qualowqualowqual.webp",
+                link: "https://weknews.com/childrens-museum-docent/"
               }
             ]}
           />

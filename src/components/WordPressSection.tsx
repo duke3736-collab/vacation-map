@@ -32,8 +32,8 @@ const DEFAULT_POSTS: WordPressPost[] = [
     excerpt: "어렵게 느껴지는 미술관과 박물관을 아이 눈높이에 맞춰 설명해 주는 전문 가이드 프로그램 무료 예약 방법과 아이들의 주의를 끄는 추천 미션지를 공유합니다.",
     category: "방학 교육 팁",
     date: "2026-05-28",
-    imageUrl: "https://images.unsplash.com/photo-1582880787361-b541349f7cf7?w=500&auto=format&fit=crop&q=60",
-    link: `${WORDPRESS_BASE_URL}/museum-guide-tips`
+    imageUrl: "https://weknews.com/wp-content/uploads/2026/06/Gemini_Generated_Image_qualowqualowqual.webp",
+    link: "https://weknews.com/childrens-museum-docent/"
   },
   {
     id: 3,
@@ -41,8 +41,8 @@ const DEFAULT_POSTS: WordPressPost[] = [
     excerpt: "계곡, 수영장, 워터파크 갈 때 두고 오면 현장에서 비싸게 사야 하는 필수 아동 용품 리스트와 저체온증/피부염 예방을 위해 꼭 확인해야 할 수칙을 알아봅니다.",
     category: "안전 가이드",
     date: "2026-05-25",
-    imageUrl: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=500&auto=format&fit=crop&q=60",
-    link: `${WORDPRESS_BASE_URL}/water-play-checklist`
+    imageUrl: "https://weknews.com/wp-content/uploads/2026/06/Gemini_Generated_Image_jft2gajft2gajft2.webp",
+    link: "https://weknews.com/essential-items-for-water-play/"
   },
   {
     id: 4,
