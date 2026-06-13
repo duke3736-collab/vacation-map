@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
 import { useMapStore } from "@/store/useMapStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import { Place, Category } from "@/data/places";
 import clsx from "clsx";
 
@@ -61,7 +62,9 @@ function imgFallback(e: React.SyntheticEvent<HTMLImageElement>, fallback: string
 
 export default function PlaceDetailClient({ place, gallery, similarPlaces }: PlaceDetailClientProps) {
   const router = useRouter();
+  const { user, signInWithProvider } = useAuthStore();
   const [showAllPhotos, setShowAllPhotos] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const [mapLoading, mapError] = useKakaoLoader({
     appkey: process.env.NEXT_PUBLIC_KAKAO_APP_KEY || "11032eefd7d0111cb94d93c0ab41eb01",
   });
@@ -78,6 +81,22 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
   const handleReport = () => {
     setPlaceForReport(place);
     router.push("/report");
+  };
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!user) {
+      alert("로그인이 필요합니다.");
+      signInWithProvider("kakao");
+      return;
+    }
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setIsUploading(true);
+    // TODO: Supabase Storage 업로드 및 DB 인서트 구현
+    setTimeout(() => {
+      alert("사진 업로드 성공! (현재 테스트 모드입니다)");
+      setIsUploading(false);
+    }, 1500);
   };
 
   // 갤러리가 5장 미만이면 폴백으로 채우기
@@ -478,6 +497,35 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
                 </div>
               )}
             </div>
+          </div>
+        </div>
+
+        {/* ── 사용자 참여 현장 사진 ── */}
+        <div className="mt-12 pt-8 border-t-2 border-gray-100">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-black text-gray-900 flex items-center gap-2">
+              <span className="w-8 h-8 bg-pink-500 rounded-lg flex items-center justify-center text-white text-base">📷</span>
+              이용자 현장 사진
+            </h2>
+            {user ? (
+              <label className="cursor-pointer bg-slate-900 text-white px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors">
+                {isUploading ? "업로드 중..." : "현장 사진 올리기"}
+                <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} disabled={isUploading} />
+              </label>
+            ) : (
+              <button 
+                onClick={() => signInWithProvider("kakao")}
+                className="bg-[#FEE500] text-[#000000] px-4 py-2.5 rounded-xl font-bold text-sm hover:brightness-95 transition-all flex items-center gap-1.5 shadow-sm"
+              >
+                카카오로 로그인하고 사진 올리기
+              </button>
+            )}
+          </div>
+          
+          <div className="bg-slate-50 border-2 border-slate-200 border-dashed rounded-2xl p-10 flex flex-col items-center justify-center text-center text-slate-500">
+            <span className="material-symbols-outlined text-5xl mb-3 text-slate-300">photo_camera</span>
+            <p className="font-bold text-slate-700 text-lg">아직 등록된 현장 사진이 없습니다.</p>
+            <p className="text-sm mt-1">이 장소의 첫 번째 사진을 올려주세요!</p>
           </div>
         </div>
 
