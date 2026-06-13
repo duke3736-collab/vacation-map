@@ -73,6 +73,10 @@ export default function Header() {
           <span className="material-symbols-outlined text-[22px]">chat</span>
           <span>방학 톡톡</span>
         </Link>
+        <Link href="/community" className="flex items-center gap-1.5 text-base font-bold text-violet-600 hover:text-violet-800 transition-colors">
+          <span className="material-symbols-outlined text-[22px]">forum</span>
+          <span>방학 이야기</span>
+        </Link>
         <Link href="/report/plan" className="flex items-center gap-1.5 text-base font-bold text-slate-600 hover:text-blue-600 transition-colors">
           <span className="material-symbols-outlined text-[22px]">edit_document</span>
           <span>신청서 작성</span>
