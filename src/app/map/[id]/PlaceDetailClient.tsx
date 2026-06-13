@@ -247,13 +247,23 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
             {/* 데스크탑: Airbnb 스타일 그리드 */}
             <div className="hidden md:grid grid-cols-4 grid-rows-2 gap-1.5 h-[500px] bg-gray-900">
               {/* 메인 큰 이미지 */}
-              <div className="col-span-2 row-span-2 relative overflow-hidden">
+              <div className="col-span-2 row-span-2 relative overflow-hidden group">
                 <img
                   src={displayGallery[0]}
                   alt={place.name}
                   onError={(e) => imgFallback(e, fallbackImg)}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
+                {/* 사진 요청 오버레이 - 업로드된 사진 없을 때 */}
+                {uploadedPhotos.length === 0 && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col items-center justify-end pb-10 pointer-events-none">
+                    <div className="text-center text-white px-4">
+                      <div className="text-4xl mb-2">📷</div>
+                      <p className="text-xl font-black drop-shadow-lg">이 장소에서 찍은 사진이 있나요?</p>
+                      <p className="text-sm font-medium text-white/80 mt-1 drop-shadow">아래에서 직접 현장 사진을 올려주세요!</p>
+                    </div>
+                  </div>
+                )}
               </div>
               {/* 우측 4개 작은 이미지 */}
               {displayGallery.slice(1, 5).map((img, i) => (
@@ -276,6 +286,15 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
                 onError={(e) => imgFallback(e, fallbackImg)}
                 className="w-full h-full object-cover"
               />
+              {/* 사진 요청 오버레이 - 모바일 */}
+              {uploadedPhotos.length === 0 && (
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent flex flex-col items-center justify-end pb-5 pointer-events-none">
+                  <div className="text-center text-white px-4">
+                    <p className="text-base font-black drop-shadow-lg">📷 현장 사진을 올려주세요!</p>
+                    <p className="text-xs font-medium text-white/80 mt-0.5 drop-shadow">아래 버튼으로 직접 사진을 등록하세요</p>
+                  </div>
+                </div>
+              )}
             </div>
             {/* 모든 사진 보기 버튼 */}
             <button
