@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { places } from "@/data/places";
 import { useMapStore } from "@/store/useMapStore";
@@ -11,9 +11,6 @@ export default function PalaceTourPage() {
   
   // 궁궐 데이터 필터링
   const palacePlaces = places.filter(p => p.tags && p.tags.includes("궁투어"));
-
-  // 워드프레스 포스트 URL (기본 블로그 홈)
-  const [wpUrl, setWpUrl] = useState("https://weknews.com"); 
 
   const handleShowOnMap = (placeId: string) => {
     setSelectedTag(null);
@@ -119,50 +116,42 @@ export default function PalaceTourPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </section>
 
-        {/* 스토리텔링 역사 가이드 & 인문학 강의 */}
-        <section className="space-y-4">
-          <div className="flex justify-between items-end px-1">
-            <h3 className="text-2xl font-black text-slate-800 flex items-center gap-2">
-              <span className="text-3xl">📖</span>
-              <span>스토리텔링 역사 가이드 & 인문학 강의</span>
-            </h3>
-          </div>
-          
-          <div className="bg-white rounded-3xl shadow-sm border border-slate-200/60 overflow-hidden flex flex-col h-[65vh] relative">
-            <div className="absolute inset-0 flex items-center justify-center bg-slate-50 -z-10">
-              <div className="flex flex-col items-center gap-3 text-slate-400">
-                <span className="material-symbols-outlined text-4xl animate-spin">refresh</span>
-                <p className="text-sm font-bold animate-pulse">워드프레스 콘텐츠를 불러오는 중입니다...</p>
+            {/* 6번째 블로그 배너 카드 (경희궁 옆자리) */}
+            <a 
+              href="https://weknews.com/%ec%84%9c%ec%9a%b8-%ea%b6%81%ed%88%ac%ec%96%b4-4%eb%8c%80%ea%b6%81-%ec%95%bc%ea%b0%84-%ea%b0%9c%ec%9e%a5-%ea%b8%b0%ea%b0%84-%ec%98%88%ec%95%bd-%eb%b0%a9%eb%b2%95/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200/60 hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col group"
+            >
+              <div className="h-44 bg-slate-100 relative overflow-hidden">
+                <img 
+                  src="https://weknews.com/wp-content/uploads/2026/04/iShot_2026-04-26_20.30.44.webp" 
+                  alt="서울 고궁 야간 개장" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute top-3 left-3 bg-amber-500 text-white font-black text-xs px-3 py-1 rounded-full shadow-sm">
+                  국내 여행 / 체험 학습
+                </div>
               </div>
-            </div>
-            
-            <iframe 
-              src={wpUrl}
-              title="궁투어 소개 워드프레스"
-              className="w-full h-full border-none z-10 bg-transparent"
-              sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-            />
-          </div>
+              
+              <div className="p-5 flex-1 flex flex-col justify-between gap-4">
+                <div className="space-y-2">
+                  <div className="text-xs text-slate-400 font-bold">2026-04-26</div>
+                  <h4 className="text-lg font-black text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+                    서울 4대궁 야간 개장 기간 & 예약 방법 🌙
+                  </h4>
+                  <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                    덕수궁 밤의 석조전, 창경궁 물빛연화, 경복궁 별빛야행, 창덕궁 달빛기행 실전 팁과 방문 가이드를 총정리하여 소개합니다.
+                  </p>
+                </div>
 
-          {/* URL 조절 */}
-          <div className="bg-white p-5 rounded-3xl shadow-sm border border-slate-200/60 text-xs flex flex-col gap-3">
-            <div className="flex items-center gap-2 text-slate-700">
-              <span className="material-symbols-outlined text-base text-amber-600">info</span>
-              <span className="font-bold">원하는 워드프레스의 궁투어 관련 포스트 URL을 입력하고 [적용하기]를 누르시면 아래에 해당 글이 임베드됩니다.</span>
-            </div>
-            <div className="flex gap-2">
-              <input 
-                type="text" 
-                value={wpUrl}
-                onChange={(e) => setWpUrl(e.target.value)}
-                className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600 transition-all text-slate-600 text-sm font-medium"
-                placeholder="https://weknews.com/your-palace-tour-post-url/"
-              />
-              <button className="bg-amber-800 hover:bg-amber-900 active:scale-95 text-white px-6 py-3 rounded-xl font-bold text-sm whitespace-nowrap cursor-pointer transition-all shadow-sm">적용하기</button>
-            </div>
+                <div className="text-blue-600 font-black text-sm flex items-center gap-1 mt-2">
+                  <span>자세히 보러가기</span>
+                  <span className="material-symbols-outlined text-[16px] font-bold transition-transform group-hover:translate-x-1">arrow_forward</span>
+                </div>
+              </div>
+            </a>
           </div>
         </section>
       </main>
