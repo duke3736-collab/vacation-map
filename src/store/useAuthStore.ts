@@ -23,6 +23,8 @@ export const useAuthStore = create<AuthState>((set) => ({
       provider,
       options: {
         redirectTo: typeof window !== "undefined" ? window.location.origin : undefined,
+        // 카카오: 비즈니스 인증 없이 사용 가능한 스코프만 요청
+        scopes: provider === "kakao" ? "profile_nickname profile_image" : undefined,
       },
     });
   },
