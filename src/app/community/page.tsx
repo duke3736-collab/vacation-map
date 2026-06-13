@@ -81,57 +81,63 @@ export default function CommunityPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* 헤더 배너 */}
-      <div className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white py-10 px-4">
+      {/* 헤더 배너 + 필터 통합 */}
+      <div className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-4 pt-6 pb-0">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl font-black mb-1">🌟 방학 이야기</h1>
-          <p className="text-violet-200 text-sm">방학 중 경험, 정보, 질문을 자유롭게 나눠요!</p>
-        </div>
-      </div>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h1 className="text-2xl font-black">🌟 방학 이야기</h1>
+              <p className="text-violet-200 text-xs mt-0.5">방학 중 경험, 정보, 질문을 자유롭게 나눠요!</p>
+            </div>
+            <Link
+              href="/community/write"
+              className="bg-white text-violet-700 px-4 py-2 rounded-xl font-black text-sm hover:bg-violet-50 transition-colors shadow-sm flex items-center gap-1.5"
+            >
+              ✏️ 글쓰기
+            </Link>
+          </div>
 
-      <div className="max-w-3xl mx-auto px-4 py-6">
-        {/* 글쓰기 버튼 */}
-        <div className="flex items-center justify-between mb-5">
-          <div className="flex gap-2 overflow-x-auto pb-1">
+          {/* 카테고리 탭 */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-0">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition-all ${
+                className={`px-3.5 py-2 rounded-t-xl text-sm font-bold whitespace-nowrap transition-all border-b-2 ${
                   selectedCategory === cat
-                    ? "bg-violet-600 text-white shadow-sm"
-                    : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                    ? "bg-white text-violet-700 border-white"
+                    : "text-violet-200 border-transparent hover:text-white"
                 }`}
               >
                 {cat !== "전체" && CATEGORY_ICONS[cat]} {cat}
               </button>
             ))}
           </div>
-          <Link
-            href="/community/write"
-            className="shrink-0 ml-3 bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-xl font-bold text-sm transition-colors flex items-center gap-1.5 shadow-sm"
-          >
-            ✏️ 글쓰기
-          </Link>
+        </div>
+      </div>
+
+      <div className="max-w-3xl mx-auto px-4 py-4">
+        {/* 정렬 */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex gap-1">
+            {[
+              { key: "latest", label: "최신순" },
+              { key: "popular", label: "인기순" },
+            ].map(({ key, label }) => (
+              <button
+                key={key}
+                onClick={() => setSortBy(key as "latest" | "popular")}
+                className={`text-sm font-bold px-3 py-1.5 rounded-lg transition-colors ${
+                  sortBy === key ? "text-violet-600 bg-violet-50" : "text-slate-400 hover:text-slate-600"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <span className="text-xs text-slate-400">총 {posts.length}개</span>
         </div>
 
-        {/* 정렬 */}
-        <div className="flex gap-2 mb-4">
-          {[
-            { key: "latest", label: "최신순" },
-            { key: "popular", label: "인기순" },
-          ].map(({ key, label }) => (
-            <button
-              key={key}
-              onClick={() => setSortBy(key as "latest" | "popular")}
-              className={`text-sm font-bold px-3 py-1 rounded-lg transition-colors ${
-                sortBy === key ? "text-violet-600 bg-violet-50" : "text-slate-400 hover:text-slate-600"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
 
         {/* 게시글 목록 */}
         {isLoading ? (
