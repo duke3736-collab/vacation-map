@@ -20,7 +20,18 @@ export default function PalaceTourPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col pt-16">
+    <div className="min-h-screen bg-slate-50 flex flex-col pt-16 relative overflow-hidden">
+      {/* Background Stickers */}
+      <div
+        className="absolute inset-0 z-0 opacity-25 pointer-events-none animate-[spin_600s_linear_infinite] scale-150"
+        style={{
+          backgroundImage: "url('/images/bg_stickers.png')",
+          backgroundSize: "600px",
+          backgroundPosition: "center",
+          backgroundRepeat: "repeat"
+        }}
+      />
+
       {/* 상단 네비게이션 */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4 flex items-center justify-between h-16">
         <button 
@@ -44,7 +55,7 @@ export default function PalaceTourPage() {
       </header>
 
       {/* 헤더 배너 영역 */}
-      <section className="bg-gradient-to-br from-amber-800 to-orange-950 text-white px-6 py-16 relative overflow-hidden shrink-0 mt-0">
+      <section className="bg-gradient-to-br from-amber-800 to-orange-950 text-white px-6 py-16 relative overflow-hidden shrink-0 mt-0 z-10">
         <div className="absolute inset-0 bg-[url('/images/bg_palace.png')] opacity-25 bg-cover bg-center mix-blend-overlay"></div>
         <div className="relative z-10 max-w-4xl mx-auto text-center space-y-4">
           <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold tracking-widest text-orange-100 uppercase">Special Historical Course</span>
@@ -56,7 +67,7 @@ export default function PalaceTourPage() {
         </div>
       </section>
 
-      <main className="flex-1 w-full max-w-5xl mx-auto p-4 md:p-8 flex flex-col gap-10">
+      <main className="flex-1 w-full max-w-5xl mx-auto p-4 md:p-8 flex flex-col gap-10 relative z-10">
         {/* 궁궐 카드 리스트 */}
         <section className="space-y-6">
           <h3 className="text-2xl font-black text-slate-800 flex items-center gap-2 px-1">
