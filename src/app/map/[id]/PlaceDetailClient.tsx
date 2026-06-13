@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
 import { useMapStore } from "@/store/useMapStore";
 import { useAuthStore } from "@/store/useAuthStore";
 import { Place, Category } from "@/data/places";
+import { supabase } from "@/lib/supabase";
 import clsx from "clsx";
 
 const CATEGORY_COLORS: Record<Category, string> = {
@@ -69,6 +70,7 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
   const { user, signInWithProvider } = useAuthStore();
   const [showAllPhotos, setShowAllPhotos] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadedPhotos, setUploadedPhotos] = useState<string[]>([]);
   const [mapLoading, mapError] = useKakaoLoader({
     appkey: process.env.NEXT_PUBLIC_KAKAO_APP_KEY || "11032eefd7d0111cb94d93c0ab41eb01",
   });
@@ -76,6 +78,27 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
   const { savedPlaceIds, toggleSavePlace, setPlaceForReport, setFocusedPlaceId } = useMapStore();
   const isSaved = savedPlaceIds.includes(place.id);
   const fallbackImg = CATEGORY_FALLBACK[place.category];
+
+  // 1. 해당 장소에 업로드된 추가 사진들을 Supabase DB에서 조회
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      if (!supabase) return;
+      try {
+        const { data, error } = await supabase
+          .from("place_photos")
+          .select("image_url")
+          .eq("place_id", place.id)
+          .order("created_at", { ascending: false });
+          
+        if (!error && data) {
+          setUploadedPhotos(data.map(item => item.image_url));
+        }
+      } catch (err) {
+        console.error("Failed to fetch place photos:", err);
+      }
+    };
+    fetchPhotos();
+  }, [place.id]);
 
   const handleGoToMap = () => {
     setFocusedPlaceId(place.id);
@@ -87,6 +110,7 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
     router.push("/report");
   };
 
+  // 2. Supabase Storage에 이미지 업로드 및 DB 테이블 인서트
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!user) {
       alert("로그인이 필요합니다.");
@@ -95,17 +119,63 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
     }
     const file = e.target.files?.[0];
     if (!file) return;
+
+    if (!supabase) {
+      alert("서버 인프라 연결이 되어 있지 않습니다. (Supabase 인프라 연결 필요)");
+      return;
+    }
+
     setIsUploading(true);
-    // TODO: Supabase Storage 업로드 및 DB 인서트 구현
-    setTimeout(() => {
-      alert("사진 업로드 성공! (현재 테스트 모드입니다)");
+    try {
+      // 고유 파일명 생성
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${place.id}-${Date.now()}-${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
+      const filePath = `${place.id}/${fileName}`;
+
+      // Storage 업로드 (place-photos 버킷)
+      const { error: uploadError } = await supabase.storage
+        .from("place-photos")
+        .upload(filePath, file);
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      // Public URL 생성
+      const { data: { publicUrl } } = supabase.storage
+        .from("place-photos")
+        .getPublicUrl(filePath);
+
+      // DB 테이블 (place_photos)에 인서트
+      const { error: dbError } = await supabase
+        .from("place_photos")
+        .insert([
+          {
+            place_id: place.id,
+            image_url: publicUrl,
+            user_id: user.id,
+          }
+        ]);
+
+      if (dbError) {
+        throw dbError;
+      }
+
+      // 상태 업데이트 및 피드백
+      setUploadedPhotos((prev) => [publicUrl, ...prev]);
+      alert("사진이 성공적으로 업로드되었습니다!");
+    } catch (err: any) {
+      console.error("Photo upload error:", err);
+      alert(`사진 업로드 중 오류가 발생했습니다: ${err.message || "알 수 없는 오류"}`);
+    } finally {
       setIsUploading(false);
-    }, 1500);
+    }
   };
 
-  // 갤러리가 5장 미만이면 폴백으로 채우기
+  // 3. 기존 갤러리와 업로드된 동적 갤러리를 통합하여 렌더링
   const displayGallery = (() => {
-    const base = gallery.length > 0 ? gallery : [fallbackImg];
+    const mergedGallery = [...gallery, ...uploadedPhotos];
+    const base = mergedGallery.length > 0 ? mergedGallery : [fallbackImg];
     if (base.length >= 5) return base;
     return [...base, ...Array(5 - base.length).fill(fallbackImg)];
   })();
