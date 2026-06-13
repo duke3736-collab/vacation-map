@@ -12,8 +12,8 @@ export default function PalaceTourPage() {
   // 궁궐 데이터 필터링
   const palacePlaces = places.filter(p => p.tags && p.tags.includes("궁투어"));
 
-  // 워드프레스 포스트 URL (이전 포스트나 기본 블로그 홈)
-  const [wpUrl, setWpUrl] = useState("https://vacation.weknews.com"); 
+  // 워드프레스 포스트 URL (기본 블로그 홈)
+  const [wpUrl, setWpUrl] = useState("https://weknews.com"); 
 
   const handleShowOnMap = (placeId: string) => {
     setSelectedTag(null);
@@ -148,15 +148,21 @@ export default function PalaceTourPage() {
           </div>
 
           {/* URL 조절 */}
-          <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 text-xs flex gap-2">
-            <input 
-              type="text" 
-              value={wpUrl}
-              onChange={(e) => setWpUrl(e.target.value)}
-              className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 outline-none focus:border-amber-600 transition-colors text-slate-600"
-              placeholder="워드프레스 포스트 URL을 입력하세요"
-            />
-            <button className="bg-amber-800 hover:bg-amber-900 text-white px-4 py-2 rounded-xl font-bold whitespace-nowrap cursor-pointer">적용</button>
+          <div className="bg-white p-5 rounded-3xl shadow-sm border border-slate-200/60 text-xs flex flex-col gap-3">
+            <div className="flex items-center gap-2 text-slate-700">
+              <span className="material-symbols-outlined text-base text-amber-600">info</span>
+              <span className="font-bold">원하는 워드프레스의 궁투어 관련 포스트 URL을 입력하고 [적용하기]를 누르시면 아래에 해당 글이 임베드됩니다.</span>
+            </div>
+            <div className="flex gap-2">
+              <input 
+                type="text" 
+                value={wpUrl}
+                onChange={(e) => setWpUrl(e.target.value)}
+                className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600 transition-all text-slate-600 text-sm font-medium"
+                placeholder="https://weknews.com/your-palace-tour-post-url/"
+              />
+              <button className="bg-amber-800 hover:bg-amber-900 active:scale-95 text-white px-6 py-3 rounded-xl font-bold text-sm whitespace-nowrap cursor-pointer transition-all shadow-sm">적용하기</button>
+            </div>
           </div>
         </section>
       </main>
