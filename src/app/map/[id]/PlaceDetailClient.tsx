@@ -622,7 +622,7 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
 
         {/* ── 사용자 참여 현장 사진 ── */}
         <div className="mt-12 pt-8 border-t-2 border-gray-100">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-3">
             <h2 className="text-2xl font-black text-gray-900 flex items-center gap-2">
               <span className="w-8 h-8 bg-pink-500 rounded-lg flex items-center justify-center text-white text-base">📷</span>
               이용자 현장 사진
@@ -630,48 +630,75 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
                 <span className="text-sm font-bold text-gray-400 ml-1">({uploadedPhotos.length}장)</span>
               )}
             </h2>
-            <label className="cursor-pointer bg-slate-900 text-white px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors flex items-center gap-1.5">
+            <label className="cursor-pointer bg-pink-500 hover:bg-pink-600 text-white px-4 py-2.5 rounded-xl font-bold text-sm transition-colors flex items-center gap-1.5 shadow-sm">
               <span className="material-symbols-outlined text-[15px]">add_a_photo</span>
-              {isUploading ? "업로드 중..." : "현장 사진 올리기"}
+              {isUploading ? "업로드 중..." : "사진 올리기"}
               <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} disabled={isUploading} />
             </label>
           </div>
 
+          {/* 참여 유도 배너 */}
+          <div className="bg-gradient-to-r from-pink-50 to-orange-50 border border-pink-100 rounded-2xl px-5 py-4 mb-5 flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="text-3xl shrink-0">🌟</div>
+            <div className="flex-1">
+              <p className="font-black text-gray-800 text-sm">직접 방문했다면, 사진으로 공유해주세요!</p>
+              <p className="text-xs text-gray-500 mt-0.5">현장 사진은 다른 방문자들에게 가장 솔직한 정보가 됩니다. 찍어두신 사진이 있다면 지금 바로 올려주세요 📸</p>
+            </div>
+            <div className="hidden sm:flex flex-col gap-1 text-xs text-gray-400 shrink-0">
+              <span>✅ 로그인 불필요</span>
+              <span>✅ 5MB 이하 가능</span>
+              <span>✅ 즉시 등록</span>
+            </div>
+          </div>
+
           {uploadedPhotos.length === 0 ? (
-            <div className="bg-slate-50 border-2 border-slate-200 border-dashed rounded-2xl p-10 flex flex-col items-center justify-center text-center text-slate-500">
-              <span className="material-symbols-outlined text-5xl mb-3 text-slate-300">photo_camera</span>
-              <p className="font-bold text-slate-700 text-lg">아직 등록된 현장 사진이 없습니다.</p>
-              <p className="text-sm mt-1">이 장소의 첫 번째 사진을 올려주세요!</p>
+            <div className="bg-gradient-to-b from-slate-50 to-white border-2 border-dashed border-pink-200 rounded-2xl p-10 flex flex-col items-center justify-center text-center">
+              <div className="text-6xl mb-4">📸</div>
+              <p className="font-black text-gray-800 text-xl mb-1">아직 현장 사진이 없어요</p>
+              <p className="text-gray-500 text-sm mb-5">이 장소를 방문한 <strong className="text-pink-500">첫 번째 사진 기여자</strong>가 되어보세요!</p>
+              <label className="cursor-pointer bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-xl font-black text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center gap-2">
+                <span className="material-symbols-outlined text-[18px]">add_a_photo</span>
+                지금 사진 올리기
+                <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} disabled={isUploading} />
+              </label>
+              <p className="text-xs text-gray-400 mt-3">📌 로그인 없이 바로 올릴 수 있어요!</p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-              {uploadedPhotos.map((photo) => (
-                <div key={photo.id} className="relative group rounded-xl overflow-hidden aspect-video bg-gray-100 shadow-sm">
-                  <img
-                    src={photo.image_url}
-                    alt="이용자 현장 사진"
-                    onError={(e) => imgFallback(e, fallbackImg)}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  {/* 신고 버튼 오버레이 */}
-                  <button
-                    onClick={() => handlePhotoReport(photo.id)}
-                    disabled={reportingId === photo.id}
-                    className="absolute top-2 right-2 bg-black/60 hover:bg-red-600 text-white text-xs px-2 py-1 rounded-lg font-bold opacity-0 group-hover:opacity-100 transition-all flex items-center gap-1"
-                    title="부적절한 사진 신고"
-                  >
-                    🚩 신고
-                  </button>
-                  {photo.report_count > 0 && (
-                    <div className="absolute bottom-2 left-2 bg-red-500/80 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">
-                      신고 {photo.report_count}건
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {uploadedPhotos.map((photo) => (
+                  <div key={photo.id} className="relative group rounded-xl overflow-hidden aspect-video bg-gray-100 shadow-sm">
+                    <img
+                      src={photo.image_url}
+                      alt="이용자 현장 사진"
+                      onError={(e) => imgFallback(e, fallbackImg)}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    {/* 신고 버튼 오버레이 */}
+                    <button
+                      onClick={() => handlePhotoReport(photo.id)}
+                      disabled={reportingId === photo.id}
+                      className="absolute top-2 right-2 bg-black/60 hover:bg-red-600 text-white text-xs px-2 py-1 rounded-lg font-bold opacity-0 group-hover:opacity-100 transition-all flex items-center gap-1"
+                      title="부적절한 사진 신고"
+                    >
+                      🚩 신고
+                    </button>
+                    {photo.report_count > 0 && (
+                      <div className="absolute bottom-2 left-2 bg-red-500/80 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">
+                        신고 {photo.report_count}건
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              {/* 사진 있을 때도 추가 참여 유도 */}
+              <div className="mt-4 text-center">
+                <p className="text-sm text-gray-400">더 많은 현장 사진이 있다면 추가로 올려주세요 🙏</p>
+              </div>
+            </>
           )}
         </div>
+
 
         {/* ── 비슷한 장소 추천 ── */}
         {similarPlaces.length > 0 && (
