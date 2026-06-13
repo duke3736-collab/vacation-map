@@ -13,7 +13,7 @@ export default function AddToHomeScreen() {
     const isStandalone = window.matchMedia("(display-mode: standalone)").matches;
     
     // 2. 사용자가 이번 세션에 이미 닫았는지 확인
-    const isDismissed = sessionStorage.getItem("pwa-dismissed") === "true";
+    const isDismissed = localStorage.getItem("pwa-dismissed") === "true";
 
     if (isStandalone || isDismissed) {
       return;
@@ -69,7 +69,7 @@ export default function AddToHomeScreen() {
 
   const handleDismiss = () => {
     setIsVisible(false);
-    sessionStorage.setItem("pwa-dismissed", "true");
+    localStorage.setItem("pwa-dismissed", "true");
   };
 
   if (!isVisible) return null;

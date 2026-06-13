@@ -228,7 +228,7 @@ export default function MapClient() {
           {filteredPlaces.map((place) => {
             if (focusedPlaceId === place.id) {
               return (
-                <CustomOverlayMap key={`overlay-${place.id}`} position={{ lat: place.lat, lng: place.lng }} yAnchor={1.5}>
+                <CustomOverlayMap key={`overlay-${place.id}`} position={{ lat: place.lat, lng: place.lng }} yAnchor={1.5} clickable={true}>
                   <div className="bg-white/90 backdrop-blur-xl p-4 rounded-3xl shadow-xl border border-black/5 flex flex-col gap-2 min-w-[180px]">
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-1.5">
