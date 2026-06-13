@@ -70,7 +70,8 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
   const { user, signInWithProvider } = useAuthStore();
   const [showAllPhotos, setShowAllPhotos] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [uploadedPhotos, setUploadedPhotos] = useState<string[]>([]);
+  const [uploadedPhotos, setUploadedPhotos] = useState<{ id: string; image_url: string; report_count: number }[]>([]);
+  const [reportingId, setReportingId] = useState<string | null>(null);
   const [mapLoading, mapError] = useKakaoLoader({
     appkey: process.env.NEXT_PUBLIC_KAKAO_APP_KEY || "11032eefd7d0111cb94d93c0ab41eb01",
   });
@@ -86,12 +87,12 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
       try {
         const { data, error } = await supabase
           .from("place_photos")
-          .select("image_url")
+          .select("id, image_url, report_count")
           .eq("place_id", place.id)
           .order("created_at", { ascending: false });
           
         if (!error && data) {
-          setUploadedPhotos(data.map(item => item.image_url));
+          setUploadedPhotos(data);
         }
       } catch (err) {
         console.error("Failed to fetch place photos:", err);
@@ -110,71 +111,87 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
     router.push("/report");
   };
 
-  // 2. Supabase Storage에 이미지 업로드 및 DB 테이블 인서트
+  // 2. 익명으로 Supabase Storage에 이미지 업로드 및 DB 테이블 인서트
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!user) {
-      alert("로그인이 필요합니다.");
-      signInWithProvider("kakao");
-      return;
-    }
     const file = e.target.files?.[0];
     if (!file) return;
 
     if (!supabase) {
-      alert("서버 인프라 연결이 되어 있지 않습니다. (Supabase 인프라 연결 필요)");
+      alert("서버 연결 오류가 발생했습니다.");
+      return;
+    }
+
+    // 파일 크기 체크 (5MB 이하)
+    if (file.size > 5 * 1024 * 1024) {
+      alert("사진 크기는 5MB 이하만 업로드 가능합니다.");
       return;
     }
 
     setIsUploading(true);
     try {
-      // 고유 파일명 생성
       const fileExt = file.name.split(".").pop();
       const fileName = `${place.id}-${Date.now()}-${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
       const filePath = `${place.id}/${fileName}`;
 
-      // Storage 업로드 (place-photos 버킷)
       const { error: uploadError } = await supabase.storage
         .from("place-photos")
         .upload(filePath, file);
 
-      if (uploadError) {
-        throw uploadError;
-      }
+      if (uploadError) throw uploadError;
 
-      // Public URL 생성
       const { data: { publicUrl } } = supabase.storage
         .from("place-photos")
         .getPublicUrl(filePath);
 
-      // DB 테이블 (place_photos)에 인서트
-      const { error: dbError } = await supabase
+      const { data: inserted, error: dbError } = await supabase
         .from("place_photos")
-        .insert([
-          {
-            place_id: place.id,
-            image_url: publicUrl,
-            user_id: user.id,
-          }
-        ]);
+        .insert([{ place_id: place.id, image_url: publicUrl }])
+        .select("id, image_url, report_count")
+        .single();
 
-      if (dbError) {
-        throw dbError;
-      }
+      if (dbError) throw dbError;
 
-      // 상태 업데이트 및 피드백
-      setUploadedPhotos((prev) => [publicUrl, ...prev]);
-      alert("사진이 성공적으로 업로드되었습니다!");
+      setUploadedPhotos((prev) => [inserted, ...prev]);
+      alert("사진이 성공적으로 업로드되었습니다! 감사합니다 📷");
     } catch (err: any) {
       console.error("Photo upload error:", err);
       alert(`사진 업로드 중 오류가 발생했습니다: ${err.message || "알 수 없는 오류"}`);
     } finally {
       setIsUploading(false);
+      e.target.value = "";
     }
   };
 
-  // 3. 기존 갤러리와 업로드된 동적 갤러리를 통합하여 렌더링
+  // 3. 사진 신고 처리
+  const handlePhotoReport = async (photoId: string) => {
+    if (!supabase) return;
+    if (reportingId === photoId) return;
+    if (!confirm("이 사진을 부적절한 사진으로 신고하시겠습니까?")) return;
+    setReportingId(photoId);
+    try {
+      const current = uploadedPhotos.find(p => p.id === photoId);
+      if (current) {
+        const newCount = (current.report_count || 0) + 1;
+        await supabase
+          .from("place_photos")
+          .update({ report_count: newCount, is_reported: true })
+          .eq("id", photoId);
+        setUploadedPhotos(prev => prev.map(p =>
+          p.id === photoId ? { ...p, report_count: newCount } : p
+        ));
+      }
+      alert("신고가 접수되었습니다. 검토 후 조치하겠습니다.");
+    } catch (err) {
+      console.error("Report error:", err);
+    } finally {
+      setReportingId(null);
+    }
+  };
+
+  // 4. 기존 갤러리와 업로드된 동적 갤러리를 통합하여 렌더링 (업로드 사진 우선)
+  const uploadedUrls = uploadedPhotos.map(p => p.image_url);
   const displayGallery = (() => {
-    const mergedGallery = [...gallery, ...uploadedPhotos];
+    const mergedGallery = [...uploadedUrls, ...gallery];
     const base = mergedGallery.length > 0 ? mergedGallery : [fallbackImg];
     if (base.length >= 5) return base;
     return [...base, ...Array(5 - base.length).fill(fallbackImg)];
@@ -609,27 +626,51 @@ export default function PlaceDetailClient({ place, gallery, similarPlaces }: Pla
             <h2 className="text-2xl font-black text-gray-900 flex items-center gap-2">
               <span className="w-8 h-8 bg-pink-500 rounded-lg flex items-center justify-center text-white text-base">📷</span>
               이용자 현장 사진
+              {uploadedPhotos.length > 0 && (
+                <span className="text-sm font-bold text-gray-400 ml-1">({uploadedPhotos.length}장)</span>
+              )}
             </h2>
-            {user ? (
-              <label className="cursor-pointer bg-slate-900 text-white px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors">
-                {isUploading ? "업로드 중..." : "현장 사진 올리기"}
-                <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} disabled={isUploading} />
-              </label>
-            ) : (
-              <button 
-                onClick={() => signInWithProvider("kakao")}
-                className="bg-[#FEE500] text-[#000000] px-4 py-2.5 rounded-xl font-bold text-sm hover:brightness-95 transition-all flex items-center gap-1.5 shadow-sm"
-              >
-                카카오로 로그인하고 사진 올리기
-              </button>
-            )}
+            <label className="cursor-pointer bg-slate-900 text-white px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-[15px]">add_a_photo</span>
+              {isUploading ? "업로드 중..." : "현장 사진 올리기"}
+              <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} disabled={isUploading} />
+            </label>
           </div>
-          
-          <div className="bg-slate-50 border-2 border-slate-200 border-dashed rounded-2xl p-10 flex flex-col items-center justify-center text-center text-slate-500">
-            <span className="material-symbols-outlined text-5xl mb-3 text-slate-300">photo_camera</span>
-            <p className="font-bold text-slate-700 text-lg">아직 등록된 현장 사진이 없습니다.</p>
-            <p className="text-sm mt-1">이 장소의 첫 번째 사진을 올려주세요!</p>
-          </div>
+
+          {uploadedPhotos.length === 0 ? (
+            <div className="bg-slate-50 border-2 border-slate-200 border-dashed rounded-2xl p-10 flex flex-col items-center justify-center text-center text-slate-500">
+              <span className="material-symbols-outlined text-5xl mb-3 text-slate-300">photo_camera</span>
+              <p className="font-bold text-slate-700 text-lg">아직 등록된 현장 사진이 없습니다.</p>
+              <p className="text-sm mt-1">이 장소의 첫 번째 사진을 올려주세요!</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+              {uploadedPhotos.map((photo) => (
+                <div key={photo.id} className="relative group rounded-xl overflow-hidden aspect-video bg-gray-100 shadow-sm">
+                  <img
+                    src={photo.image_url}
+                    alt="이용자 현장 사진"
+                    onError={(e) => imgFallback(e, fallbackImg)}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  {/* 신고 버튼 오버레이 */}
+                  <button
+                    onClick={() => handlePhotoReport(photo.id)}
+                    disabled={reportingId === photo.id}
+                    className="absolute top-2 right-2 bg-black/60 hover:bg-red-600 text-white text-xs px-2 py-1 rounded-lg font-bold opacity-0 group-hover:opacity-100 transition-all flex items-center gap-1"
+                    title="부적절한 사진 신고"
+                  >
+                    🚩 신고
+                  </button>
+                  {photo.report_count > 0 && (
+                    <div className="absolute bottom-2 left-2 bg-red-500/80 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">
+                      신고 {photo.report_count}건
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* ── 비슷한 장소 추천 ── */}
