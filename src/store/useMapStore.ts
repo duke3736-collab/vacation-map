@@ -33,20 +33,24 @@ interface MapState {
   setSubjectFilter: (subject: SubjectType | null) => void;
   showFilters: boolean;
   setShowFilters: (show: boolean) => void;
+  selectedTag: string | null;
+  setSelectedTag: (tag: string | null) => void;
 }
 
 const computeFilteredPlaces = (
   query: string,
   categories: Category[],
   grade: GradeGroup | null,
-  subject: SubjectType | null
+  subject: SubjectType | null,
+  tag: string | null
 ) => {
   return places.filter((p) => {
     const matchCat = categories.length === 0 || categories.includes(p.category);
     const matchQuery = !query || p.name.includes(query) || p.address.includes(query);
     const matchGrade = !grade || (p.targetGrades && p.targetGrades.includes(grade));
     const matchSubject = !subject || (p.curriculumLinks && p.curriculumLinks.some(link => link.subject === subject));
-    return matchCat && matchQuery && matchGrade && matchSubject;
+    const matchTag = !tag || (p.tags && p.tags.includes(tag));
+    return matchCat && matchQuery && matchGrade && matchSubject && matchTag;
   });
 };
 
@@ -96,28 +100,54 @@ export const useMapStore = create<MapState>()(
       gradeFilter: null,
       subjectFilter: null,
       showFilters: false,
+      selectedTag: null,
       setShowFilters: (show) => set({ showFilters: show }),
+      setSelectedTag: (tag) => set((state) => {
+        if (tag === "궁투어") {
+          return {
+            selectedTag: tag,
+            activeCategories: [],
+            gradeFilter: null,
+            subjectFilter: null,
+            center: { lat: 37.5796, lng: 126.9770 },
+            level: 7,
+            filteredPlaces: computeFilteredPlaces(state.searchQuery, [], null, null, tag)
+          };
+        }
+        return {
+          selectedTag: tag,
+          filteredPlaces: computeFilteredPlaces(state.searchQuery, state.activeCategories, state.gradeFilter, state.subjectFilter, tag)
+        };
+      }),
       setGradeFilter: (grade) => set((state) => ({
         gradeFilter: grade,
         activeCategories: [], // Reset category filter
-        filteredPlaces: computeFilteredPlaces(state.searchQuery, [], grade, state.subjectFilter)
+        selectedTag: null,
+        filteredPlaces: computeFilteredPlaces(state.searchQuery, [], grade, state.subjectFilter, null)
       })),
       setSubjectFilter: (subject) => set((state) => ({
         subjectFilter: subject,
         activeCategories: [], // Reset category filter
-        filteredPlaces: computeFilteredPlaces(state.searchQuery, [], state.gradeFilter, subject)
+        selectedTag: null,
+        filteredPlaces: computeFilteredPlaces(state.searchQuery, [], state.gradeFilter, subject, null)
       })),
       setSearchQuery: (query) => set((state) => ({
         searchQuery: query, 
-        filteredPlaces: computeFilteredPlaces(query, state.activeCategories, state.gradeFilter, state.subjectFilter)
+        filteredPlaces: computeFilteredPlaces(query, state.activeCategories, state.gradeFilter, state.subjectFilter, state.selectedTag)
       })),
       setActiveCategory: (category) => set((state) => {
         const newCategories = category ? [category] : [];
+        const extraState = category === "궁투어" ? {
+          center: { lat: 37.5796, lng: 126.9770 },
+          level: 7
+        } : {};
         return {
           activeCategories: newCategories,
           gradeFilter: null, // Reset grade filter
           subjectFilter: null, // Reset subject filter
-          filteredPlaces: computeFilteredPlaces(state.searchQuery, newCategories, null, null),
+          selectedTag: null,
+          filteredPlaces: computeFilteredPlaces(state.searchQuery, newCategories, null, null, null),
+          ...extraState
         };
       }),
       toggleCategory: (category) =>
@@ -127,11 +157,18 @@ export const useMapStore = create<MapState>()(
             ? state.activeCategories.filter((c) => c !== category)
             : [...state.activeCategories, category];
           
+          const extraState = !isActive && category === "궁투어" ? {
+            center: { lat: 37.5796, lng: 126.9770 },
+            level: 7
+          } : {};
+
           return {
             activeCategories: newCategories,
             gradeFilter: null, // Reset grade filter
             subjectFilter: null, // Reset subject filter
-            filteredPlaces: computeFilteredPlaces(state.searchQuery, newCategories, null, null),
+            selectedTag: null,
+            filteredPlaces: computeFilteredPlaces(state.searchQuery, newCategories, null, null, null),
+            ...extraState
           };
         }),
     }),

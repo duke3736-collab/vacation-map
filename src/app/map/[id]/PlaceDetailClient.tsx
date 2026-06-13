@@ -15,6 +15,7 @@ const CATEGORY_COLORS: Record<Category, string> = {
   "학원": "#2563eb",
   "축제": "#ec4899",
   "색다른 경험": "#f97316",
+  "궁투어": "#d97706",
 };
 
 const CATEGORY_BG: Record<Category, string> = {
@@ -24,6 +25,7 @@ const CATEGORY_BG: Record<Category, string> = {
   "학원": "bg-blue-100 text-blue-800",
   "축제": "bg-pink-100 text-pink-800",
   "색다른 경험": "bg-orange-100 text-orange-800",
+  "궁투어": "bg-amber-100 text-amber-800",
 };
 
 // 카테고리별 폴백 이미지
@@ -34,6 +36,7 @@ const CATEGORY_FALLBACK: Record<Category, string> = {
   "학원": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&auto=format&fit=crop&q=80",
   "축제": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
   "색다른 경험": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&auto=format&fit=crop&q=80",
+  "궁투어": "/images/bg_palace.png",
 };
 
 const getCategoryIcon = (cat: Category) => {
@@ -44,6 +47,7 @@ const getCategoryIcon = (cat: Category) => {
     case "학원": return "📚";
     case "축제": return "🎡";
     case "체험학습": return "🏃‍♂️";
+    case "궁투어": return "🏯";
     default: return "📍";
   }
 };

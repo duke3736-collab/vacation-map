@@ -1,4 +1,4 @@
-export type Category = "박물관" | "색다른 경험" | "1달 살기" | "학원" | "체험학습" | "축제";
+export type Category = "박물관" | "색다른 경험" | "1달 살기" | "학원" | "체험학습" | "축제" | "궁투어";
 export type GradeGroup = "초1-2" | "초3-4" | "초5-6" | "중등";
 export type SubjectType = "사회" | "과학" | "역사" | "수학" | "국어" | "미술/음악" | "도덕" | "체육";
 
@@ -24,6 +24,7 @@ export interface Place {
   imageUrl?: string;
   curriculumLinks?: CurriculumLink[];   // 교과 연계 데이터
   targetGrades?: GradeGroup[];          // 권장 학년 그룹
+  tags?: string[];                      // 태그 정보 (예: "궁투어")
 }
 
 
@@ -2561,6 +2562,102 @@ export const places: Place[] = [
       { subject: "체육", grade: "초등 5학년", unit: "도전 활동", hint: "새로운 액티비티에 도전하며 신체적 한계를 극복하고 성취감과 자신감을 얻었습니다." },
       { subject: "과학", grade: "초등 6학년", unit: "에너지와 도구", hint: "놀이기구 및 체험 기구에 숨어 있는 힘과 운동, 에너지 전환 원리를 몸소 체험했습니다." },
       { subject: "체육", grade: "중등 1~3학년", unit: "여가 활동", hint: "다양한 여가 활동을 체험하며 스트레스를 해소하고 건전한 여가 생활의 가치를 깨달았습니다." },
+    ]
+  },
+  {
+    id: "palace-1",
+    name: "경복궁",
+    category: "궁투어",
+    lat: 37.5796,
+    lng: 126.9770,
+    address: "서울 종로구 사직로 161",
+    isIndoor: false,
+    hours: "09:00 ~ 18:00 (매주 화요일 휴무)",
+    fee: "대인 3,000원 / 만 18세 이하 무료",
+    phone: "02-3700-3900",
+    age: "전연령",
+    imageUrl: "/images/bg_palace.png",
+    tags: ["궁투어"],
+    targetGrades: ["초3-4", "초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "역사", grade: "초등 5학년", unit: "조선 유교 사회의 성립과 변화", hint: "조선의 법궁인 경복궁에서 근정전과 경회루를 관람하며 조선 건국의 이념과 궁궐 건축의 아름다움을 학습했습니다. 특히 근정전 앞마당의 품계석과 조정의 구조를 보며 왕권과 신권의 조화를 이해하게 되었습니다." },
+      { subject: "사회", grade: "초등 3학년", unit: "우리 고장의 문화유산", hint: "서울의 대표적인 문화유산인 경복궁을 방문하여 역사적 가치와 보존의 중요성을 깨달았습니다." }
+    ]
+  },
+  {
+    id: "palace-2",
+    name: "창덕궁",
+    category: "궁투어",
+    lat: 37.5794,
+    lng: 126.9910,
+    address: "서울 종로구 율곡로 99",
+    isIndoor: false,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴무)",
+    fee: "대인 3,000원 / 후원 대인 5,000원",
+    phone: "02-3668-2300",
+    age: "전연령",
+    imageUrl: "/images/bg_palace.png",
+    tags: ["궁투어"],
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "역사", grade: "초등 5학년", unit: "조선 유교 사회의 성립과 변화", hint: "유네스코 세계문화유산인 창덕궁을 답사하며 자연과 조화를 이룬 한국식 궁궐 정원(후원)의 진수를 경험했습니다. 건물의 배치 방식이 자연 지형을 훼손하지 않고 순응하여 배치된 과학적 원리를 관찰했습니다." }
+    ]
+  },
+  {
+    id: "palace-3",
+    name: "창경궁",
+    category: "궁투어",
+    lat: 37.5788,
+    lng: 126.9965,
+    address: "서울 종로구 창경궁로 185",
+    isIndoor: false,
+    hours: "09:00 ~ 21:00 (매주 월요일 휴무)",
+    fee: "대인 1,000원 / 만 18세 이하 무료",
+    phone: "02-762-4868",
+    age: "전연령",
+    imageUrl: "/images/bg_palace.png",
+    tags: ["궁투어"],
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "역사", grade: "초등 5학년", unit: "조선의 사회와 문화", hint: "창경궁 명정전을 돌아보며 현존하는 가장 오래된 조선시대 궁궐 정전을 직접 눈으로 관찰했습니다. 일제강점기 시절 창경원으로 격하되었던 아픈 역사를 배우고 문화유산 수호의 중요성을 느꼈습니다." }
+    ]
+  },
+  {
+    id: "palace-4",
+    name: "덕수궁",
+    category: "궁투어",
+    lat: 37.5658,
+    lng: 126.9751,
+    address: "서울 중구 세종대로 99",
+    isIndoor: false,
+    hours: "09:00 ~ 21:00 (매주 월요일 휴무)",
+    fee: "대인 1,000원 / 만 18세 이하 무료",
+    phone: "02-771-9951",
+    age: "전연령",
+    imageUrl: "/images/bg_palace.png",
+    tags: ["궁투어"],
+    targetGrades: ["초5-6", "중등"],
+    curriculumLinks: [
+      { subject: "역사", grade: "초등 6학년", unit: "새로운 사회를 향한 움직임 및 대한제국", hint: "덕수궁 중명전과 석조전을 관람하며 조선 왕조에서 근대 국가인 대한제국으로 전환되던 시기의 역사적 흔적을 탐구했습니다. 서양식 석조 건물และ 전통 목조 궁궐 건물이 한자리에 모여 있는 조화를 보고 근대사적 의의를 고찰했습니다." }
+    ]
+  },
+  {
+    id: "palace-5",
+    name: "경희궁",
+    category: "궁투어",
+    lat: 37.5713,
+    lng: 126.9684,
+    address: "서울 종로구 새문안로 55",
+    isIndoor: false,
+    hours: "09:00 ~ 18:00 (매주 월요일 휴무)",
+    fee: "무료",
+    phone: "02-724-0274",
+    age: "전연령",
+    imageUrl: "/images/bg_palace.png",
+    tags: ["궁투어"],
+    targetGrades: ["초3-4", "초5-6"],
+    curriculumLinks: [
+      { subject: "역사", grade: "초등 5학년", unit: "조선 후기의 사회 변화", hint: "경희궁 숭정전 일대를 탐방하며 광해군 대에 지어져 서궐로 불렸던 역사를 배웠습니다. 소실과 복원의 역사를 거치며 도심 속 한적한 문화재 보존 구역의 의미를 되새겨 보았습니다." }
     ]
   }
 ];

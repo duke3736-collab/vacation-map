@@ -37,6 +37,11 @@ const PLACE_IMAGES: Record<Category, string[]> = {
     "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&auto=format&fit=crop&q=60",
     "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&auto=format&fit=crop&q=60",
     "https://images.unsplash.com/photo-1588072432836-e10032774350?w=400&auto=format&fit=crop&q=60"
+  ],
+  "궁투어": [
+    "https://images.unsplash.com/photo-1599839619722-39751411ea63?w=400&auto=format&fit=crop&q=60",
+    "https://images.unsplash.com/photo-1608976451651-789a71be7610?w=400&auto=format&fit=crop&q=60",
+    "https://images.unsplash.com/photo-1620608678235-9cd4b52b2f8a?w=400&auto=format&fit=crop&q=60"
   ]
 };
 
@@ -212,9 +217,11 @@ export default function Sidebar() {
     subjectFilter,
     setSubjectFilter,
     showFilters,
-    setShowFilters
+    setShowFilters,
+    selectedTag,
+    setSelectedTag
   } = useMapStore();
-  const categories: Category[] = ["박물관", "색다른 경험", "1달 살기", "학원", "체험학습", "축제"];
+  const categories: Category[] = ["박물관", "색다른 경험", "1달 살기", "학원", "체험학습", "축제", "궁투어"];
   const grades: GradeGroup[] = ["초1-2", "초3-4", "초5-6", "중등"];
   const subjects: SubjectType[] = ["사회", "과학", "역사", "수학", "국어", "미술/음악"];
 
@@ -233,6 +240,7 @@ export default function Sidebar() {
       case "학원": return "📚";
       case "축제": return "🎡";
       case "체험학습": return "🏃‍♂️";
+      case "궁투어": return "🏯";
       default: return "📍";
     }
   };

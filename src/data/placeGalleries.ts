@@ -50,10 +50,53 @@ export const CATEGORY_GALLERIES: Record<Category, string[]> = {
     "https://images.unsplash.com/photo-1582719478250-c89cae4db85b?w=800&auto=format&fit=crop&q=80", // camp
     "https://images.unsplash.com/photo-1588072432836-e10032774350?w=800&auto=format&fit=crop&q=80", // science camp
   ],
+  "궁투어": [
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png"
+  ]
 };
 
 // 장소별 큐레이션 갤러리 (각 장소 특성에 맞는 이미지)
 export const PLACE_GALLERIES: Record<string, string[]> = {
+  // ── 궁투어 5대 궁궐 ──
+  "palace-1": [
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png"
+  ],
+  "palace-2": [
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png"
+  ],
+  "palace-3": [
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png"
+  ],
+  "palace-4": [
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png"
+  ],
+  "palace-5": [
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png",
+    "/images/bg_palace.png"
+  ],
   // ── 박물관 ──
   // 국립과천과학관
   "1": [

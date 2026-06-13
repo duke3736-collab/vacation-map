@@ -19,15 +19,22 @@ const THEME_PLACE_IDS: Record<string, string[]> = {
   "테마파크": ["31", "35", "34", "42", "39", "51", "12"],
   // 액티비티: 남이섬짚와이어(91), 스카이바이크(92), 레일바이크(93), 통영루지(95), 정선레일바이크(400), 설악케이블카(402), 태안별빛정원(403), 제주스쿠버(404)
   "액티비티": ["91", "92", "400", "402", "403", "95", "93", "404"],
+  // 궁투어: 경복궁(palace-1), 창덕궁(palace-2), 창경궁(palace-3), 덕수궁(palace-4), 경희궁(palace-5)
+  "궁투어": ["palace-1", "palace-2", "palace-3", "palace-4", "palace-5"],
 };
 
 export default function ThemesPage() {
   const router = useRouter();
-  const { setActiveCategory } = useMapStore();
+  const { setActiveCategory, setSelectedTag } = useMapStore();
 
-  const handleThemeClick = (category: Category) => {
-    setActiveCategory(category);
-    router.push("/map");
+  const handleThemeClick = (key: string, category: Category) => {
+    if (key === "궁투어") {
+      setSelectedTag("궁투어");
+      router.push("/theme/palace-tour");
+    } else {
+      setActiveCategory(category);
+      router.push("/map");
+    }
   };
 
   const handlePlaceClick = (placeId: string) => {
@@ -68,6 +75,16 @@ export default function ThemesPage() {
       bgImage: "/images/bg_museum.png",
       color: "from-purple-700 to-violet-500",
       highlight: "국립중앙박물관·독립기념관·안동하회마을",
+    },
+    {
+      key: "궁투어",
+      title: "시간을 걷는 서울 궁궐 투어",
+      category: "체험학습" as Category,
+      emoji: "🏯",
+      desc: "조선 왕조 500년의 깊은 역사를 간직한 5대 궁궐 탐방",
+      bgImage: "/images/bg_palace.png",
+      color: "from-amber-700 to-orange-950",
+      highlight: "경복궁·창덕궁·창경궁·덕수궁·경희궁",
     },
     {
       key: "자연생태",
@@ -137,7 +154,7 @@ export default function ThemesPage() {
                 <div
                   className="relative h-52 bg-cover bg-center overflow-hidden"
                   style={{ backgroundImage: `url(${theme.bgImage})` }}
-                  onClick={() => handleThemeClick(theme.category)}
+                  onClick={() => handleThemeClick(theme.key, theme.category)}
                 >
                   <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent`} />
                   <div className="absolute inset-0 p-5 flex flex-col justify-end">
@@ -150,7 +167,7 @@ export default function ThemesPage() {
                   {/* 전체 보기 버튼 */}
                   <div className="absolute top-3 right-3">
                     <button
-                      onClick={(e) => { e.stopPropagation(); handleThemeClick(theme.category); }}
+                      onClick={(e) => { e.stopPropagation(); handleThemeClick(theme.key, theme.category); }}
                       className="bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-sm font-black text-white border border-white/30 hover:bg-white/30 transition-colors"
                     >
                       전체 보기 →
@@ -202,7 +219,7 @@ export default function ThemesPage() {
                   </div>
                   {/* 더보기 */}
                   <button
-                    onClick={() => handleThemeClick(theme.category)}
+                    onClick={() => handleThemeClick(theme.key, theme.category)}
                     className={`mt-3 w-full py-2.5 rounded-xl text-base font-black text-white bg-gradient-to-r ${theme.color} hover:opacity-90 transition-opacity`}
                   >
                     {themePlaces.length}개 장소 전체 보기 →

@@ -14,6 +14,7 @@ const categoryColors: Record<Category, string> = {
   "학원": "var(--color-academy-blue)",
   "축제": "var(--color-festival-pink)",
   "색다른 경험": "var(--color-secondary)",
+  "궁투어": "#d97706",
 };
 
 const getCategoryIcon = (cat: Category) => {
@@ -24,6 +25,7 @@ const getCategoryIcon = (cat: Category) => {
     case "학원": return "📚";
     case "축제": return "🎡";
     case "체험학습": return "🏃‍♂️";
+    case "궁투어": return "🏯";
     default: return "📍";
   }
 };

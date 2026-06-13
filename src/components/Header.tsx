@@ -9,7 +9,7 @@ export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const [query, setQuery] = useState("");
-  const { showFilters, setShowFilters } = useMapStore();
+  const { showFilters, setShowFilters, setSelectedTag, setActiveCategory } = useMapStore();
 
   const handleFilterClick = () => {
     if (pathname === "/map") {
@@ -24,6 +24,12 @@ export default function Header() {
     if (e.key === "Enter" && query.trim() !== "") {
       router.push(`/map?q=${encodeURIComponent(query.trim())}`);
     }
+  };
+
+  const handlePalaceTourClick = () => {
+    setSelectedTag(null);
+    setActiveCategory("궁투어");
+    router.push("/map");
   };
 
   return (
@@ -56,6 +62,13 @@ export default function Header() {
           <span className="material-symbols-outlined text-[22px]">explore</span>
           <span>테마추천</span>
         </Link>
+        <button 
+          onClick={handlePalaceTourClick}
+          className="flex items-center gap-1.5 text-base font-bold text-amber-700 hover:text-amber-900 transition-colors cursor-pointer"
+        >
+          <span className="material-symbols-outlined text-[22px] text-amber-600">castle</span>
+          <span>궁투어</span>
+        </button>
         <Link href="/talk" className="flex items-center gap-1.5 text-base font-bold text-slate-600 hover:text-slate-900 transition-colors">
           <span className="material-symbols-outlined text-[22px]">chat</span>
           <span>방학 톡톡</span>
