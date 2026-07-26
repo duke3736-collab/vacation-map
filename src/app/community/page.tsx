@@ -62,21 +62,66 @@ export default function CommunityPage() {
   const fetchPosts = useCallback(async () => {
     setIsLoading(true);
     let fetchedPosts: Post[] = [];
+    let isSupabaseSuccess = false;
 
-    // 1. Fetch from internal self-contained API route
-    try {
-      const res = await fetch(`/api/community?sort=${sortBy}&category=${encodeURIComponent(selectedCategory)}`);
-      if (res.ok) {
-        const apiPosts = await res.json();
-        if (Array.isArray(apiPosts)) {
-          fetchedPosts = apiPosts;
+    // 1. Try fetching from Supabase database
+    if (supabase) {
+      try {
+        let query = supabase
+          .from("community_posts")
+          .select(`
+            id, 
+            category, 
+            title, 
+            content, 
+            nickname, 
+            like_count, 
+            view_count, 
+            created_at
+          `);
+
+        if (sortBy === "popular") {
+          query = query.order("like_count", { ascending: false });
+        } else {
+          query = query.order("created_at", { ascending: false });
         }
+
+        const { data, error } = await query.limit(50);
+        if (!error && data && data.length > 0) {
+          fetchedPosts = data.map((post: any) => ({
+            id: post.id,
+            category: post.category,
+            title: post.title,
+            content: post.content,
+            nickname: post.nickname,
+            like_count: post.like_count || 0,
+            view_count: post.view_count || 0,
+            created_at: post.created_at,
+            comment_count: 0,
+          }));
+          isSupabaseSuccess = true;
+        }
+      } catch (err) {
+        console.warn("Supabase fetch unavailable:", err);
       }
-    } catch (err) {
-      console.warn("Internal API fetch failed, trying local storage", err);
     }
 
-    // 2. Merge with localStorage user posts
+    // 2. Fetch from internal API route if Supabase returned nothing
+    if (!isSupabaseSuccess || fetchedPosts.length === 0) {
+      try {
+        const res = await fetch(`/api/community?sort=${sortBy}&category=${encodeURIComponent(selectedCategory)}`);
+        if (res.ok) {
+          const apiPosts = await res.json();
+          if (Array.isArray(apiPosts) && apiPosts.length > 0) {
+            fetchedPosts = apiPosts;
+          }
+        }
+      } catch (err) {
+        console.warn("Internal API fetch failed:", err);
+      }
+    }
+
+    // 3. Merge with localStorage user posts
     const localPostsRaw = typeof window !== "undefined" ? localStorage.getItem("local_community_posts") : null;
     const localPosts: Post[] = localPostsRaw ? JSON.parse(localPostsRaw) : [];
 
@@ -87,6 +132,11 @@ export default function CommunityPage() {
           fetchedPosts.unshift(lp);
         }
       }
+    }
+
+    // Filter by selected category if needed
+    if (selectedCategory !== "전체") {
+      fetchedPosts = fetchedPosts.filter((p) => p.category === selectedCategory);
     }
 
     // Sorting
