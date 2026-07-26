@@ -4,6 +4,7 @@ import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import { INITIAL_POSTS, INITIAL_COMMENTS, Post, Comment } from "@/data/initialPosts";
 
 const CATEGORY_ICONS: Record<string, string> = {
   방학후기: "🏖️",
@@ -17,24 +18,6 @@ const CATEGORY_COLORS: Record<string, string> = {
   정보공유: "bg-green-100 text-green-700",
   자유: "bg-purple-100 text-purple-700",
 };
-
-interface Post {
-  id: string;
-  category: string;
-  title: string;
-  content: string;
-  nickname: string;
-  like_count: number;
-  view_count: number;
-  created_at: string;
-}
-
-interface Comment {
-  id: string;
-  content: string;
-  nickname: string;
-  created_at: string;
-}
 
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -67,58 +50,90 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
   }, [id]);
 
   useEffect(() => {
-    if (!supabase) return;
-    const sb = supabase;
     const fetchData = async () => {
       setIsLoading(true);
-      try {
-        // 조회수 증가 (단순 SELECT 후 UPDATE)
-        const { data: current } = await sb
-          .from("community_posts")
-          .select("view_count")
-          .eq("id", id)
-          .single();
-        if (current) {
-          await sb
+      let loadedPost: Post | null = null;
+      let loadedComments: Comment[] = [];
+
+      // 1. Try fetching from Supabase
+      if (supabase) {
+        try {
+          const { data: sbPost } = await supabase
             .from("community_posts")
-            .update({ view_count: (current.view_count || 0) + 1 })
-            .eq("id", id);
+            .select("*")
+            .eq("id", id)
+            .single();
+
+          if (sbPost) {
+            loadedPost = sbPost;
+            // update view count silently
+            await supabase
+              .from("community_posts")
+              .update({ view_count: (sbPost.view_count || 0) + 1 })
+              .eq("id", id);
+          }
+
+          const { data: sbComments } = await supabase
+            .from("community_comments")
+            .select("*")
+            .eq("post_id", id)
+            .order("created_at", { ascending: true });
+
+          if (sbComments) {
+            loadedComments = sbComments;
+          }
+        } catch (err) {
+          console.warn("Supabase fetch failed, attempting local fallback", err);
         }
-
-        const [postRes, commentsRes] = await Promise.all([
-          sb.from("community_posts").select("*").eq("id", id).single(),
-          sb.from("community_comments").select("*").eq("post_id", id).order("created_at", { ascending: true }),
-        ]);
-
-        if (postRes.data) setPost(postRes.data);
-        if (commentsRes.data) setComments(commentsRes.data);
-      } catch (err) {
-        console.error("Fetch error:", err);
-      } finally {
-        setIsLoading(false);
       }
+
+      // 2. Fallback to localStorage & sample data if not found in Supabase
+      if (!loadedPost) {
+        const localPostsRaw = localStorage.getItem("local_community_posts");
+        const localPosts: Post[] = localPostsRaw ? JSON.parse(localPostsRaw) : [];
+        const found = localPosts.find((p) => p.id === id) || INITIAL_POSTS.find((p) => p.id === id);
+
+        if (found) {
+          loadedPost = { ...found, view_count: (found.view_count || 0) + 1 };
+        }
+      }
+
+      if (loadedComments.length === 0) {
+        const localCommentsRaw = localStorage.getItem(`local_comments_${id}`);
+        const localComments: Comment[] = localCommentsRaw ? JSON.parse(localCommentsRaw) : [];
+        const initComments = INITIAL_COMMENTS[id] || [];
+        loadedComments = [...initComments, ...localComments];
+      }
+
+      setPost(loadedPost);
+      setComments(loadedComments);
+      setIsLoading(false);
     };
+
     fetchData();
   }, [id]);
 
   const handleLike = async () => {
-    if (!supabase || !post) return;
+    if (!post) return;
     const likedPosts: string[] = JSON.parse(localStorage.getItem("liked_posts") || "[]");
+    const newCount = liked ? Math.max(0, post.like_count - 1) : post.like_count + 1;
+    const nextLiked = !liked;
 
-    if (liked) {
-      // 좋아요 취소
-      const newCount = Math.max(0, post.like_count - 1);
-      await supabase.from("community_posts").update({ like_count: newCount }).eq("id", id);
-      setPost({ ...post, like_count: newCount });
-      localStorage.setItem("liked_posts", JSON.stringify(likedPosts.filter((p) => p !== id)));
-      setLiked(false);
-    } else {
-      // 좋아요
-      const newCount = post.like_count + 1;
-      await supabase.from("community_posts").update({ like_count: newCount }).eq("id", id);
-      setPost({ ...post, like_count: newCount });
+    setPost({ ...post, like_count: newCount });
+    setLiked(nextLiked);
+
+    if (nextLiked) {
       localStorage.setItem("liked_posts", JSON.stringify([...likedPosts, id]));
-      setLiked(true);
+    } else {
+      localStorage.setItem("liked_posts", JSON.stringify(likedPosts.filter((p) => p !== id)));
+    }
+
+    if (supabase) {
+      try {
+        await supabase.from("community_posts").update({ like_count: newCount }).eq("id", id);
+      } catch (e) {
+        // silent fail for local post
+      }
     }
   };
 
@@ -126,21 +141,36 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
     e.preventDefault();
     if (!commentContent.trim()) { alert("댓글 내용을 입력해주세요."); return; }
     if (!commentNickname.trim()) { alert("닉네임을 입력해주세요."); return; }
-    if (!supabase) return;
 
     setIsSubmittingComment(true);
     try {
       localStorage.setItem("community_nickname", commentNickname.trim());
 
-      const { data, error } = await supabase
-        .from("community_comments")
-        .insert([{ post_id: id, content: commentContent.trim(), nickname: commentNickname.trim() }])
-        .select()
-        .single();
+      const newComment: Comment = {
+        id: `c-${Date.now()}`,
+        post_id: id,
+        content: commentContent.trim(),
+        nickname: commentNickname.trim(),
+        created_at: new Date().toISOString(),
+      };
 
-      if (error) throw error;
-      setComments((prev) => [...prev, data]);
+      // Save locally
+      const localCommentsRaw = localStorage.getItem(`local_comments_${id}`);
+      const localComments: Comment[] = localCommentsRaw ? JSON.parse(localCommentsRaw) : [];
+      localStorage.setItem(`local_comments_${id}`, JSON.stringify([...localComments, newComment]));
+
+      setComments((prev) => [...prev, newComment]);
       setCommentContent("");
+
+      if (supabase) {
+        try {
+          await supabase
+            .from("community_comments")
+            .insert([{ post_id: id, content: commentContent.trim(), nickname: commentNickname.trim() }]);
+        } catch (e) {
+          // silent fail
+        }
+      }
     } catch (err: any) {
       alert(`오류: ${err.message}`);
     } finally {
@@ -149,17 +179,49 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
   };
 
   const handleDeletePost = async () => {
-    if (!supabase) return;
     if (!confirm("이 게시글을 삭제하시겠습니까?")) return;
-    await supabase.from("community_posts").delete().eq("id", id);
-    router.push("/community");
+    try {
+      // Remove from localStorage
+      const localPostsRaw = localStorage.getItem("local_community_posts");
+      if (localPostsRaw) {
+        const localPosts: Post[] = JSON.parse(localPostsRaw);
+        const updated = localPosts.filter((p) => p.id !== id);
+        localStorage.setItem("local_community_posts", JSON.stringify(updated));
+      }
+
+      if (supabase) {
+        try {
+          await supabase.from("community_comments").delete().eq("post_id", id);
+          await supabase.from("community_posts").delete().eq("id", id);
+        } catch (e) {
+          // silent
+        }
+      }
+
+      router.push("/community");
+    } catch (err) {
+      console.error("Delete error:", err);
+      alert("삭제 중 오류가 발생했습니다.");
+    }
   };
 
   const handleDeleteComment = async (commentId: string) => {
-    if (!supabase) return;
     if (!confirm("댓글을 삭제하시겠습니까?")) return;
-    await supabase.from("community_comments").delete().eq("id", commentId);
     setComments((prev) => prev.filter((c) => c.id !== commentId));
+
+    const localCommentsRaw = localStorage.getItem(`local_comments_${id}`);
+    if (localCommentsRaw) {
+      const localComments: Comment[] = JSON.parse(localCommentsRaw);
+      localStorage.setItem(`local_comments_${id}`, JSON.stringify(localComments.filter((c) => c.id !== commentId)));
+    }
+
+    if (supabase) {
+      try {
+        await supabase.from("community_comments").delete().eq("id", commentId);
+      } catch (e) {
+        // silent
+      }
+    }
   };
 
   if (isLoading) {
@@ -190,7 +252,7 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
   return (
     <div className="min-h-screen bg-slate-50">
       {/* 헤더 */}
-      <div className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white py-6 px-4">
+      <div className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white pt-20 md:pt-24 pb-6 px-4">
         <div className="max-w-2xl mx-auto">
           <Link href="/community" className="text-violet-200 hover:text-white text-sm flex items-center gap-1 mb-3 w-fit transition-colors">
             ← 방학 이야기

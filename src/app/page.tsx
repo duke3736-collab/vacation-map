@@ -76,6 +76,39 @@ export default function LandingPage() {
         <span className="text-3xl group-hover:animate-bounce">🗺️</span>
       </Link>
 
+      {/* 방학 이야기 커뮤니티 배너 */}
+      <div className="w-full max-w-5xl mx-auto relative z-10 px-2 my-6">
+        <Link 
+          href="/community" 
+          className="group block bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 text-white rounded-[2rem] p-6 md:p-8 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+        >
+          {/* Decorative shapes */}
+          <div className="absolute right-0 top-0 w-64 h-64 bg-white/5 rounded-full blur-2xl transform translate-x-10 -translate-y-10 group-hover:scale-110 transition-transform duration-500" />
+          <div className="absolute left-1/3 bottom-0 w-32 h-32 bg-white/5 rounded-full blur-xl transform translate-y-10 group-hover:scale-125 transition-transform duration-500" />
+          
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10 text-left">
+            <div className="space-y-2 max-w-2xl">
+              <span className="inline-block bg-white/20 text-white text-xs font-black px-3 py-1 rounded-full border border-white/20 uppercase tracking-wider">
+                Parents Community 💬
+              </span>
+              <h2 className="text-2xl md:text-3xl font-black tracking-tight mt-1">
+                학부모를 위한 소통 공간, 방학 이야기
+              </h2>
+              <p className="text-violet-100 text-sm md:text-base leading-relaxed opacity-90 font-medium">
+                체험학습 후기, 여름방학 물놀이 꿀팁, 박물관 도슨트 예약 정보 등 생생한 정보들을 나누고 고민을 함께 이야기해요. 로그인 없이도 즉시 자유게시판에 작성할 수 있습니다! 😊
+              </p>
+            </div>
+            
+            <div className="shrink-0 flex items-center">
+              <span className="bg-white text-indigo-600 text-base md:text-lg font-black px-6 py-4 rounded-2xl group-hover:bg-indigo-50 transition-all shadow-md flex items-center gap-1.5 active:scale-95 duration-200">
+                이야기 나누러 가기
+                <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+              </span>
+            </div>
+          </div>
+        </Link>
+      </div>
+
       {/* WEKNEWS 패밀리 사이트 연동 섹션 */}
       <div className="w-full max-w-5xl mx-auto relative z-10 mt-20 pt-8 text-left">
         <h3 className="text-xl font-black text-slate-700 mb-6 px-2 flex items-center gap-2">

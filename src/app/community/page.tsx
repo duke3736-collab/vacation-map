@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import WordPressSection from "@/components/WordPressSection";
+import { INITIAL_POSTS, Post } from "@/data/initialPosts";
 
 const CATEGORIES = ["전체", "방학후기", "질문", "정보공유", "자유"];
 const CATEGORY_ICONS: Record<string, string> = {
@@ -17,18 +19,6 @@ const CATEGORY_COLORS: Record<string, string> = {
   정보공유: "bg-green-100 text-green-700",
   자유: "bg-purple-100 text-purple-700",
 };
-
-interface Post {
-  id: string;
-  category: string;
-  title: string;
-  content: string;
-  nickname: string;
-  like_count: number;
-  view_count: number;
-  created_at: string;
-  comment_count?: number;
-}
 
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -47,32 +37,105 @@ export default function CommunityPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [sortBy, setSortBy] = useState<"latest" | "popular">("latest");
+  const [wpPosts, setWpPosts] = useState<any[]>([]);
+  const [isLoadingWp, setIsLoadingWp] = useState(true);
+
+  useEffect(() => {
+    const fetchWpPosts = async () => {
+      try {
+        const res = await fetch("/api/wordpress");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setWpPosts(data);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch wp posts", err);
+      } finally {
+        setIsLoadingWp(false);
+      }
+    };
+    fetchWpPosts();
+  }, []);
 
   const fetchPosts = useCallback(async () => {
-    if (!supabase) return;
     setIsLoading(true);
-    try {
-      let query = supabase
-        .from("community_posts")
-        .select("id, category, title, content, nickname, like_count, view_count, created_at");
+    let fetchedPosts: Post[] = [];
+    let isSupabaseSuccess = false;
 
-      if (selectedCategory !== "전체") {
-        query = query.eq("category", selectedCategory);
+    if (supabase) {
+      try {
+        let query = supabase
+          .from("community_posts")
+          .select(`
+            id, 
+            category, 
+            title, 
+            content, 
+            nickname, 
+            like_count, 
+            view_count, 
+            created_at
+          `);
+
+        if (sortBy === "popular") {
+          query = query.order("like_count", { ascending: false });
+        } else {
+          query = query.order("created_at", { ascending: false });
+        }
+
+        const { data, error } = await query.limit(50);
+        if (!error && data && data.length > 0) {
+          fetchedPosts = data.map((post: any) => ({
+            id: post.id,
+            category: post.category,
+            title: post.title,
+            content: post.content,
+            nickname: post.nickname,
+            like_count: post.like_count || 0,
+            view_count: post.view_count || 0,
+            created_at: post.created_at,
+            comment_count: 0,
+          }));
+          isSupabaseSuccess = true;
+        }
+      } catch (err) {
+        console.warn("Supabase connection unavailable, using local data fallback:", err);
       }
-
-      if (sortBy === "popular") {
-        query = query.order("like_count", { ascending: false });
-      } else {
-        query = query.order("created_at", { ascending: false });
-      }
-
-      const { data, error } = await query.limit(50);
-      if (!error && data) setPosts(data);
-    } catch (err) {
-      console.error("Fetch error:", err);
-    } finally {
-      setIsLoading(false);
     }
+
+    // Get local posts stored in browser localStorage
+    const localPostsRaw = typeof window !== "undefined" ? localStorage.getItem("local_community_posts") : null;
+    const localPosts: Post[] = localPostsRaw ? JSON.parse(localPostsRaw) : [];
+
+    if (!isSupabaseSuccess || fetchedPosts.length === 0) {
+      // Fallback: Combine local posts & initial sample posts
+      fetchedPosts = [...localPosts, ...INITIAL_POSTS];
+    } else {
+      // Merge local user-created posts with Supabase posts
+      const existingIds = new Set(fetchedPosts.map((p) => p.id));
+      for (const lp of localPosts) {
+        if (!existingIds.has(lp.id)) {
+          fetchedPosts.unshift(lp);
+        }
+      }
+    }
+
+    // Category filtering
+    if (selectedCategory !== "전체") {
+      fetchedPosts = fetchedPosts.filter((p) => p.category === selectedCategory);
+    }
+
+    // Sorting
+    if (sortBy === "popular") {
+      fetchedPosts.sort((a, b) => b.like_count - a.like_count);
+    } else {
+      fetchedPosts.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    }
+
+    setPosts(fetchedPosts);
+    setIsLoading(false);
   }, [selectedCategory, sortBy]);
 
   useEffect(() => {
@@ -82,7 +145,7 @@ export default function CommunityPage() {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* 헤더 배너 + 필터 통합 */}
-      <div className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-4 pt-6 pb-0">
+      <div className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-4 pt-20 md:pt-24 pb-0">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center justify-between mb-4">
             <div>
@@ -188,8 +251,9 @@ export default function CommunityPage() {
                   <span className="font-bold text-slate-600">{post.nickname}</span>
                   <span>·</span>
                   <span>{timeAgo(post.created_at)}</span>
-                  <span className="ml-auto flex items-center gap-2">
+                  <span className="ml-auto flex items-center gap-3">
                     <span>❤️ {post.like_count}</span>
+                    <span>💬 {post.comment_count || 0}</span>
                     <span>👁️ {post.view_count}</span>
                   </span>
                 </div>
@@ -197,6 +261,45 @@ export default function CommunityPage() {
             ))}
           </div>
         )}
+
+        {/* 워드프레스 최신 소식 섹션 */}
+        <div className="mt-16 pt-10 border-t border-slate-200">
+          <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-2 text-left">
+            <div>
+              <h3 className="text-xl md:text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
+                <span className="material-symbols-outlined text-indigo-500">lightbulb</span>
+                <span>오늘의 핫한 생활 꿀팁 & 혜택 정보 💡</span>
+              </h3>
+              <p className="text-slate-500 text-sm mt-1">
+                정부 지원금 신청 정보부터 실시간 생활 꿀팁까지! 알찬 정보들을 확인해 보세요.
+              </p>
+            </div>
+            <a
+              href="https://weknews.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-bold text-slate-600 hover:text-slate-900 bg-white px-4 py-2 rounded-full border border-slate-200 hover:bg-slate-50 transition-all shrink-0 cursor-pointer flex items-center gap-1 shadow-sm"
+            >
+              <span>블로그 전체보기</span>
+              <span className="material-symbols-outlined text-[12px]">open_in_new</span>
+            </a>
+          </div>
+
+          {isLoadingWp ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="animate-pulse bg-white border border-slate-150 rounded-3xl p-5 space-y-4 shadow-sm">
+                  <div className="aspect-[16/10] w-full bg-slate-100 rounded-2xl" />
+                  <div className="h-4 bg-slate-200 rounded w-1/3" />
+                  <div className="h-5 bg-slate-200 rounded w-5/6" />
+                  <div className="h-12 bg-slate-100 rounded" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <WordPressSection customPosts={wpPosts.length > 0 ? wpPosts : undefined} limit={3} layout="grid" title="" />
+          )}
+        </div>
       </div>
     </div>
   );
