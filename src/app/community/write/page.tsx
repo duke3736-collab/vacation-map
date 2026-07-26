@@ -34,49 +34,45 @@ export default function CommunityWritePage() {
 
     setIsSubmitting(true);
     try {
-      // 닉네임 저장
+      // Save nickname
       localStorage.setItem("community_nickname", nickname.trim());
 
-      const newPostId = `post-${Date.now()}`;
-      const newPost = {
-        id: newPostId,
-        category: category as any,
-        title: title.trim(),
-        content: content.trim(),
-        nickname: nickname.trim(),
-        like_count: 0,
-        view_count: 1,
-        created_at: new Date().toISOString(),
-        comment_count: 0,
-      };
+      let targetId = `post-${Date.now()}`;
 
-      // Always save to localStorage for instant local availability
-      const existingLocalRaw = localStorage.getItem("local_community_posts");
-      const existingLocal = existingLocalRaw ? JSON.parse(existingLocalRaw) : [];
-      localStorage.setItem("local_community_posts", JSON.stringify([newPost, ...existingLocal]));
+      // POST to internal API endpoint
+      try {
+        const res = await fetch("/api/community", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            category,
+            title: title.trim(),
+            content: content.trim(),
+            nickname: nickname.trim(),
+          }),
+        });
 
-      let targetId = newPostId;
-
-      // Optionally sync to Supabase if reachable
-      if (supabase) {
-        try {
-          const { data, error } = await supabase
-            .from("community_posts")
-            .insert([{
-              category,
-              title: title.trim(),
-              content: content.trim(),
-              nickname: nickname.trim(),
-            }])
-            .select("id")
-            .single();
-
-          if (!error && data?.id) {
-            targetId = data.id;
-          }
-        } catch (sbErr) {
-          console.warn("Supabase insert failed, post saved locally", sbErr);
+        if (res.ok) {
+          const created = await res.json();
+          if (created.id) targetId = created.id;
         }
+      } catch (err) {
+        console.warn("API write failed, using local post", err);
+        // Fallback local save
+        const newPost = {
+          id: targetId,
+          category: category as any,
+          title: title.trim(),
+          content: content.trim(),
+          nickname: nickname.trim(),
+          like_count: 0,
+          view_count: 1,
+          created_at: new Date().toISOString(),
+          comment_count: 0,
+        };
+        const existingLocalRaw = localStorage.getItem("local_community_posts");
+        const existingLocal = existingLocalRaw ? JSON.parse(existingLocalRaw) : [];
+        localStorage.setItem("local_community_posts", JSON.stringify([newPost, ...existingLocal]));
       }
 
       router.push(`/community/${targetId}`);

@@ -55,44 +55,23 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
       let loadedPost: Post | null = null;
       let loadedComments: Comment[] = [];
 
-      // 1. Try fetching from Supabase
-      if (supabase) {
-        try {
-          const { data: sbPost } = await supabase
-            .from("community_posts")
-            .select("*")
-            .eq("id", id)
-            .single();
-
-          if (sbPost) {
-            loadedPost = sbPost;
-            // update view count silently
-            await supabase
-              .from("community_posts")
-              .update({ view_count: (sbPost.view_count || 0) + 1 })
-              .eq("id", id);
-          }
-
-          const { data: sbComments } = await supabase
-            .from("community_comments")
-            .select("*")
-            .eq("post_id", id)
-            .order("created_at", { ascending: true });
-
-          if (sbComments) {
-            loadedComments = sbComments;
-          }
-        } catch (err) {
-          console.warn("Supabase fetch failed, attempting local fallback", err);
+      // 1. Try internal API route
+      try {
+        const res = await fetch(`/api/community/${id}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.post) loadedPost = data.post;
+          if (data.comments) loadedComments = data.comments;
         }
+      } catch (err) {
+        console.warn("Internal API fetch failed, checking local storage", err);
       }
 
-      // 2. Fallback to localStorage & sample data if not found in Supabase
+      // 2. Fallback to localStorage
       if (!loadedPost) {
         const localPostsRaw = localStorage.getItem("local_community_posts");
         const localPosts: Post[] = localPostsRaw ? JSON.parse(localPostsRaw) : [];
-        const found = localPosts.find((p) => p.id === id) || INITIAL_POSTS.find((p) => p.id === id);
-
+        const found = localPosts.find((p) => p.id === id);
         if (found) {
           loadedPost = { ...found, view_count: (found.view_count || 0) + 1 };
         }
@@ -101,8 +80,7 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
       if (loadedComments.length === 0) {
         const localCommentsRaw = localStorage.getItem(`local_comments_${id}`);
         const localComments: Comment[] = localCommentsRaw ? JSON.parse(localCommentsRaw) : [];
-        const initComments = INITIAL_COMMENTS[id] || [];
-        loadedComments = [...initComments, ...localComments];
+        loadedComments = localComments;
       }
 
       setPost(loadedPost);
@@ -128,13 +106,13 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
       localStorage.setItem("liked_posts", JSON.stringify(likedPosts.filter((p) => p !== id)));
     }
 
-    if (supabase) {
-      try {
-        await supabase.from("community_posts").update({ like_count: newCount }).eq("id", id);
-      } catch (e) {
-        // silent fail for local post
-      }
-    }
+    try {
+      await fetch(`/api/community/${id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "like", action: nextLiked ? "like" : "unlike" }),
+      });
+    } catch (e) {}
   };
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
@@ -146,31 +124,40 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
     try {
       localStorage.setItem("community_nickname", commentNickname.trim());
 
-      const newComment: Comment = {
-        id: `c-${Date.now()}`,
-        post_id: id,
-        content: commentContent.trim(),
-        nickname: commentNickname.trim(),
-        created_at: new Date().toISOString(),
-      };
+      let createdComment: Comment | null = null;
 
-      // Save locally
-      const localCommentsRaw = localStorage.getItem(`local_comments_${id}`);
-      const localComments: Comment[] = localCommentsRaw ? JSON.parse(localCommentsRaw) : [];
-      localStorage.setItem(`local_comments_${id}`, JSON.stringify([...localComments, newComment]));
+      try {
+        const res = await fetch(`/api/community/${id}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "comment",
+            content: commentContent.trim(),
+            nickname: commentNickname.trim(),
+          }),
+        });
 
-      setComments((prev) => [...prev, newComment]);
-      setCommentContent("");
-
-      if (supabase) {
-        try {
-          await supabase
-            .from("community_comments")
-            .insert([{ post_id: id, content: commentContent.trim(), nickname: commentNickname.trim() }]);
-        } catch (e) {
-          // silent fail
+        if (res.ok) {
+          const data = await res.json();
+          if (data.comment) createdComment = data.comment;
         }
+      } catch (err) {}
+
+      if (!createdComment) {
+        createdComment = {
+          id: `c-${Date.now()}`,
+          post_id: id,
+          content: commentContent.trim(),
+          nickname: commentNickname.trim(),
+          created_at: new Date().toISOString(),
+        };
+        const localCommentsRaw = localStorage.getItem(`local_comments_${id}`);
+        const localComments: Comment[] = localCommentsRaw ? JSON.parse(localCommentsRaw) : [];
+        localStorage.setItem(`local_comments_${id}`, JSON.stringify([...localComments, createdComment]));
       }
+
+      setComments((prev) => [...prev, createdComment!]);
+      setCommentContent("");
     } catch (err: any) {
       alert(`오류: ${err.message}`);
     } finally {
@@ -189,14 +176,9 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
         localStorage.setItem("local_community_posts", JSON.stringify(updated));
       }
 
-      if (supabase) {
-        try {
-          await supabase.from("community_comments").delete().eq("post_id", id);
-          await supabase.from("community_posts").delete().eq("id", id);
-        } catch (e) {
-          // silent
-        }
-      }
+      try {
+        await fetch(`/api/community/${id}`, { method: "DELETE" });
+      } catch (e) {}
 
       router.push("/community");
     } catch (err) {
@@ -215,13 +197,9 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
       localStorage.setItem(`local_comments_${id}`, JSON.stringify(localComments.filter((c) => c.id !== commentId)));
     }
 
-    if (supabase) {
-      try {
-        await supabase.from("community_comments").delete().eq("id", commentId);
-      } catch (e) {
-        // silent
-      }
-    }
+    try {
+      await fetch(`/api/community/${id}?commentId=${commentId}`, { method: "DELETE" });
+    } catch (e) {}
   };
 
   if (isLoading) {

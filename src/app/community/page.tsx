@@ -62,69 +62,31 @@ export default function CommunityPage() {
   const fetchPosts = useCallback(async () => {
     setIsLoading(true);
     let fetchedPosts: Post[] = [];
-    let isSupabaseSuccess = false;
 
-    if (supabase) {
-      try {
-        let query = supabase
-          .from("community_posts")
-          .select(`
-            id, 
-            category, 
-            title, 
-            content, 
-            nickname, 
-            like_count, 
-            view_count, 
-            created_at
-          `);
-
-        if (sortBy === "popular") {
-          query = query.order("like_count", { ascending: false });
-        } else {
-          query = query.order("created_at", { ascending: false });
+    // 1. Fetch from internal self-contained API route
+    try {
+      const res = await fetch(`/api/community?sort=${sortBy}&category=${encodeURIComponent(selectedCategory)}`);
+      if (res.ok) {
+        const apiPosts = await res.json();
+        if (Array.isArray(apiPosts)) {
+          fetchedPosts = apiPosts;
         }
-
-        const { data, error } = await query.limit(50);
-        if (!error && data && data.length > 0) {
-          fetchedPosts = data.map((post: any) => ({
-            id: post.id,
-            category: post.category,
-            title: post.title,
-            content: post.content,
-            nickname: post.nickname,
-            like_count: post.like_count || 0,
-            view_count: post.view_count || 0,
-            created_at: post.created_at,
-            comment_count: 0,
-          }));
-          isSupabaseSuccess = true;
-        }
-      } catch (err) {
-        console.warn("Supabase connection unavailable, using local data fallback:", err);
       }
+    } catch (err) {
+      console.warn("Internal API fetch failed, trying local storage", err);
     }
 
-    // Get local posts stored in browser localStorage
+    // 2. Merge with localStorage user posts
     const localPostsRaw = typeof window !== "undefined" ? localStorage.getItem("local_community_posts") : null;
     const localPosts: Post[] = localPostsRaw ? JSON.parse(localPostsRaw) : [];
 
-    if (!isSupabaseSuccess || fetchedPosts.length === 0) {
-      // Fallback: Combine local posts & initial sample posts
-      fetchedPosts = [...localPosts, ...INITIAL_POSTS];
-    } else {
-      // Merge local user-created posts with Supabase posts
-      const existingIds = new Set(fetchedPosts.map((p) => p.id));
-      for (const lp of localPosts) {
-        if (!existingIds.has(lp.id)) {
+    const existingIds = new Set(fetchedPosts.map((p) => p.id));
+    for (const lp of localPosts) {
+      if (!existingIds.has(lp.id)) {
+        if (selectedCategory === "전체" || lp.category === selectedCategory) {
           fetchedPosts.unshift(lp);
         }
       }
-    }
-
-    // Category filtering
-    if (selectedCategory !== "전체") {
-      fetchedPosts = fetchedPosts.filter((p) => p.category === selectedCategory);
     }
 
     // Sorting
