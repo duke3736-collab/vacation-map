@@ -31,6 +31,44 @@ function timeAgo(dateStr: string) {
   return new Date(dateStr).toLocaleDateString("ko-KR");
 }
 
+function renderContent(content: string) {
+  const regex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+  const elements: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = regex.exec(content)) !== null) {
+    const matchIndex = match.index;
+    const linkText = match[1];
+    const linkUrl = match[2];
+
+    if (matchIndex > lastIndex) {
+      elements.push(content.substring(lastIndex, matchIndex));
+    }
+
+    elements.push(
+      <a
+        key={matchIndex}
+        href={linkUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-600 font-bold px-1 py-0.5 rounded hover:underline inline-flex items-center"
+        style={{ backgroundColor: "#fef08a" }}
+      >
+        {linkText}
+      </a>
+    );
+
+    lastIndex = regex.lastIndex;
+  }
+
+  if (lastIndex < content.length) {
+    elements.push(content.substring(lastIndex));
+  }
+
+  return elements.length > 0 ? elements : content;
+}
+
 export default function PostDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const router = useRouter();
@@ -257,7 +295,7 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
         {/* 본문 */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
           <div className="text-gray-700 leading-relaxed whitespace-pre-wrap text-sm">
-            {post.content}
+            {renderContent(post.content)}
           </div>
 
           {/* 좋아요 */}
@@ -272,12 +310,21 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
             >
               {liked ? "❤️" : "🤍"} 좋아요 {post.like_count}
             </button>
-            <button
-              onClick={handleDeletePost}
-              className="text-xs text-slate-400 hover:text-red-500 transition-colors"
-            >
-              게시글 삭제
-            </button>
+            <div className="flex items-center gap-3">
+              <Link
+                href={`/community/write?edit=${id}`}
+                className="text-xs text-slate-400 hover:text-violet-600 transition-colors"
+              >
+                게시글 수정
+              </Link>
+              <span className="text-xs text-slate-200">|</span>
+              <button
+                onClick={handleDeletePost}
+                className="text-xs text-slate-400 hover:text-red-500 transition-colors"
+              >
+                게시글 삭제
+              </button>
+            </div>
           </div>
         </div>
 

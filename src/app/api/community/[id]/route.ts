@@ -204,6 +204,64 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   }
 }
 
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  try {
+    const body = await request.json();
+    const { category, title, content, nickname } = body;
+
+    if (!title || !content || !nickname) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
+    if (supabase) {
+      try {
+        const { data, error } = await supabase
+          .from("community_posts")
+          .update({
+            category: category || "자유",
+            title: title.trim(),
+            content: content.trim(),
+            nickname: nickname.trim(),
+          })
+          .eq("id", id)
+          .select()
+          .single();
+        if (!error && data) {
+          return NextResponse.json(data);
+        }
+        if (error) {
+          console.error("Supabase update error, falling back to local files:", error.message);
+        }
+      } catch (err) {
+        console.error("Supabase PUT error, falling back to local files:", err);
+      }
+    }
+
+    const posts = readPosts();
+    const postIndex = posts.findIndex((p) => p.id === id);
+
+    if (postIndex === -1) {
+      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    }
+
+    posts[postIndex] = {
+      ...posts[postIndex],
+      category: category || "자유",
+      title: title.trim(),
+      content: content.trim(),
+      nickname: nickname.trim(),
+    };
+
+    writePosts(posts);
+
+    return NextResponse.json(posts[postIndex]);
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const { searchParams } = new URL(request.url);
