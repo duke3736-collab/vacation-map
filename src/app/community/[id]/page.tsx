@@ -294,9 +294,11 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
         {/* 본문 */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-          <div className="text-gray-700 leading-relaxed whitespace-pre-wrap text-sm">
-            {renderContent(post.content)}
-          </div>
+          <div 
+            className="text-gray-700 leading-relaxed text-sm rich-editor-content"
+            style={{ whiteSpace: "pre-wrap" }}
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
 
           {/* 좋아요 */}
           <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
