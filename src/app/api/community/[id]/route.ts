@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import { readPosts, writePosts, Post } from "../route";
+import { supabase } from "@/lib/supabase";
 
 export interface Comment {
   id: string;
@@ -57,6 +58,33 @@ function writeComments(comments: Comment[]) {
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+
+  if (supabase) {
+    try {
+      const { data: post, error: postErr } = await supabase
+        .from("community_posts")
+        .select("*")
+        .eq("id", id)
+        .single();
+      if (!postErr && post) {
+        // Increment views
+        await supabase
+          .from("community_posts")
+          .update({ view_count: (post.view_count || 0) + 1 })
+          .eq("id", id);
+        post.view_count = (post.view_count || 0) + 1;
+
+        const { data: comments, error: commErr } = await supabase
+          .from("community_comments")
+          .select("*")
+          .eq("post_id", id);
+        return NextResponse.json({ post, comments: comments || [] });
+      }
+    } catch (err) {
+      console.warn("Supabase GET detail error, falling back to local files:", err);
+    }
+  }
+
   const posts = readPosts();
   const postIndex = posts.findIndex((p) => p.id === id);
 
@@ -78,6 +106,56 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   try {
     const body = await request.json();
     const { type, content, nickname, action } = body;
+
+    if (supabase) {
+      try {
+        if (type === "like") {
+          const { data: post, error: getErr } = await supabase
+            .from("community_posts")
+            .select("*")
+            .eq("id", id)
+            .single();
+          if (!getErr && post) {
+            let newLikes = post.like_count || 0;
+            if (action === "unlike") {
+              newLikes = Math.max(0, newLikes - 1);
+            } else {
+              newLikes = newLikes + 1;
+            }
+            const { data: updatedPost, error: updErr } = await supabase
+              .from("community_posts")
+              .update({ like_count: newLikes })
+              .eq("id", id)
+              .select()
+              .single();
+            if (!updErr && updatedPost) {
+              return NextResponse.json({ post: updatedPost });
+            }
+          }
+        }
+
+        if (type === "comment") {
+          if (!content || !nickname) {
+            return NextResponse.json({ error: "Missing content or nickname" }, { status: 400 });
+          }
+          const newComment = {
+            post_id: id,
+            content: content.trim(),
+            nickname: nickname.trim(),
+          };
+          const { data: createdComment, error: commErr } = await supabase
+            .from("community_comments")
+            .insert(newComment)
+            .select()
+            .single();
+          if (!commErr && createdComment) {
+            return NextResponse.json({ comment: createdComment });
+          }
+        }
+      } catch (err) {
+        console.warn("Supabase POST action error, falling back to local files:", err);
+      }
+    }
 
     const posts = readPosts();
     const postIndex = posts.findIndex((p) => p.id === id);
@@ -131,6 +209,20 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
   const { searchParams } = new URL(request.url);
   const commentId = searchParams.get("commentId");
 
+  if (supabase) {
+    try {
+      if (commentId) {
+        const { error } = await supabase.from("community_comments").delete().eq("id", commentId);
+        if (!error) return NextResponse.json({ success: true });
+      } else {
+        const { error } = await supabase.from("community_posts").delete().eq("id", id);
+        if (!error) return NextResponse.json({ success: true });
+      }
+    } catch (err) {
+      console.warn("Supabase DELETE error, falling back to local files:", err);
+    }
+  }
+
   if (commentId) {
     // Delete single comment
     let comments = readComments();
@@ -150,3 +242,4 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
 
   return NextResponse.json({ success: true });
 }
+

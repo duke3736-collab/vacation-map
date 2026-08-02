@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { supabase } from "@/lib/supabase";
 
 export interface Post {
   id: string;
@@ -75,6 +76,29 @@ export async function GET(request: Request) {
   const category = searchParams.get("category");
   const sort = searchParams.get("sort") || "latest";
 
+  if (supabase) {
+    try {
+      let query = supabase.from("community_posts").select("*");
+      if (category && category !== "전체") {
+        query = query.eq("category", category);
+      }
+      if (sort === "popular") {
+        query = query.order("like_count", { ascending: false });
+      } else {
+        query = query.order("created_at", { ascending: false });
+      }
+      const { data, error } = await query;
+      if (!error && data) {
+        return NextResponse.json(data);
+      }
+      if (error) {
+        console.warn("Supabase query error, falling back to local files:", error.message);
+      }
+    } catch (err) {
+      console.warn("Supabase GET error, falling back to local files:", err);
+    }
+  }
+
   let posts = readPosts();
 
   if (category && category !== "전체") {
@@ -99,6 +123,32 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
+    if (supabase) {
+      try {
+        const newPost = {
+          category: category || "자유",
+          title: title.trim(),
+          content: content.trim(),
+          nickname: nickname.trim(),
+          like_count: 0,
+          view_count: 1,
+        };
+        const { data, error } = await supabase
+          .from("community_posts")
+          .insert(newPost)
+          .select()
+          .single();
+        if (!error && data) {
+          return NextResponse.json(data);
+        }
+        if (error) {
+          console.error("Supabase insert error, falling back to local files:", error.message);
+        }
+      } catch (err) {
+        console.error("Supabase POST error, falling back to local files:", err);
+      }
+    }
+
     const posts = readPosts();
     const newPost: Post = {
       id: `post-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
@@ -120,3 +170,4 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
