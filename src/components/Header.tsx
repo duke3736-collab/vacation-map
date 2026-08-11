@@ -102,6 +102,12 @@ export default function Header() {
             <span className="material-symbols-outlined text-[18px] transition-transform group-hover:rotate-180">expand_more</span>
           </button>
           <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0 p-2 flex flex-col gap-1 z-50">
+            <a href="https://weknews.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-2.5 rounded-xl hover:bg-slate-50 text-sm font-bold text-slate-700 transition-colors">
+              <span className="text-lg">📰</span> 웤뉴스
+            </a>
+            <a href="https://test.weknews.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-2.5 rounded-xl hover:bg-slate-50 text-sm font-bold text-slate-700 transition-colors">
+              <span className="text-lg">🎈</span> 테스트모아
+            </a>
             <a href="https://map.weknews.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-2.5 rounded-xl hover:bg-slate-50 text-sm font-bold text-slate-700 transition-colors">
               <span className="text-lg">🌊</span> 씨 맵
             </a>

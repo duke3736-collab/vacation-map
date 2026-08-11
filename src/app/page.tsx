@@ -1,11 +1,16 @@
 import Link from "next/link";
 import React from "react";
-import CoupangBanner from "@/components/CoupangBanner";
 import WordPressSection from "@/components/WordPressSection";
+import AdBanner from "@/components/AdBanner";
 
 export default function LandingPage() {
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen px-6 text-center space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 pt-28 md:pt-32 pb-24 bg-gradient-to-br from-blue-50 via-indigo-50/50 to-purple-100 overflow-hidden">
+      
+      {/* 상단 애드센스 광고 배너 */}
+      <div className="w-full max-w-5xl mx-auto relative z-10 my-2">
+        <AdBanner slot="vacation-landing-top" type="horizontal" className="my-2" />
+      </div>
       
       {/* Background Stickers Layer */}
       <div 
@@ -58,13 +63,9 @@ export default function LandingPage() {
         ))}
       </div>
 
-      {/* 쿠팡 파트너스 단풍맵 스타일 기획전 배너 (공부방 가구, 키즈 펜션 테마) */}
-      <div className="w-full max-w-5xl mx-auto relative z-10 my-4 text-left">
-        <h3 className="text-lg font-black text-slate-700 mb-4 px-2 flex items-center gap-1.5">
-          <span className="material-symbols-outlined text-rose-500 text-[20px]">shopping_bag</span>
-          <span>방학 맞이 공부방 가구 & 인기 여행 기획전 🎒</span>
-        </h3>
-        <CoupangBanner ids={[6, 5]} layout="grid" />
+      {/* 구글 애드센스 광고 배너 */}
+      <div className="w-full max-w-5xl mx-auto relative z-10 my-6">
+        <AdBanner slot="vacation-landing-middle" type="horizontal" />
       </div>
 
       <Link 
@@ -178,8 +179,13 @@ export default function LandingPage() {
         </div>
       </div>
 
+      {/* 하단 애드센스 광고 배너 */}
+      <div className="w-full max-w-5xl mx-auto relative z-10 my-8">
+        <AdBanner slot="vacation-landing-bottom" type="horizontal" />
+      </div>
+
       {/* 워드프레스 블로그 글 소개 연동 섹션 */}
-      <div className="w-full max-w-5xl mx-auto relative z-10 mt-16 pt-16 border-t border-slate-200 text-left">
+      <div className="w-full max-w-5xl mx-auto relative z-10 mt-12 pt-12 border-t border-slate-200 text-left">
         <WordPressSection limit={3} layout="grid" />
       </div>
     </div>

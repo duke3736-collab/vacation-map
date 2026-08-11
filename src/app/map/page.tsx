@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import Sidebar from "@/components/Sidebar";
 import MapClient from "@/components/MapClient";
-import CoupangBanner from "@/components/CoupangBanner";
+import AdBanner from "@/components/AdBanner";
 import WordPressSection from "@/components/WordPressSection";
 import { useMapStore } from "@/store/useMapStore";
 
@@ -105,13 +105,9 @@ export default function MapPage() {
 
             <div className="w-full h-px bg-slate-100 my-1"></div>
             
-            {/* 쿠팡 파트너스 추천 기획전 배너 (디지털 기기, 중등 참고서 테마) */}
+            {/* 구글 애드센스 광고 배너 */}
             <div className="w-full text-left">
-              <h3 className="font-black text-sm text-slate-700 mb-3 flex items-center gap-1.5 px-1">
-                <span className="material-symbols-outlined text-rose-500 text-[18px]">shopping_bag</span>
-                <span>인강 기기 & 권장 교재 추천 🎒</span>
-              </h3>
-              <CoupangBanner ids={[7, 3]} layout="vertical" />
+              <AdBanner slot="vacation-map-sidebar" type="horizontal" />
             </div>
           </div>
         </div>
