@@ -101,12 +101,7 @@ export default function RootLayout({
           <FloatingAds />
         </div>
         
-        {/* 상단 접이식 애드센스 배너 */}
-        <div className="pt-16 w-full print:hidden">
-          <CollapsibleAdBanner position="top" slot="vacation-top-anchor" />
-        </div>
-
-        <main className="min-h-screen">
+        <main className="min-h-screen pt-16">
           {children}
         </main>
 
