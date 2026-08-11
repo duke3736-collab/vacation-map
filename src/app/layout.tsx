@@ -69,7 +69,7 @@ import Header from "@/components/Header";
 import BottomNav from "@/components/BottomNav";
 import FloatingAds from "@/components/FloatingAds";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
-import CollapsibleAdBanner from "@/components/CollapsibleAdBanner";
+import BottomAnchorAd from "@/components/BottomAnchorAd";
 
 export default function RootLayout({
   children,
@@ -101,13 +101,13 @@ export default function RootLayout({
           <FloatingAds />
         </div>
         
-        <main className="min-h-screen pt-16">
+        <main className="min-h-screen pt-16 pb-20">
           {children}
         </main>
 
-        {/* 하단 접이식 애드센스 배너 */}
-        <div className="w-full print:hidden">
-          <CollapsibleAdBanner position="bottom" slot="vacation-bottom-anchor" />
+        {/* 사진과 동일한 하단 쏙 내려가는 플로팅 애드센스 광고 */}
+        <div className="print:hidden">
+          <BottomAnchorAd slot="vacation-bottom-anchor" />
         </div>
 
         <div className="pointer-events-auto print:hidden">
