@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Post, Comment } from "@/data/initialPosts";
+import ShareButton from "@/components/ShareButton";
 
 const CATEGORY_ICONS: Record<string, string> = {
   방학후기: "🏖️",
@@ -281,6 +282,8 @@ export default function CommunityDetailClient({ id, initialPost }: { id: string;
             </div>
           </div>
         </div>
+
+        <ShareButton />
 
         {/* 댓글 */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
